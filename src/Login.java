@@ -84,20 +84,7 @@ public void entrar() {
                                // mu.setVisible(true);
                                 dispose();
                                 
-                            } else if(cap1.equals("Facturacion")) {
-                            
-                                JOptionPane.showMessageDialog(this, "Bienvenid@: "+Usuario);
-                                MantenimientoFacturacion mf = new MantenimientoFacturacion();
-                                mf.setVisible(true);
-                                dispose();
-                            }
-                            else if(cap1.equals("Informacion")) {
-                            
-                                JOptionPane.showMessageDialog(this, "Bienvenid@: "+Usuario);
-                                Buscador buscar = new Buscador();
-                                buscar.setVisible(true);
-                                dispose();
-                            }*/
+                            } */
                             if((!cap1.equals("Administrador") && !cap1.equals("Facturacion") && !cap1.equals("Usuario") && !cap1.equals("Informacion"))) {
                                 
                               JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrecto");
