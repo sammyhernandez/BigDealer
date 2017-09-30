@@ -1,3 +1,8 @@
+/*//GEN-LINE:variables
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
@@ -113,7 +118,7 @@ public void entrar() {
 
     }
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -248,15 +253,15 @@ public void entrar() {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
         System.exit(0);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }                                        
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {                                          
         entrar();
-    }//GEN-LAST:event_btnEntrarActionPerformed
+    }                                         
 
     /**
      * @param args the command line arguments
@@ -293,7 +298,7 @@ public void entrar() {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnEntrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
@@ -303,5 +308,5 @@ public void entrar() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
