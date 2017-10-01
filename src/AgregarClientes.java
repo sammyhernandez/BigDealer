@@ -61,7 +61,7 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
             
             if(valor.equals("")){
             
-                       sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_direccion.direccion,cliente_direccion.descripcion as direc, cliente_contacto.telefono, cliente_contacto.descripcion as tel\n" +
+                       sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_direccion.direccion,cliente_direccion.descripcion , cliente_contacto.telefono, cliente_contacto.descripcion \n" +
                              "  FROM cliente, cliente_contacto, cliente_direccion \n" +
                              " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente";
             } else{
@@ -88,9 +88,9 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
                     registros[3] = rs.getString("cedula"); 
                     registros[4] = rs.getString("sexo");
                     registros[5] = rs.getString("direccion");
-                    registros[6] = rs.getString("direc");
+                    registros[6] = rs.getString("descripcion");
                     registros[7] = rs.getString("telefono");
-                    registros[8] = rs.getString("tel");
+                    registros[8] = rs.getString("descripcion");
              
                     model.addRow(registros);
                     tabla.setModel(model);
