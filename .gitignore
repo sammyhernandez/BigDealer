@@ -1,2 +1,5 @@
 *.jar
 *.exe
+/nbproject/private/
+/build/
+/dist/
