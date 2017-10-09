@@ -100,6 +100,8 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         btnClientes = new javax.swing.JMenuItem();
         btnUsuarios = new javax.swing.JMenu();
         btnAdministrarUsuario = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,6 +209,18 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
         jMenuBar1.add(btnUsuarios);
 
+        jMenu1.setText("Proveedores");
+
+        jMenuItem1.setText("Agregar Proveedor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -229,6 +243,15 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         ac.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         ac.show();
     }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Proveedor p = new Proveedor();
+        jDesktopPane.add(p);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = p.getSize();
+        p.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        p.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,7 +308,9 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
