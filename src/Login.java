@@ -19,9 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+  
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
