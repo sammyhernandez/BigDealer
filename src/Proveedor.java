@@ -92,7 +92,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
         jLabel1.setText("ID:");
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("...");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setText(" Proveedor:");
