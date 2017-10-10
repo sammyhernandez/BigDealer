@@ -205,6 +205,7 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
         Connection conn = null;
 
         String id = lblID.getText();
+        System.out.print(id);
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String cedula = txtCedula.getText();
