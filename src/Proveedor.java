@@ -35,7 +35,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
     
      private void limpiar() {
                     //Boton limpiar
-                        lblID.setText(null);
+                       // lblID.setText(null);
                         txtProveedor.setText(null);
                         txtTelefono.setText(null);
                         txtDireccion.setText(null);
@@ -244,7 +244,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
         String fecha = lblFecha.getText();
         
         String sql = "UPDATE proveedor, direccion_proveedor, telefono_proveedor SET proveedor.nombre = '"+proveedor+"',direccion_proveedor.direccion = '"+direccion+"',telefono_proveedor.telefono = '"+telefono+"' "
-                + "    WHERE proveedor.nombre = '"+id+"' and direccion_proveedor.direccion = '"+id+"' and telefono_proveedor.telefono = '"+id+"'";
+                + "    WHERE proveedor.id_proveedor = '"+id+"' and direccion_proveedor.id_proveedor = '"+id+"' and telefono_proveedor.id_proveedor = '"+id+"'";
         
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
