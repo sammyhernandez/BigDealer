@@ -56,11 +56,10 @@ public class Proveedor extends javax.swing.JInternalFrame {
                              " WHERE proveedor.id_proveedor = direccion_proveedor.id_proveedor and proveedor.id_proveedor = telefono_proveedor.id_proveedor";
             } else{
                     
-                       sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion, cliente_direccion.direccion,cliente_direccion.descripcion\n" +
-                             "  FROM cliente, cliente_contacto, cliente_direccion \n" +
-                             " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n" +
-                             "HAVING cliente.cedula = '"+txtBuscar.getText()+"'";
-            
+                      sql = "Select proveedor.id_proveedor,proveedor.nombre,direccion_proveedor.direccion,telefono_proveedor.telefono  \n" +
+                             "  FROM proveedor, direccion_proveedor, telefono_proveedor \n" +
+                             " WHERE proveedor.id_proveedor = direccion_proveedor.id_proveedor and proveedor.id_proveedor = telefono_proveedor.id_proveedor "
+                           + " HAVING proveedor.nombre = '"+txtBuscar.getText()+"'";
             }
             model = new DefaultTableModel(null,titulos);
             conectar conect = new conectar();
@@ -134,9 +133,9 @@ public class Proveedor extends javax.swing.JInternalFrame {
          
         
                  String sql = "Select proveedor.id_proveedor,proveedor.nombre,direccion_proveedor.direccion,telefono_proveedor.telefono  \n" +
-                             "  FROM proveedor, direccion_proveedor, telefono_proveedor \n" +
-                             " WHERE proveedor.id_proveedor = direccion_proveedor.id_proveedor and proveedor.id_proveedor = telefono_proveedor.id_proveedor"
-                            +" HAVING proveedor.nomre = '"+txtBuscar.getText()+"'";
+                             "   FROM proveedor, direccion_proveedor, telefono_proveedor \n" +
+                             "  WHERE proveedor.id_proveedor = direccion_proveedor.id_proveedor and proveedor.id_proveedor = telefono_proveedor.id_proveedor"
+                            +" HAVING proveedor.nombre = '"+txtBuscar.getText()+"'";
         
         
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -146,11 +145,10 @@ public class Proveedor extends javax.swing.JInternalFrame {
         
         if(rs.next()){
         
-         String id = lblID.getText();
-        String proveedor = txtProveedor.getText();
-        String direccion = txtDireccion.getText();
-        String telefono = txtTelefono.getText();
-        String fecha = lblFecha.getText();
+         lblID.setText(rs.getString("id_proveedor"));
+         txtProveedor.setText(rs.getString("nombre"));
+         txtDireccion.setText(rs.getString("direccion"));
+         txtTelefono.setText(rs.getString("telefono"));
           
         }else {
         
@@ -608,6 +606,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
      AgregarProveedor();
      limpiar();
         cargar("");
+        nextID();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
@@ -616,6 +615,7 @@ public class Proveedor extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       buscarCliente();
+        cargar(txtProveedor.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
