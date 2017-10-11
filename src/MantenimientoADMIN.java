@@ -117,6 +117,8 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
             .addGap(0, 684, Short.MAX_VALUE)
         );
 
+        jDesktopPane.setLayer(p_fondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
@@ -133,7 +135,6 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
                 .addComponent(p_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jDesktopPane.setLayer(p_fondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jDesktopPane, java.awt.BorderLayout.CENTER);
 

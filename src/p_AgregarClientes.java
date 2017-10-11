@@ -1,16 +1,13 @@
 
 import Connection.conectar;
 import java.awt.HeadlessException;
-import java.awt.Window;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -19,7 +16,6 @@ import javax.swing.text.MaskFormatter;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author gfernandez
@@ -548,7 +544,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int mensaje = JOptionPane.showConfirmDialog(this, "Salir?");
 
-        if(mensaje == JOptionPane.YES_NO_OPTION) {
+        if (mensaje == JOptionPane.YES_NO_OPTION) {
             this.setVisible(false);
             //Window w = SwingUtilities.getWindowAncestor(p_AgregarClientes.this);
             //w.setVisible(false);
@@ -600,292 +596,264 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-     private void limpiar() {
-                    //Boton limpiar
-                        lblID.setText(null);
-                        txtNombre.setText(null);
-                        txtApellido.setText(null);
-                        txtCedula.setText(null);
-                        txtTelefono.setText(null);
-                        txtDireccion.setText(null);
-                        txtBuscar.setText(null);
-                       
+    private void limpiar() {
+        //Boton limpiar
+        lblID.setText(null);
+        txtNombre.setText(null);
+        txtApellido.setText(null);
+        txtCedula.setText(null);
+        txtTelefono.setText(null);
+        txtDireccion.setText(null);
+        txtBuscar.setText(null);
 
-                }
-    
+    }
+
     void cargar(String valor) {
-    
-            DefaultTableModel model;
-            
-            String [] titulos = {"ID","Nombre","Apellido","Cedula","Sexo","Direccion","Descripcion","Telefono","Descripcion"};
-            String [] registros = new String[10];
-            
-            String sql;
-            
-            if(valor.equals("")){
-            
-                       sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_direccion.direccion,cliente_direccion.descripcion as direc, cliente_contacto.telefono, cliente_contacto.descripcion as tel\n" +
-                             "  FROM cliente, cliente_contacto, cliente_direccion \n" +
-                             " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente";
-            } else{
-                    
-                       sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion, cliente_direccion.direccion,cliente_direccion.descripcion\n" +
-                             "  FROM cliente, cliente_contacto, cliente_direccion \n" +
-                             " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n" +
-                             "HAVING cliente.cedula = '"+txtCedula.getText()+"'";
-            
-            }
-            model = new DefaultTableModel(null,titulos);
-            conectar conect = new conectar();
-            Connection cn = conect.conexion();
 
-           try {  
-            Statement st = cn.createStatement();   
+        DefaultTableModel model;
+
+        String[] titulos = {"ID", "Nombre", "Apellido", "Cedula", "Sexo", "Direccion", "Descripcion", "Telefono", "Descripcion"};
+        String[] registros = new String[10];
+
+        String sql;
+
+        if (valor.equals("")) {
+
+            sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_direccion.direccion,cliente_direccion.descripcion as direc, cliente_contacto.telefono, cliente_contacto.descripcion as tel\n"
+                    + "  FROM cliente, cliente_contacto, cliente_direccion \n"
+                    + " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente";
+        } else {
+
+            sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion, cliente_direccion.direccion,cliente_direccion.descripcion\n"
+                    + "  FROM cliente, cliente_contacto, cliente_direccion \n"
+                    + " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n"
+                    + "HAVING cliente.cedula = '" + txtCedula.getText() + "'";
+
+        }
+        model = new DefaultTableModel(null, titulos);
+        conectar conect = new conectar();
+        Connection cn = conect.conexion();
+
+        try {
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                registros[0] = rs.getString("id_cliente");
+                registros[1] = rs.getString("nombre");
+                registros[2] = rs.getString("apellido");
+                registros[3] = rs.getString("cedula");
+                registros[4] = rs.getString("sexo");
+                registros[5] = rs.getString("direccion");
+                registros[6] = rs.getString("direc");
+                registros[7] = rs.getString("telefono");
+                registros[8] = rs.getString("tel");
+
+                model.addRow(registros);
+                tabla.setModel(model);
+
+            }
             
-                while(rs.next()) {
-                    
-                    registros[0] = rs.getString("id_cliente"); 
-                    registros[1] = rs.getString("nombre");  
-                    registros[2] = rs.getString("apellido");
-                    registros[3] = rs.getString("cedula"); 
-                    registros[4] = rs.getString("sexo");
-                    registros[5] = rs.getString("direccion");
-                    registros[6] = rs.getString("direc");
-                    registros[7] = rs.getString("telefono");
-                    registros[8] = rs.getString("tel");
-             
-                    model.addRow(registros);
-                    tabla.setModel(model);
-                    
-                }
+            rs.close();
+            st.close();
+            cn.close();
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,"Error al Cargar la lista de usuarios");
+            JOptionPane.showMessageDialog(null, "Error al Cargar la lista de usuarios");
         }
     }
 
     public void buscarCliente() {
-    
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn;
-        
-      try{  
-         
-        
-                String sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion as tel, cliente_direccion.direccion,cliente_direccion.descripcion as direc \n" +
-                             "  FROM cliente, cliente_contacto, cliente_direccion \n" +
-                             " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n" +
-                             "HAVING cliente.cedula = '"+txtBuscar.getText()+"'";
-        
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-        
-        if(rs.next()){
-        
-        lblID.setText(rs.getString("id_cliente"));
-        txtNombre.setText(rs.getString("nombre"));
-        txtApellido.setText(rs.getString("apellido"));
-        txtCedula.setText(rs.getString("cedula"));
-        comboSexo.setSelectedItem(rs.getString("sexo"));
-        txtDireccion.setText(rs.getString("direccion"));
-        comboTipoDireccion.setSelectedItem(rs.getString("direc"));
-        txtTelefono.setText(rs.getString("telefono"));
-        comboTipoContacto.setSelectedItem(rs.getString("tel"));
-        
-        
-        
-        }else {
-        
-            JOptionPane.showMessageDialog(this,"El Usuario no esta Registrado");
+
+        Connection conn = new conectar().conexion();
+
+        try {
+
+            String sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion as tel, cliente_direccion.direccion,cliente_direccion.descripcion as direc \n"
+                    + "  FROM cliente, cliente_contacto, cliente_direccion \n"
+                    + " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n"
+                    + "HAVING cliente.cedula = '" + txtBuscar.getText() + "'";
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+
+                lblID.setText(rs.getString("id_cliente"));
+                txtNombre.setText(rs.getString("nombre"));
+                txtApellido.setText(rs.getString("apellido"));
+                txtCedula.setText(rs.getString("cedula"));
+                comboSexo.setSelectedItem(rs.getString("sexo"));
+                txtDireccion.setText(rs.getString("direccion"));
+                comboTipoDireccion.setSelectedItem(rs.getString("direc"));
+                txtTelefono.setText(rs.getString("telefono"));
+                comboTipoContacto.setSelectedItem(rs.getString("tel"));
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "El Usuario no esta Registrado");
+            }
+            
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
         }
-            }catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-                JOptionPane.showMessageDialog(null, e.toString());
 
-            }
-        
-    }   
-    
-     public void seleccionarCliente() {
-    
-         
-        int fila =  tabla.getSelectedRow();
-      
-        if(fila ==-1) {
-            JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
-        } else{    
-      
-       lblID.setText(tabla.getValueAt(fila, 0).toString());
-       txtNombre.setText(tabla.getValueAt(fila, 1).toString());
-       txtApellido.setText(tabla.getValueAt(fila, 2).toString());
-       txtCedula.setText(tabla.getValueAt(fila, 3).toString());
-       comboSexo.setSelectedItem(tabla.getValueAt(fila, 4).toString());
-       txtDireccion.setText(tabla.getValueAt(fila, 5).toString());
-       comboTipoDireccion.setSelectedItem(tabla.getValueAt(fila, 6).toString());
-       txtTelefono.setText(tabla.getValueAt(fila, 7).toString());
-       comboTipoContacto.setSelectedItem(tabla.getValueAt(fila, 8).toString());
-      }
-       
     }
+
+    public void seleccionarCliente() {
+
+        int fila = tabla.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Debes Seleccionar una Registro.");
+        } else {
+
+            lblID.setText(tabla.getValueAt(fila, 0).toString());
+            txtNombre.setText(tabla.getValueAt(fila, 1).toString());
+            txtApellido.setText(tabla.getValueAt(fila, 2).toString());
+            txtCedula.setText(tabla.getValueAt(fila, 3).toString());
+            comboSexo.setSelectedItem(tabla.getValueAt(fila, 4).toString());
+            txtDireccion.setText(tabla.getValueAt(fila, 5).toString());
+            comboTipoDireccion.setSelectedItem(tabla.getValueAt(fila, 6).toString());
+            txtTelefono.setText(tabla.getValueAt(fila, 7).toString());
+            comboTipoContacto.setSelectedItem(tabla.getValueAt(fila, 8).toString());
+        }
+
+    }
+
     public void nextID() {
-    
 
-                   try {
-                       
-                     conectar conect = new conectar();
-                     Connection cn = conect.conexion();
+        try {
 
-                    
-                    String sql =" Select MAX(id_cliente)+1 as id FROM cliente ";
-                    
-                    Statement st = cn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
-                    
-                    if(rs.next()){
-        
-                    lblID.setText(rs.getString("id"));
-        
-        
-                    }else {
-        
-                           JOptionPane.showMessageDialog(this,"El Usuario no esta Registrado");
-                    }
-                    
-                } catch(HeadlessException | SQLException ex) {
-                    JOptionPane.showMessageDialog(null, ex.toString());
-                }
-            }
-                
-    
-    
- public void AgregarCliente() {
-    
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn;
+            conectar conect = new conectar();
+            Connection conn = conect.conexion();
 
-        String id = lblID.getText();
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String cedula = txtCedula.getText();
-        String sexo = comboSexo.getSelectedItem().toString();
-        String telefono = txtTelefono.getText();
-        String tipo_telefono = comboTipoContacto.getSelectedItem().toString();
-        String direccion = txtDireccion.getText();
-        String tipo_direccion = comboTipoDireccion.getSelectedItem().toString();
-        
-                 
-                
-               
-  // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
-                        try{
-                              Class.forName("com.mysql.jdbc.Driver").newInstance();
-                              conn = DriverManager.getConnection(url, usuario, pass);
-                              Statement st = conn.createStatement();
+            String sql = " Select MAX(id_cliente)+1 as id FROM cliente ";
 
-                              int mostrar = JOptionPane.showConfirmDialog(null,"Desea Guardar este Usuario?");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
+            if (rs.next()) {
 
-                              if(mostrar == JOptionPane.YES_NO_OPTION) {
+                lblID.setText(rs.getString("id"));
 
-                             st.executeUpdate("INSERT INTO cliente (nombre, apellido, cedula, sexo) VALUES('"+nombre+"','"+apellido+"','"+cedula+"','"+sexo+"')");
-                             st.executeUpdate("INSERT INTO cliente_contacto (telefono, descripcion, id_cliente) VALUES('"+telefono+"','"+tipo_telefono+"','"+id+"')");
-                             st.executeUpdate("INSERT INTO cliente_direccion (direccion, descripcion, id_cliente) VALUES('"+direccion+"','"+tipo_direccion+"','"+id+"')");
-                             
-                              st.close();
-                              JOptionPane.showMessageDialog(null, "Usuario Registrado!");
+            } else {
 
-                              System.out.print(st);
-                              } 
-                          }catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
-                              JOptionPane.showMessageDialog(null,e.toString());
-                          }
+                JOptionPane.showMessageDialog(this, "El Usuario no esta Registrado");
+            }   
+            
+            rs.close();
+            st.close();
+            conn.close();
 
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
     }
- 
- public void actualizarCliente(){
-    
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn;
-        
-      try{  
-          
-        String id = lblID.getText();
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String cedula = txtCedula.getText();
-        String sexo = comboSexo.getSelectedItem().toString();
-        String telefono = txtTelefono.getText();
-        String tipo_telefono = comboTipoContacto.getSelectedItem().toString();
-        String direccion = txtDireccion.getText();
-        String tipo_direccion = comboTipoDireccion.getSelectedItem().toString();
-        
-        String sql = "UPDATE cliente, cliente_contacto, cliente_direccion SET cliente.nombre = '"+nombre+"',cliente.apellido = '"+apellido+"',cliente.cedula = '"+cedula+"',cliente.sexo = '"+sexo+"',cliente_direccion.direccion = '"+direccion+"',cliente_direccion.descripcion  = '"+tipo_direccion+"', cliente_contacto.telefono = '"+telefono+"',cliente_contacto.descripcion = '"+tipo_telefono+"' "
-                + "    WHERE cliente.id_cliente = '"+id+"' and cliente_contacto.id_cliente = '"+id+"' and cliente_direccion.id_cliente = '"+id+"'";
-        
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
-        Statement st = conn.createStatement();
-        
+
+    public void AgregarCliente() {
+
+        // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
+
+            int mostrar = JOptionPane.showConfirmDialog(null, "Desea Guardar este Usuario?");
+
+            if (mostrar == JOptionPane.YES_NO_OPTION) {
+                
+                 try {
+                    Connection conn = new conectar().conexion();
+                    Statement st = conn.createStatement();
+                    String id = lblID.getText();
+                    String nombre = txtNombre.getText();
+                    String apellido = txtApellido.getText();
+                    String cedula = txtCedula.getText();
+                    String sexo = comboSexo.getSelectedItem().toString();
+                    String telefono = txtTelefono.getText();
+                    String tipo_telefono = comboTipoContacto.getSelectedItem().toString();
+                    String direccion = txtDireccion.getText();
+                    String tipo_direccion = comboTipoDireccion.getSelectedItem().toString();
+                    st.executeUpdate("INSERT INTO cliente (nombre, apellido, cedula, sexo) VALUES('" + nombre + "','" + apellido + "','" + cedula + "','" + sexo + "')");
+                    st.executeUpdate("INSERT INTO cliente_contacto (telefono, descripcion, id_cliente) VALUES('" + telefono + "','" + tipo_telefono + "','" + id + "')");
+                    st.executeUpdate("INSERT INTO cliente_direccion (direccion, descripcion, id_cliente) VALUES('" + direccion + "','" + tipo_direccion + "','" + id + "')");
+
+                    st.close();
+                    JOptionPane.showMessageDialog(null, "Usuario Registrado!");
+
+                    //System.out.print(st);
+            
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+        }
+    }
+
+    public void actualizarCliente() {
+
         int mensaje = JOptionPane.showConfirmDialog(this, "Desea Guardar los cambios Actualizados?");
-        
-            if(mensaje == JOptionPane.YES_NO_OPTION) {
+
+        if (mensaje == JOptionPane.YES_NO_OPTION) {
+            try {
+                Connection conn = new conectar().conexion();
+                Statement st = conn.createStatement();
+                String id = lblID.getText();
+                String nombre = txtNombre.getText();
+                String apellido = txtApellido.getText();
+                String cedula = txtCedula.getText();
+                String sexo = comboSexo.getSelectedItem().toString();
+                String telefono = txtTelefono.getText();
+                String tipo_telefono = comboTipoContacto.getSelectedItem().toString();
+                String direccion = txtDireccion.getText();
+                String tipo_direccion = comboTipoDireccion.getSelectedItem().toString();
+
+                String sql = "UPDATE cliente, cliente_contacto, cliente_direccion SET cliente.nombre = '" + nombre + "',cliente.apellido = '" + apellido + "',cliente.cedula = '" + cedula + "',cliente.sexo = '" + sexo + "',cliente_direccion.direccion = '" + direccion + "',cliente_direccion.descripcion  = '" + tipo_direccion + "', cliente_contacto.telefono = '" + telefono + "',cliente_contacto.descripcion = '" + tipo_telefono + "' "
+                        + "    WHERE cliente.id_cliente = '" + id + "' and cliente_contacto.id_cliente = '" + id + "' and cliente_direccion.id_cliente = '" + id + "'";
+
                 st.executeUpdate(sql);
-                 st.close();
-                JOptionPane.showMessageDialog(null,"Registro actualizado");
-            }
-            }catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
+                st.close();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Registro actualizado");
+
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
+        }
     }
-      
-      public void eliminarUsuario(){
-    
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn;
-        
-      try{  
-        String id = lblID.getText();
-        
-        String sql  = "DELETE FROM cliente WHERE cliente.id_cliente = '"+id+"'";
-        String sql1 = "DELETE FROM cliente_contacto WHERE cliente_contacto.id_cliente = '"+id+"'";
-        String sql2 = "DELETE FROM cliente_direccion WHERE cliente_direccion.id_cliente = '"+id+"'";
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
-        Statement st = conn.createStatement();
-        
-         int mensaje = JOptionPane.showConfirmDialog(this, "Desea Eliminar este Usuario?","Eliminar",JOptionPane.YES_NO_OPTION);
-        
-            if(mensaje == JOptionPane.YES_NO_OPTION){
-              st.executeUpdate(sql1);
-              st.executeUpdate(sql2);
-              st.executeUpdate(sql);
-              
-              st.close();
-              JOptionPane.showMessageDialog(null,"Usuario Eliminado");
-            } 
-            }catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){
+
+    public void eliminarUsuario() {
+
+        int mensaje = JOptionPane.showConfirmDialog(this, "Desea Eliminar este Usuario?", "Eliminar", JOptionPane.YES_NO_OPTION);
+
+        if (mensaje == JOptionPane.YES_NO_OPTION) {
+            try {
+                Connection conn = new conectar().conexion();
+                String id = lblID.getText();
+                String sql = "DELETE FROM cliente WHERE cliente.id_cliente = '" + id + "'";
+                String sql1 = "DELETE FROM cliente_contacto WHERE cliente_contacto.id_cliente = '" + id + "'";
+                String sql2 = "DELETE FROM cliente_direccion WHERE cliente_direccion.id_cliente = '" + id + "'";
+                Statement st = conn.createStatement();
+                st.executeUpdate(sql1);
+                st.executeUpdate(sql2);
+                st.executeUpdate(sql);
+
+                st.close();
+                conn.close();
+                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+
+            } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.toString());
 
             }
+        }
     }
-      
- public static String fecha () {
-    
+
+    public static String fecha() {
+
         Date fecha = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
         return formatoFecha.format(fecha);
-        
+
     }
 }
