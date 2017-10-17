@@ -48,11 +48,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/proveedor-icon.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Proveedores"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/proveedor add-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Agregar Proveedor"/>
               </Properties>
               <Events>

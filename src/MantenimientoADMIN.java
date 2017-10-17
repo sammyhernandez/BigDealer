@@ -203,8 +203,10 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
         jMenuBar1.add(btnUsuarios);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/proveedor-icon.png"))); // NOI18N
         jMenu1.setText("Proveedores");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/proveedor add-icon.png"))); // NOI18N
         jMenuItem1.setText("Agregar Proveedor");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
