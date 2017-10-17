@@ -87,7 +87,6 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private void initComponents() {
 
         jDesktopPane = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -107,21 +106,16 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
         jDesktopPane.setForeground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carro.jpg"))); // NOI18N
-
         javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPaneLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, Short.MAX_VALUE)
+            .addGap(0, 706, Short.MAX_VALUE)
         );
-        jDesktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jDesktopPane, java.awt.BorderLayout.CENTER);
 
@@ -304,7 +298,6 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenuItem btnClientes;
     private javax.swing.JMenu btnUsuarios;
     private javax.swing.JDesktopPane jDesktopPane;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
