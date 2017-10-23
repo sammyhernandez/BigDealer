@@ -26,6 +26,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     public Vehiculos() {
         initComponents();
         comboMarca();
+        comboModelo();
         
     }
     
@@ -37,7 +38,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         String pass = "";
         String url = "jdbc:mysql://localhost/BigDealer";
         Connection conn = null;
-       
+   
         
       try{  
          
@@ -56,11 +57,56 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
                     while(rs.next()){
 
-                   marca.addItem(rs.getString("marcas"));
+                   comboMarca.addItem(rs.getString("marcas"));
                    
                    
 
-                     System.out.println(rs.getString("marcas"));
+                     //System.out.println(rs.getString("marcas"));
+
+
+                    }   
+                
+        }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.toString());
+                e.printStackTrace();
+
+            }
+      
+    }   
+    
+     public void comboModelo() {
+        
+      String usuario = "root";
+        String pass = "";
+        String url = "jdbc:mysql://localhost/BigDealer";
+        Connection conn = null;
+        
+
+       
+        
+      try{  
+         
+          
+        
+                    String sql = "SELECT list_marca.marcas, modelos.Descripcion \n" +
+                                 "  FROM list_marca, modelos\n" +
+                                 " WHERE list_marca.id_marca = modelos.id_marca AND list_marca.id_marca = '"+comboMarca.getSelectedItem().toString()+"'";
+
+
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+                    conn = DriverManager.getConnection(url, usuario, pass);
+                    Statement st = conn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
+
+                
+
+                    while(rs.next()){
+
+                   comboModelo.addItem(rs.getString("Descripcion"));
+                   
+                   
+
+                     System.out.println(rs.getString("Descripcion"));
 
 
                     }   
@@ -84,7 +130,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        marca = new javax.swing.JComboBox();
+        comboMarca = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         comboModelo = new javax.swing.JComboBox();
 
@@ -136,13 +182,19 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Marca:");
 
-        marca.addActionListener(new java.awt.event.ActionListener() {
+        comboMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcaActionPerformed(evt);
+                comboMarcaActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Modelo:");
+
+        comboModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboModeloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout txtMarcaLayout = new javax.swing.GroupLayout(txtMarca);
         txtMarca.setLayout(txtMarcaLayout);
@@ -156,7 +208,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +223,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(188, Short.MAX_VALUE))
@@ -203,12 +255,17 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMatriculaActionPerformed
 
-    private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
+    private void comboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcaActionPerformed
     
-    }//GEN-LAST:event_marcaActionPerformed
+    }//GEN-LAST:event_comboMarcaActionPerformed
+
+    private void comboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboModeloActionPerformed
+       comboModelo();
+    }//GEN-LAST:event_comboModeloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox comboMarca;
     private javax.swing.JComboBox comboModelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -217,7 +274,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblFecha;
-    private javax.swing.JComboBox marca;
     private javax.swing.JPanel txtMarca;
     private javax.swing.JTextField txtMatricula;
     // End of variables declaration//GEN-END:variables
