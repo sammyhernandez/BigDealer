@@ -806,6 +806,7 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
         AgregarCliente();
         cargar("");
         limpiar();
+        nextID();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed

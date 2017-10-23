@@ -25,7 +25,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
      */
     public Vehiculos() {
         initComponents();
-        this.comboMarca();
+        comboMarca();
         
     }
     
@@ -43,7 +43,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
          
           
         
-                            String sql = "Select descripcion "
+                            String sql = "Select marcas "
                                     + "     FROM list_marca";
 
 
@@ -56,9 +56,11 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
                     while(rs.next()){
 
-                   marca.setSelectedItem(rs.getString("descripcion"));
+                   marca.addItem(rs.getString("marcas"));
+                   
+                   
 
-                     System.out.println(rs.getString("descripcion"));
+                     System.out.println(rs.getString("marcas"));
 
 
                     }   
@@ -83,6 +85,8 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         txtMatricula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         marca = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        comboModelo = new javax.swing.JComboBox();
 
         jPanel4.setBackground(new java.awt.Color(255, 102, 51));
 
@@ -132,6 +136,14 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Marca:");
 
+        marca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marcaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Modelo:");
+
         javax.swing.GroupLayout txtMarcaLayout = new javax.swing.GroupLayout(txtMarca);
         txtMarca.setLayout(txtMarcaLayout);
         txtMarcaLayout.setHorizontalGroup(
@@ -145,6 +157,10 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         txtMarcaLayout.setVerticalGroup(
@@ -155,7 +171,9 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(188, Short.MAX_VALUE))
         );
 
@@ -185,10 +203,16 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMatriculaActionPerformed
 
+    private void marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaActionPerformed
+    
+    }//GEN-LAST:event_marcaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox comboModelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel4;
