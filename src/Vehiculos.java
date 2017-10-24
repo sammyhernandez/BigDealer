@@ -44,7 +44,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
          
           
         
-                            String sql = "Select marcas "
+                            String sql = "Select * "
                                     + "     FROM list_marca";
 
 
@@ -56,12 +56,15 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 
 
                     while(rs.next()){
+                        
+                        int id = rs.getInt("id_marca");
+                        
 
                    comboMarca.addItem(rs.getString("marcas"));
                    
                    
 
-                     //System.out.println(rs.getString("marcas"));
+                    System.out.println(rs.getInt("id_marca"));
 
 
                     }   
@@ -74,43 +77,54 @@ public class Vehiculos extends javax.swing.JInternalFrame {
       
     }   
     
+    
+    
      public void comboModelo() {
         
       String usuario = "root";
         String pass = "";
         String url = "jdbc:mysql://localhost/BigDealer";
         Connection conn = null;
+        comboModelo.removeAllItems();
         
 
-       
-        
       try{  
-         
           
-        
-                    String sql = "SELECT list_marca.marcas, modelos.Descripcion \n" +
+         
+         
+
+                    String sql = "SELECT list_marca.id_marca, modelos.Descripcion, modelos.id_marca \n" +
                                  "  FROM list_marca, modelos\n" +
-                                 " WHERE list_marca.id_marca = modelos.id_marca AND list_marca.id_marca = 4";
+                                 " WHERE list_marca.id_marca = modelos.id_marca";
 
+                    String sql2 = "Select * "
+                                + "FROM list_marca";            
 
+                    
+                    
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
                     conn = DriverManager.getConnection(url, usuario, pass);
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
+                   
+                     
 
+                  
                 
 
                     while(rs.next()){
 
+                       
                    comboModelo.addItem(rs.getString("Descripcion"));
                    
                    
-
-                     System.out.println(rs.getString("Descripcion"));
+                   
+                        //System.out.print(rs.getString("Descripcion"));
 
 
                     }   
                 
+                      
         }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e.toString());
                 e.printStackTrace();
@@ -182,6 +196,11 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Marca:");
 
+        comboMarca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarcaItemStateChanged(evt);
+            }
+        });
         comboMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboMarcaActionPerformed(evt);
@@ -262,6 +281,15 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private void comboModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboModeloActionPerformed
        comboModelo();
     }//GEN-LAST:event_comboModeloActionPerformed
+
+    private void comboMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarcaItemStateChanged
+        comboModelo();
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_comboMarcaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
