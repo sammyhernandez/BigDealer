@@ -90,7 +90,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         
                     String sql = "SELECT list_marca.marcas, modelos.Descripcion \n" +
                                  "  FROM list_marca, modelos\n" +
-                                 " WHERE list_marca.id_marca = modelos.id_marca AND list_marca.id_marca = '"+comboMarca.getSelectedItem().toString()+"'";
+                                 " WHERE list_marca.id_marca = modelos.id_marca AND list_marca.id_marca = 4";
 
 
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
