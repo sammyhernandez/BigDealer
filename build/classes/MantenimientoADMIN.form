@@ -106,6 +106,9 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="p_fondo">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">

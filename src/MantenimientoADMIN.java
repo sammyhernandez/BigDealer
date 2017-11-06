@@ -1,9 +1,7 @@
 
 import Clases.Usuario;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.util.*;
 import java.text.*;
 import javax.swing.ImageIcon;
@@ -238,7 +236,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         //AgregarClientes ac = new AgregarClientes();
-        p_AgregarClientes ac = new p_AgregarClientes();
+        p_AgregarClientes2 ac = new p_AgregarClientes2();
         
         //jDesktopPane.add(ac);
         //Dimension desktopSize = jDesktopPane.getSize();
@@ -250,12 +248,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         //ac.setVisible(true);                           
         //p_fondo.add(ac,"p_fondo");
         
-        ac.setSize(p_fondo.getSize());
-        ac.setLocation(p_fondo.getLocation());
-        p_fondo.removeAll();
-        p_fondo.add(ac,BorderLayout.CENTER);
-        p_fondo.revalidate();
-        p_fondo.repaint();
+        mostrarPanel(ac);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     /**
@@ -276,7 +269,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -317,6 +310,20 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JPanel p_fondo;
+    private static javax.swing.JPanel p_fondo;
     // End of variables declaration//GEN-END:variables
+
+public static void mostrarPanel(javax.swing.JPanel p_mostrar){
+
+        p_mostrar.setSize(p_fondo.getSize());
+        p_mostrar.setLocation(p_fondo.getLocation());
+        p_fondo.removeAll();
+        p_fondo.add(p_mostrar,BorderLayout.CENTER);
+        p_fondo.revalidate();
+        p_fondo.repaint();
+
+}
+
+
+
 }

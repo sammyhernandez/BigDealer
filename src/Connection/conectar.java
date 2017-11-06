@@ -11,7 +11,7 @@ public class conectar {
     private final String pass = "gerson123";
     private final String host = "localhost";
     private final String db_name = "BigDealer";
-    private final String url = "jdbc:mysql://"+host+"/"+db_name + "?useSSL=false";
+    private final String url = "jdbc:mysql://"+host+"/"+db_name + "?useServerPrepStmts=true&useSSL=false";
     
     /**
     * Este metodo retorna una conexion de la base de datos de tipo connection.
