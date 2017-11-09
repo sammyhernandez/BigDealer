@@ -1,5 +1,6 @@
 
 import Connection.conectar;
+import Utiliti.Lib;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -30,6 +34,8 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         //nextID();
         //cargar("");
         lblFecha.setText(fecha());
+        cbCargar();
+        
     }
 
     /**
@@ -57,14 +63,14 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         txtBuscar = new javax.swing.JFormattedTextField(maskCedula);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
+        txt_apellido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
-        comboSexo = new javax.swing.JComboBox();
+        txt_direccion = new javax.swing.JTextField();
+        cb_sexo = new javax.swing.JComboBox();
         MaskFormatter maskCedula1  = null;
 
         try{
@@ -75,17 +81,27 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             System.out.println("Error en el campo Cedula");
             System.out.println(e.toString());
         }
-        txtCedula = new javax.swing.JFormattedTextField(maskCedula1);
-        txtTelefono = new javax.swing.JFormattedTextField();
-        comboTipoContacto = new javax.swing.JComboBox();
+        txtf_cedula = new javax.swing.JFormattedTextField(maskCedula1);
+        txt_telefono = new javax.swing.JFormattedTextField();
+        cb_tipo_contacto = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
-        comboTipoDireccion = new javax.swing.JComboBox();
+        cb_tipo_direccion = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txt_nombre = new javax.swing.JTextField();
+        txt_telefono_2 = new javax.swing.JFormattedTextField();
+        cb_tipo_contacto_2 = new javax.swing.JComboBox();
+        txt_direccion_2 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        cb_tipo_direccion_2 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        chb_direccion_2 = new javax.swing.JCheckBox();
+        chb_telefono_2 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tbl_cliente = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -96,6 +112,11 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
+
+        setMaximumSize(new java.awt.Dimension(845, 623));
+        setMinimumSize(new java.awt.Dimension(845, 623));
+        setPreferredSize(new java.awt.Dimension(845, 623));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Cliente"));
 
@@ -137,13 +158,15 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
 
         jLabel1.setText("Nombre:");
 
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+        txt_apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
+                txt_apellidoActionPerformed(evt);
             }
         });
 
@@ -157,32 +180,30 @@ public class p_AgregarClientes extends javax.swing.JPanel {
 
         jLabel6.setText("Direccion:");
 
-        comboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
-        comboSexo.addActionListener(new java.awt.event.ActionListener() {
+        cb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
+        cb_sexo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboSexoActionPerformed(evt);
+                cb_sexoActionPerformed(evt);
             }
         });
 
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+        txt_telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+                txt_telefonoActionPerformed(evt);
             }
         });
 
-        comboTipoContacto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Residencia", "Trabajo" }));
-        comboTipoContacto.addActionListener(new java.awt.event.ActionListener() {
+        cb_tipo_contacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTipoContactoActionPerformed(evt);
+                cb_tipo_contactoActionPerformed(evt);
             }
         });
 
         jLabel10.setText("Descripcion:");
 
-        comboTipoDireccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Residencia", "Trabajo" }));
-        comboTipoDireccion.addActionListener(new java.awt.event.ActionListener() {
+        cb_tipo_direccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTipoDireccionActionPerformed(evt);
+                cb_tipo_direccionActionPerformed(evt);
             }
         });
 
@@ -193,9 +214,54 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         lblID.setText("...");
         lblID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txt_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txt_nombreActionPerformed(evt);
+            }
+        });
+
+        txt_telefono_2.setEnabled(false);
+        txt_telefono_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefono_2ActionPerformed(evt);
+            }
+        });
+
+        cb_tipo_contacto_2.setEnabled(false);
+        cb_tipo_contacto_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_tipo_contacto_2ActionPerformed(evt);
+            }
+        });
+
+        txt_direccion_2.setEnabled(false);
+
+        jLabel13.setText("Descripcion:");
+
+        jLabel14.setText("Descripcion:");
+
+        cb_tipo_direccion_2.setEnabled(false);
+        cb_tipo_direccion_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_tipo_direccion_2ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Telefono 2:");
+
+        jLabel15.setText("Direccion 2:");
+
+        chb_direccion_2.setText("Activar");
+        chb_direccion_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chb_direccion_2ActionPerformed(evt);
+            }
+        });
+
+        chb_telefono_2.setText("Activar");
+        chb_telefono_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chb_telefono_2ActionPerformed(evt);
             }
         });
 
@@ -204,138 +270,163 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboSexo, 0, 156, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblID, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                                    .addComponent(txtCedula))))
-                        .addGap(56, 56, 56)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(cb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel11)
+                        .addGap(4, 4, 4)
+                        .addComponent(cb_tipo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(260, 260, 260)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_direccion_2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(txt_telefono_2))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(20, 20, 20))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel14)
+                                .addGap(2, 2, 2)
+                                .addComponent(cb_tipo_contacto_2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addComponent(chb_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cb_tipo_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chb_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                    .addComponent(txtTelefono)
-                    .addComponent(txtNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(comboTipoDireccion, javax.swing.GroupLayout.Alignment.LEADING, 0, 122, Short.MAX_VALUE)
-                        .addComponent(comboTipoContacto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel2)
+                                .addGap(4, 4, 4)
+                                .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtf_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel10)
+                                .addGap(4, 4, 4)
+                                .addComponent(cb_tipo_contacto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(12, 12, 12)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(lblID))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel12))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel1))
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel2))
+                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(comboTipoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboTipoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6)))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblID)))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtf_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addComponent(cb_tipo_contacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10))))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(cb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6))
+                    .addComponent(cb_tipo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel11)))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9))
+                    .addComponent(jLabel14)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cb_tipo_contacto_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chb_telefono_2)))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15))
+                    .addComponent(jLabel13)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cb_tipo_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(chb_direccion_2))))
         );
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+
+        tbl_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID", "Nombre", "Apellido", "Cedula", "Sexo"
             }
-        ));
-        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tabla);
+        tbl_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_clienteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_cliente);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 825, 190));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Accion"));
 
@@ -414,6 +505,8 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                         .addGap(12, 12, 12))))
         );
 
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 825, -1));
+
         jPanel4.setBackground(new java.awt.Color(255, 102, 51));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
@@ -453,42 +546,12 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(308, 308, 308))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 845, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscarCliente();
-        cargar(txtCedula.getText());
+        cargar(txtf_cedula.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
@@ -497,36 +560,38 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         nextID();
     }//GEN-LAST:event_btnMostrarActionPerformed
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+    private void txt_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
+    }//GEN-LAST:event_txt_apellidoActionPerformed
 
-    private void comboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexoActionPerformed
+    private void cb_sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sexoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboSexoActionPerformed
+    }//GEN-LAST:event_cb_sexoActionPerformed
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+    private void txt_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
+    }//GEN-LAST:event_txt_telefonoActionPerformed
 
-    private void comboTipoContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoContactoActionPerformed
+    private void cb_tipo_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_contactoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboTipoContactoActionPerformed
+    }//GEN-LAST:event_cb_tipo_contactoActionPerformed
 
-    private void comboTipoDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoDireccionActionPerformed
+    private void cb_tipo_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_direccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboTipoDireccionActionPerformed
+    }//GEN-LAST:event_cb_tipo_direccionActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txt_nombreActionPerformed
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tbl_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_clienteMouseClicked
         seleccionarCliente();
-    }//GEN-LAST:event_tablaMouseClicked
+    }//GEN-LAST:event_tbl_clienteMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        limpiar();
+        //limpiar();
+        
+        //System.out.println("Key: "+mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()));
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -557,7 +622,41 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void txt_telefono_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefono_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefono_2ActionPerformed
 
+    private void cb_tipo_contacto_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_contacto_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_tipo_contacto_2ActionPerformed
+
+    private void cb_tipo_direccion_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_direccion_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_tipo_direccion_2ActionPerformed
+
+    private void chb_telefono_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_telefono_2ActionPerformed
+        if(chb_telefono_2.isSelected()){
+            txt_telefono_2.setEnabled(true);
+            cb_tipo_contacto_2.setEnabled(true);
+        }else{
+            txt_telefono_2.setEnabled(false);
+            cb_tipo_contacto_2.setEnabled(false);
+        }
+    }//GEN-LAST:event_chb_telefono_2ActionPerformed
+
+    private void chb_direccion_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chb_direccion_2ActionPerformed
+        if(chb_direccion_2.isSelected()){
+            txt_direccion_2.setEnabled(true);
+            cb_tipo_direccion_2.setEnabled(true);
+        }else{
+            txt_direccion_2.setEnabled(false);
+            cb_tipo_direccion_2.setEnabled(false);
+        }
+    }//GEN-LAST:event_chb_direccion_2ActionPerformed
+
+    private Map mp_cb_contacto;
+    private Map mp_cb_direccion;
+    private int index_client;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
@@ -566,13 +665,20 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox comboSexo;
-    private javax.swing.JComboBox comboTipoContacto;
-    private javax.swing.JComboBox comboTipoDireccion;
+    private javax.swing.JComboBox cb_sexo;
+    private javax.swing.JComboBox cb_tipo_contacto;
+    private javax.swing.JComboBox cb_tipo_contacto_2;
+    private javax.swing.JComboBox cb_tipo_direccion;
+    private javax.swing.JComboBox cb_tipo_direccion_2;
+    private javax.swing.JCheckBox chb_direccion_2;
+    private javax.swing.JCheckBox chb_telefono_2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -580,6 +686,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -587,29 +694,40 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblID;
-    private javax.swing.JTable tabla;
-    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTable tbl_cliente;
     private javax.swing.JFormattedTextField txtBuscar;
-    private javax.swing.JFormattedTextField txtCedula;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JFormattedTextField txtTelefono;
+    private javax.swing.JTextField txt_apellido;
+    private javax.swing.JTextField txt_direccion;
+    private javax.swing.JTextField txt_direccion_2;
+    private javax.swing.JTextField txt_nombre;
+    private javax.swing.JFormattedTextField txt_telefono;
+    private javax.swing.JFormattedTextField txt_telefono_2;
+    private javax.swing.JFormattedTextField txtf_cedula;
     // End of variables declaration//GEN-END:variables
 
     private void limpiar() {
         //Boton limpiar
         lblID.setText(null);
-        txtNombre.setText(null);
-        txtApellido.setText(null);
-        txtCedula.setText(null);
-        txtTelefono.setText(null);
-        txtDireccion.setText(null);
+        txt_nombre.setText(null);
+        txt_apellido.setText(null);
+        txtf_cedula.setText(null);
+        txt_telefono.setText(null);
+        txt_direccion.setText(null);
         txtBuscar.setText(null);
 
     }
 
     void cargar(String valor) {
-
+        
+        
+        if(valor.equals("")){
+            String col_name = " id_cliente , nombre , apellido , cedula , sexo ";
+            String tbl_name = " cliente ";
+            tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),Lib.queryArray(col_name, tbl_name)));
+            
+        }
+        
+        /*
         DefaultTableModel model;
 
         String[] titulos = {"ID", "Nombre", "Apellido", "Cedula", "Sexo", "Direccion", "Descripcion", "Telefono", "Descripcion"};
@@ -627,7 +745,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion, cliente_direccion.direccion,cliente_direccion.descripcion\n"
                     + "  FROM cliente, cliente_contacto, cliente_direccion \n"
                     + " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n"
-                    + "HAVING cliente.cedula = '" + txtCedula.getText() + "'";
+                    + "HAVING cliente.cedula = '" + txtf_cedula.getText() + "'";
 
         }
         model = new DefaultTableModel(null, titulos);
@@ -651,7 +769,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 registros[8] = rs.getString("tel");
 
                 model.addRow(registros);
-                tabla.setModel(model);
+                tbl_cliente.setModel(model);
 
             }
             
@@ -661,6 +779,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al Cargar la lista de usuarios");
         }
+        */
     }
 
     public void buscarCliente() {
@@ -680,14 +799,14 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             if (rs.next()) {
 
                 lblID.setText(rs.getString("id_cliente"));
-                txtNombre.setText(rs.getString("nombre"));
-                txtApellido.setText(rs.getString("apellido"));
-                txtCedula.setText(rs.getString("cedula"));
-                comboSexo.setSelectedItem(rs.getString("sexo"));
-                txtDireccion.setText(rs.getString("direccion"));
-                comboTipoDireccion.setSelectedItem(rs.getString("direc"));
-                txtTelefono.setText(rs.getString("telefono"));
-                comboTipoContacto.setSelectedItem(rs.getString("tel"));
+                txt_nombre.setText(rs.getString("nombre"));
+                txt_apellido.setText(rs.getString("apellido"));
+                txtf_cedula.setText(rs.getString("cedula"));
+                cb_sexo.setSelectedItem(rs.getString("sexo"));
+                txt_direccion.setText(rs.getString("direccion"));
+                cb_tipo_direccion.setSelectedItem(rs.getString("direc"));
+                txt_telefono.setText(rs.getString("telefono"));
+                cb_tipo_contacto.setSelectedItem(rs.getString("tel"));
 
             } else {
 
@@ -706,21 +825,21 @@ public class p_AgregarClientes extends javax.swing.JPanel {
 
     public void seleccionarCliente() {
 
-        int fila = tabla.getSelectedRow();
+        int fila = tbl_cliente.getSelectedRow();
 
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Debes Seleccionar una Registro.");
         } else {
 
-            lblID.setText(tabla.getValueAt(fila, 0).toString());
-            txtNombre.setText(tabla.getValueAt(fila, 1).toString());
-            txtApellido.setText(tabla.getValueAt(fila, 2).toString());
-            txtCedula.setText(tabla.getValueAt(fila, 3).toString());
-            comboSexo.setSelectedItem(tabla.getValueAt(fila, 4).toString());
-            txtDireccion.setText(tabla.getValueAt(fila, 5).toString());
-            comboTipoDireccion.setSelectedItem(tabla.getValueAt(fila, 6).toString());
-            txtTelefono.setText(tabla.getValueAt(fila, 7).toString());
-            comboTipoContacto.setSelectedItem(tabla.getValueAt(fila, 8).toString());
+            lblID.setText(tbl_cliente.getValueAt(fila, 0).toString());
+            txt_nombre.setText(tbl_cliente.getValueAt(fila, 1).toString());
+            txt_apellido.setText(tbl_cliente.getValueAt(fila, 2).toString());
+            txtf_cedula.setText(tbl_cliente.getValueAt(fila, 3).toString());
+            cb_sexo.setSelectedItem(tbl_cliente.getValueAt(fila, 4).toString());
+            txt_direccion.setText(tbl_cliente.getValueAt(fila, 5).toString());
+            cb_tipo_direccion.setSelectedItem(tbl_cliente.getValueAt(fila, 6).toString());
+            txt_telefono.setText(tbl_cliente.getValueAt(fila, 7).toString());
+            cb_tipo_contacto.setSelectedItem(tbl_cliente.getValueAt(fila, 8).toString());
         }
 
     }
@@ -756,10 +875,70 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     }
 
     public void AgregarCliente() {
+        
+        
+        
+        String cedula = Lib.strCedula(txtf_cedula.getText());
+        char sex = 'M';
+        String nombre = txt_nombre.getText();
+        String apellido = txt_apellido.getText();
+        String contacto1 = txt_telefono.getText();
+        String direcion1 = txt_direccion.getText();
+        
+        
+        if(Lib.validaString(new String[]{nombre,apellido,cedula,contacto1,direcion1})){ 
+           if(11 == cedula.length()){
+               if(!cb_sexo.getSelectedItem().equals("Masculino")){
+                   sex = 'F';
+               }
+                setIndex_client(Lib.queryInsert(new String[]{"nombre","apellido","cedula","sexo"}
+                                                    ,new String[]{nombre,apellido,cedula,String.valueOf(sex)}
+                                                    ,"cliente"));
+                if(getIndex_client() > 0){
+                    Lib.queryInsert(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
+                                   ,new String[]{String.valueOf(getIndex_client()),mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()).toString(),contacto1}
+                                   ,"cliente_contacto");
 
+                    Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
+                                   ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion.getSelectedItem()).toString(),direcion1}
+                                   ,"cliente_direccion"); 
+                    
+                    if(chb_telefono_2.isSelected()){
+                        Lib.queryInsert(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
+                                   ,new String[]{String.valueOf(getIndex_client()),mp_cb_contacto.get(cb_tipo_contacto_2.getSelectedItem()).toString(),txt_telefono_2.getText()}
+                                   ,"cliente_contacto");
+                    }
+                    
+                    if(chb_direccion_2.isSelected()){
+                        Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
+                                   ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion_2.getSelectedItem()).toString(),txt_direccion_2.getText()}
+                                   ,"cliente_direccion");
+                    }
+                    
+                }else{
+                    System.err.println("Error - Al insertar cliente");
+                }
+                
+                //System.out.println("index: "+getIndex_client());        
+                /*p_AgregarClienteContacto ac = new p_AgregarClienteContacto();
+                ac.setIndex_client(getIndex_client());
+                ac.Index();
+                MantenimientoADMIN.mostrarPanel(ac);
+                */
+           }else {
+               JOptionPane.showConfirmDialog(null,"Introdusca una cedula valida.", "ERROR",JOptionPane.ERROR_MESSAGE,JOptionPane.OK_OPTION);
+           }
+           
+        }else{
+           JOptionPane.showConfirmDialog(null,"Llene todo los campos.", "ERROR",JOptionPane.ERROR_MESSAGE,JOptionPane.OK_OPTION);
+        }
+       
+        
+        
+        
         // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
 
-            int mostrar = JOptionPane.showConfirmDialog(null, "Desea Guardar este Usuario?");
+            /*int mostrar = JOptionPane.showConfirmDialog(null, "Desea Guardar este Usuario?");
 
             if (mostrar == JOptionPane.YES_NO_OPTION) {
                 
@@ -782,12 +961,11 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                     st.close();
                     JOptionPane.showMessageDialog(null, "Usuario Registrado!");
 
-                    //System.out.print(st);
+                   //System.out.print(st);
+                   */
             
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
-        }
+           
+        
     }
 
     public void actualizarCliente() {
@@ -799,14 +977,14 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 Connection conn = new conectar().conexion();
                 Statement st = conn.createStatement();
                 String id = lblID.getText();
-                String nombre = txtNombre.getText();
-                String apellido = txtApellido.getText();
-                String cedula = txtCedula.getText();
-                String sexo = comboSexo.getSelectedItem().toString();
-                String telefono = txtTelefono.getText();
-                String tipo_telefono = comboTipoContacto.getSelectedItem().toString();
-                String direccion = txtDireccion.getText();
-                String tipo_direccion = comboTipoDireccion.getSelectedItem().toString();
+                String nombre = txt_nombre.getText();
+                String apellido = txt_apellido.getText();
+                String cedula = txtf_cedula.getText();
+                String sexo = cb_sexo.getSelectedItem().toString();
+                String telefono = txt_telefono.getText();
+                String tipo_telefono = cb_tipo_contacto.getSelectedItem().toString();
+                String direccion = txt_direccion.getText();
+                String tipo_direccion = cb_tipo_direccion.getSelectedItem().toString();
 
                 String sql = "UPDATE cliente, cliente_contacto, cliente_direccion SET cliente.nombre = '" + nombre + "',cliente.apellido = '" + apellido + "',cliente.cedula = '" + cedula + "',cliente.sexo = '" + sexo + "',cliente_direccion.direccion = '" + direccion + "',cliente_direccion.descripcion  = '" + tipo_direccion + "', cliente_contacto.telefono = '" + telefono + "',cliente_contacto.descripcion = '" + tipo_telefono + "' "
                         + "    WHERE cliente.id_cliente = '" + id + "' and cliente_contacto.id_cliente = '" + id + "' and cliente_direccion.id_cliente = '" + id + "'";
@@ -855,5 +1033,24 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
         return formatoFecha.format(fecha);
 
+    }
+    public int getIndex_client() {
+        return index_client;
+    }
+
+    public void setIndex_client(int index_inser_client) {
+        this.index_client = index_inser_client;
+    }
+    
+    public void cbCargar(){
+        
+        mp_cb_contacto = Lib.mapCargar("tipo_contacto");
+        mp_cb_direccion = Lib.mapCargar("tipo_direccion");
+        
+        cb_tipo_contacto = Lib.cbCargar(cb_tipo_contacto, mp_cb_contacto);
+        cb_tipo_contacto_2 = Lib.cbCargar(cb_tipo_contacto_2, mp_cb_contacto);
+        cb_tipo_direccion = Lib.cbCargar(cb_tipo_direccion, mp_cb_direccion);
+        cb_tipo_direccion_2 = Lib.cbCargar(cb_tipo_direccion_2, mp_cb_direccion);
+        
     }
 }

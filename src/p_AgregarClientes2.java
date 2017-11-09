@@ -314,18 +314,24 @@ public class p_AgregarClientes2 extends javax.swing.JPanel {
                if(!cb_sexo.getSelectedItem().equals("Masculino")){
                    sex = 'F';
                }
-               setIndex_client(Lib.queryInsert(new String[]{"nombre","apellido","cedula","sexo"}
+                setIndex_client(Lib.queryInsert(new String[]{"nombre","apellido","cedula","sexo"}
                                                     ,new String[]{nombre,apellido,cedula,String.valueOf(sex)}
                                                     ,"cliente"));
+                
+                System.out.println("index: "+getIndex_client());        
+                p_AgregarClienteContacto ac = new p_AgregarClienteContacto();
+                ac.setIndex_client(getIndex_client());
+                ac.Index();
+                MantenimientoADMIN.mostrarPanel(ac);
+           }else {
+               JOptionPane.showConfirmDialog(null,"Introdusca una cedula valida.", "ERROR",JOptionPane.ERROR_MESSAGE,JOptionPane.OK_OPTION);
            }
            
+       }else{
+           JOptionPane.showConfirmDialog(null,"Llene todo los campos.", "ERROR",JOptionPane.ERROR_MESSAGE,JOptionPane.OK_OPTION);
        }
        
-        System.out.println("index: "+getIndex_client());
-        
-        p_AgregarClienteContacto ac = new p_AgregarClienteContacto();
-        
-        MantenimientoADMIN.mostrarPanel(ac);
+       
     }//GEN-LAST:event_btn_siguienteActionPerformed
 
     private void txtf_cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_cedulaActionPerformed

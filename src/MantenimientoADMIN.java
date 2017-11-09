@@ -1,7 +1,9 @@
 
 import Clases.Usuario;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.*;
 import java.text.*;
 import javax.swing.ImageIcon;
@@ -66,13 +68,14 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         }
     }
     public void frame () {
-    
+        /*
         AdministrarUsuarios n = new AdministrarUsuarios();
         jDesktopPane.add(n);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = n.getSize();
         n.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         n.show();
+        */
 
     }
 
@@ -85,8 +88,6 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane = new javax.swing.JDesktopPane();
-        p_fondo = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -94,47 +95,18 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         lblFecha = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblHora = new javax.swing.JLabel();
+        p_fondo = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnCliente = new javax.swing.JMenu();
         btnClientes = new javax.swing.JMenuItem();
         btnUsuarios = new javax.swing.JMenu();
         btnAdministrarUsuario = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jDesktopPane.setForeground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout p_fondoLayout = new javax.swing.GroupLayout(p_fondo);
-        p_fondo.setLayout(p_fondoLayout);
-        p_fondoLayout.setHorizontalGroup(
-            p_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1004, Short.MAX_VALUE)
-        );
-        p_fondoLayout.setVerticalGroup(
-            p_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
-        );
-
-        jDesktopPane.setLayer(p_fondo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
-        jDesktopPane.setLayout(jDesktopPaneLayout);
-        jDesktopPaneLayout.setHorizontalGroup(
-            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(p_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jDesktopPaneLayout.setVerticalGroup(
-            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(p_fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(jDesktopPane, java.awt.BorderLayout.CENTER);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.gray, null, null));
 
@@ -165,7 +137,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 585, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFecha)
@@ -191,6 +163,22 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
+        p_fondo.setMaximumSize(new java.awt.Dimension(850, 650));
+        p_fondo.setMinimumSize(new java.awt.Dimension(850, 650));
+
+        javax.swing.GroupLayout p_fondoLayout = new javax.swing.GroupLayout(p_fondo);
+        p_fondo.setLayout(p_fondoLayout);
+        p_fondoLayout.setHorizontalGroup(
+            p_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        p_fondoLayout.setVerticalGroup(
+            p_fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(p_fondo, java.awt.BorderLayout.CENTER);
 
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clients-icon.png"))); // NOI18N
         btnCliente.setText("Clientes");
@@ -220,36 +208,81 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
         jMenuBar1.add(btnUsuarios);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/proveedor-icon.png"))); // NOI18N
+        jMenu1.setText("Proveedores");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/proveedor add-icon.png"))); // NOI18N
+        jMenuItem1.setText("Agregar Proveedor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Almacen");
+
+        jMenuItem2.setText("Almacen");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdministrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarUsuarioActionPerformed
-       AdministrarUsuarios n = new AdministrarUsuarios();
+        /*
+        AdministrarUsuarios n = new AdministrarUsuarios();
         jDesktopPane.add(n);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = n.getSize();
         n.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         n.show();
+        */
     }//GEN-LAST:event_btnAdministrarUsuarioActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        //AgregarClientes ac = new AgregarClientes();
-        p_AgregarClientes2 ac = new p_AgregarClientes2();
-        
-        //jDesktopPane.add(ac);
-        //Dimension desktopSize = jDesktopPane.getSize();
-        //Dimension desktopSize = p_fondo.getSize();
-        //Dimension FrameSize = ac.getSize();
-        //ac.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        //lb_carro.setVisible(false);
-        
-        //ac.setVisible(true);                           
-        //p_fondo.add(ac,"p_fondo");
-        
-        mostrarPanel(ac);
+        /*
+        AgregarClientes ac = new AgregarClientes();
+        jDesktopPane.add(ac);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = ac.getSize();
+        ac.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        ac.show();
+        */
+        p_AgregarClientes ag = new p_AgregarClientes();
+        mostrarPanel(ag);
     }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       /*
+        Proveedor p = new Proveedor();
+        jDesktopPane.add(p);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = p.getSize();
+        p.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        p.show();
+        */
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        /*Vehiculos v = new Vehiculos();
+        jDesktopPane.add(v);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = v.getSize();
+        v.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        v.show();
+        */
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,19 +334,21 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenu btnCliente;
     private javax.swing.JMenuItem btnClientes;
     private javax.swing.JMenu btnUsuarios;
-    private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
     private static javax.swing.JPanel p_fondo;
     // End of variables declaration//GEN-END:variables
-
-public static void mostrarPanel(javax.swing.JPanel p_mostrar){
+    public static void mostrarPanel(javax.swing.JPanel p_mostrar){
 
         p_mostrar.setSize(p_fondo.getSize());
         p_mostrar.setLocation(p_fondo.getLocation());
@@ -322,8 +357,7 @@ public static void mostrarPanel(javax.swing.JPanel p_mostrar){
         p_fondo.revalidate();
         p_fondo.repaint();
 
-}
-
+    }
 
 
 }

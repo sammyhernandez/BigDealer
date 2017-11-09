@@ -19,6 +19,7 @@ public class p_AgregarClienteContacto extends javax.swing.JPanel {
      */
     public p_AgregarClienteContacto() {
         initComponents();
+        
     }
 
     /**
@@ -470,6 +471,11 @@ public class p_AgregarClienteContacto extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
+    
+    public void Index(){
+        lblID.setText(String.valueOf(getIndex_client()));
+    }
+    
     public int getIndex_client() {
         return index_client;
     }
