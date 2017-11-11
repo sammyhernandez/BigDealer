@@ -67,33 +67,38 @@ public class Lib {
          return model;
      }    
     public static DefaultTableModel tblCargar(DefaultTableModel model,ResultSet rs){
-         
-         
-         try {
-             
-            
-            ResultSetMetaData rsmd = rs.getMetaData();
-            
-            int cant_colum = rsmd.getColumnCount();
-            /*
-            for(int i = 1;i < cant_colum;i++){
-                model.addColumn(rsmd.getColumnLabel(i));
-            }
-            */    
-            while(rs.next()){
-                Object[] fila = new Object[cant_colum];
-                for(int i = 0;i < cant_colum; i++){
-                    fila[i] = rs.getObject(i+1);
+        
+        
+        try {
+            if(rs.next()){
+                try {
+                    
+                    rs.beforeFirst();
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int cant_colum = rsmd.getColumnCount();
+                    /*
+                    for(int i = 1;i < cant_colum;i++){
+                    model.addColumn(rsmd.getColumnLabel(i));
+                    }
+                    */
+                    while(rs.next()){
+                        Object[] fila = new Object[cant_colum];
+                        for(int i = 0;i < cant_colum; i++){
+                            fila[i] = rs.getObject(i+1);
+                        }
+                        model.addRow(fila);
+                    }
+                    rs.close();
+                    
+                }catch(SQLException esql){
+                    System.err.print("Error SQL: "+esql.getMessage());
                 }
-                model.addRow(fila);
             }
-            rs.close();
-                        
-         }catch(SQLException esql){
-            System.err.print(esql);
-         }
-         
-         return model;
+            
+        } catch (SQLException ex) {
+            System.err.print("Error SQL: "+ex.getMessage());;
+        }
+        return model;
      }    
     public static ResultSet queryArray(String select,String from){
      ResultSet rs = null;
@@ -115,14 +120,16 @@ public class Lib {
      ResultSet rs = null;
         try {
 
-            conectar co = new conectar();
-            Connection conn = co.conexion();
+            
+            Connection conn = new conectar().conexion();
             Statement st = conn.createStatement();
-            rs = st.executeQuery("SELECT "+ select +" FROM "+ from +" WHERE "+ where);
-
-            conn.close();
-            st.close();
+            String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where;
+            rs = st.executeQuery(qry);
+            System.out.println(qry);
+            
+            
         } catch (SQLException ex) {
+            System.err.println("Error: "+ex.getMessage());
             Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
@@ -175,6 +182,8 @@ public class Lib {
 
                 }
                 rs.close();
+            }else{
+                System.err.println("ERROR: No se insertaron ningun registro.");
             }
 
             psInsert.close();
@@ -230,5 +239,48 @@ public class Lib {
         return map;
     }
   
+    public static int queryUpdate(String[] col_name,String[] col_value,String tbl_name,String where){
+        int clave_generada = 0;
+        try {
+        
+            Connection conn = new conectar().conexion();
+            PreparedStatement psInsert;
+
+            String sql = "UPDATE "+tbl_name+" SET ";
+            
+            for(int i=0;i < col_name.length;i++){
+                sql +=col_name[i]+ " =?,";
+               
+            }
+
+            sql = sql.substring(0,sql.length()-1)+" WHERE "+ where;
+            psInsert = conn.prepareStatement(sql);
+            for(int j=0;j < col_value.length;j++){
+               psInsert.setString(j+1, col_value[j]); 
+            }
+
+            int fila = psInsert.executeUpdate();
+
+            if (fila > 0){
+                ResultSet rs = psInsert.getGeneratedKeys();
+
+                if(rs.next()){
+
+                    clave_generada = rs.getInt(1);
+                }
+                rs.close();
+            }else{
+                System.err.println("ERROR: No se actualiaron ningun registro.");
+            }
+
+            psInsert.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return clave_generada;
+    }
     
 }

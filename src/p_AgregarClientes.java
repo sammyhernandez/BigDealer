@@ -8,10 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -35,6 +34,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         //cargar("");
         lblFecha.setText(fecha());
         cbCargar();
+        cargar("");
         
     }
 
@@ -60,7 +60,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             System.out.println("Error en el campo Cedula");
             System.out.println(e.toString());
         }
-        txtBuscar = new javax.swing.JFormattedTextField(maskCedula);
+        ftxt_buscar = new javax.swing.JFormattedTextField(maskCedula);
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txt_apellido = new javax.swing.JTextField();
@@ -82,7 +82,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             System.out.println(e.toString());
         }
         txtf_cedula = new javax.swing.JFormattedTextField(maskCedula1);
-        txt_telefono = new javax.swing.JFormattedTextField();
         cb_tipo_contacto = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         cb_tipo_direccion = new javax.swing.JComboBox();
@@ -90,7 +89,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
-        txt_telefono_2 = new javax.swing.JFormattedTextField();
         cb_tipo_contacto_2 = new javax.swing.JComboBox();
         txt_direccion_2 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -100,6 +98,8 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         chb_direccion_2 = new javax.swing.JCheckBox();
         chb_telefono_2 = new javax.swing.JCheckBox();
+        txt_telefono = new javax.swing.JFormattedTextField();
+        txt_telefono_2 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_cliente = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -144,7 +144,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMostrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ftxt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -154,7 +154,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
                     .addComponent(btnMostrar)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftxt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -187,12 +187,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             }
         });
 
-        txt_telefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_telefonoActionPerformed(evt);
-            }
-        });
-
         cb_tipo_contacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_tipo_contactoActionPerformed(evt);
@@ -217,13 +211,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         txt_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_nombreActionPerformed(evt);
-            }
-        });
-
-        txt_telefono_2.setEnabled(false);
-        txt_telefono_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_telefono_2ActionPerformed(evt);
             }
         });
 
@@ -265,6 +252,19 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             }
         });
 
+        txt_telefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefonoActionPerformed(evt);
+            }
+        });
+
+        txt_telefono_2.setEnabled(false);
+        txt_telefono_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefono_2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -290,24 +290,23 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                             .addComponent(jLabel15)
                             .addComponent(jLabel9))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_direccion_2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(txt_telefono_2))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel14)
-                                .addGap(2, 2, 2)
-                                .addComponent(cb_tipo_contacto_2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                                .addComponent(chb_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cb_tipo_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chb_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(chb_direccion_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_telefono_2)
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel14)
+                                .addGap(2, 2, 2)
+                                .addComponent(cb_tipo_contacto_2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(chb_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +330,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel10)
                                 .addGap(4, 4, 4)
                                 .addComponent(cb_tipo_contacto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -358,12 +357,12 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(lblID)))
-                .addGap(11, 11, 11)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtf_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabel5)
+                        .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cb_tipo_contacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -381,11 +380,11 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel11)))
-                .addGap(6, 6, 6)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
+                        .addComponent(jLabel9)
+                        .addComponent(txt_telefono_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel14)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cb_tipo_contacto_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -550,8 +549,8 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscarCliente();
-        cargar(txtf_cedula.getText());
+        
+        cargar(Lib.strCedula(ftxt_buscar.getText().toString()));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
@@ -567,10 +566,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private void cb_sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_sexoActionPerformed
-
-    private void txt_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_telefonoActionPerformed
 
     private void cb_tipo_contactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_contactoActionPerformed
         // TODO add your handling code here:
@@ -589,8 +584,8 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_clienteMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        //limpiar();
-        
+        limpiar();
+        cargar("");
         //System.out.println("Key: "+mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()));
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -622,10 +617,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void txt_telefono_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefono_2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_telefono_2ActionPerformed
-
     private void cb_tipo_contacto_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipo_contacto_2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_tipo_contacto_2ActionPerformed
@@ -654,9 +645,20 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_chb_direccion_2ActionPerformed
 
+    private void txt_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefonoActionPerformed
+
+    private void txt_telefono_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefono_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefono_2ActionPerformed
+
     private Map mp_cb_contacto;
     private Map mp_cb_direccion;
     private int index_client;
+    private final String v_tbl_name_cliente = "cliente";
+    private final String v_tbl_name_cliente_contacto = "cliente_contacto";
+    private final String v_tbl_name_cliente_direccion = "cliente_direccion";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
@@ -672,6 +674,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JComboBox cb_tipo_direccion_2;
     private javax.swing.JCheckBox chb_direccion_2;
     private javax.swing.JCheckBox chb_telefono_2;
+    private javax.swing.JFormattedTextField ftxt_buscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -695,7 +698,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblID;
     private javax.swing.JTable tbl_cliente;
-    private javax.swing.JFormattedTextField txtBuscar;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_direccion_2;
@@ -707,24 +709,35 @@ public class p_AgregarClientes extends javax.swing.JPanel {
 
     private void limpiar() {
         //Boton limpiar
-        lblID.setText(null);
+        lblID.setText("...");
         txt_nombre.setText(null);
         txt_apellido.setText(null);
         txtf_cedula.setText(null);
         txt_telefono.setText(null);
         txt_direccion.setText(null);
-        txtBuscar.setText(null);
+        ftxt_buscar.setText(null);
+        txt_direccion_2.setText(null);
+        txt_telefono_2.setText(null);
 
     }
 
-    void cargar(String valor) {
+    public void cargar(String valor) {
         
+        String col_name = " id_cliente , nombre , apellido , cedula , sexo ";
+        String tbl_name = " cliente ";
         
-        if(valor.equals("")){
-            String col_name = " id_cliente , nombre , apellido , cedula , sexo ";
-            String tbl_name = " cliente ";
+        //Lib.queryArray(col_name, tbl_name," cedula = '"+ valor + "'");
+        if(valor.trim().equals("")){
+           
+            tbl_cliente = limpiarTabla(tbl_cliente);
             tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),Lib.queryArray(col_name, tbl_name)));
-            
+            //System.out.println("valor = "+valor);
+        }else {
+            //System.out.println("hola: " +valor);
+            tbl_cliente = limpiarTabla(tbl_cliente);
+            tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),Lib.queryArray(col_name, tbl_name," cedula LIKE '%"+ valor + "%'")));
+            //tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),"SELECT  id_cliente , nombre , apellido , cedula , sexo  FROM  cliente  WHERE cedula = '"+ valor+ "'"));
+        
         }
         
         /*
@@ -782,47 +795,6 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         */
     }
 
-    public void buscarCliente() {
-
-        Connection conn = new conectar().conexion();
-
-        try {
-
-            String sql = "Select cliente.id_cliente, cliente.nombre, cliente.apellido, cliente.cedula, cliente.sexo, cliente_contacto.telefono,cliente_contacto.descripcion as tel, cliente_direccion.direccion,cliente_direccion.descripcion as direc \n"
-                    + "  FROM cliente, cliente_contacto, cliente_direccion \n"
-                    + " WHERE cliente.id_cliente = cliente_contacto.id_cliente and cliente.id_cliente = cliente_direccion.id_cliente\n"
-                    + "HAVING cliente.cedula = '" + txtBuscar.getText() + "'";
-
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-
-                lblID.setText(rs.getString("id_cliente"));
-                txt_nombre.setText(rs.getString("nombre"));
-                txt_apellido.setText(rs.getString("apellido"));
-                txtf_cedula.setText(rs.getString("cedula"));
-                cb_sexo.setSelectedItem(rs.getString("sexo"));
-                txt_direccion.setText(rs.getString("direccion"));
-                cb_tipo_direccion.setSelectedItem(rs.getString("direc"));
-                txt_telefono.setText(rs.getString("telefono"));
-                cb_tipo_contacto.setSelectedItem(rs.getString("tel"));
-
-            } else {
-
-                JOptionPane.showMessageDialog(this, "El Usuario no esta Registrado");
-            }
-            
-            rs.close();
-            st.close();
-            conn.close();
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
-
-        }
-
-    }
-
     public void seleccionarCliente() {
 
         int fila = tbl_cliente.getSelectedRow();
@@ -836,6 +808,12 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             txt_apellido.setText(tbl_cliente.getValueAt(fila, 2).toString());
             txtf_cedula.setText(tbl_cliente.getValueAt(fila, 3).toString());
             cb_sexo.setSelectedItem(tbl_cliente.getValueAt(fila, 4).toString());
+            String id = lblID.getText();
+            ResultSet rs_contacto = Lib.queryArray("id_cliente_contacto,id_tipo_contacto,descripcion",v_tbl_name_cliente_contacto, "id_cliente = "+id+ "ORDER BY id_cliente_contacto LIMIT 2");
+            ResultSet rs_direccion = Lib.queryArray("id_cliente_direccion,id_tipo_direccion,descripcion",v_tbl_name_cliente_direccion, "id_cliente = "+id+ "ORDER BY id_cliente_direccion LIMIT 2");
+            
+            
+            
             txt_direccion.setText(tbl_cliente.getValueAt(fila, 5).toString());
             cb_tipo_direccion.setSelectedItem(tbl_cliente.getValueAt(fila, 6).toString());
             txt_telefono.setText(tbl_cliente.getValueAt(fila, 7).toString());
@@ -893,26 +871,26 @@ public class p_AgregarClientes extends javax.swing.JPanel {
                }
                 setIndex_client(Lib.queryInsert(new String[]{"nombre","apellido","cedula","sexo"}
                                                     ,new String[]{nombre,apellido,cedula,String.valueOf(sex)}
-                                                    ,"cliente"));
+                                                    ,v_tbl_name_cliente));
                 if(getIndex_client() > 0){
                     Lib.queryInsert(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
                                    ,new String[]{String.valueOf(getIndex_client()),mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()).toString(),contacto1}
-                                   ,"cliente_contacto");
+                                   ,v_tbl_name_cliente_contacto);
 
                     Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
                                    ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion.getSelectedItem()).toString(),direcion1}
-                                   ,"cliente_direccion"); 
+                                   ,v_tbl_name_cliente_direccion); 
                     
                     if(chb_telefono_2.isSelected()){
                         Lib.queryInsert(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
                                    ,new String[]{String.valueOf(getIndex_client()),mp_cb_contacto.get(cb_tipo_contacto_2.getSelectedItem()).toString(),txt_telefono_2.getText()}
-                                   ,"cliente_contacto");
+                                   ,v_tbl_name_cliente_contacto);
                     }
                     
                     if(chb_direccion_2.isSelected()){
                         Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
                                    ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion_2.getSelectedItem()).toString(),txt_direccion_2.getText()}
-                                   ,"cliente_direccion");
+                                   ,v_tbl_name_cliente_direccion);
                     }
                     
                 }else{
@@ -973,7 +951,55 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         int mensaje = JOptionPane.showConfirmDialog(this, "Desea Guardar los cambios Actualizados?");
 
         if (mensaje == JOptionPane.YES_NO_OPTION) {
-            try {
+            
+            
+            String id = lblID.getText();
+            String nombre = txt_nombre.getText();
+            String apellido = txt_apellido.getText();
+            String cedula = Lib.strCedula(txtf_cedula.getText());
+            String sexo = "M";
+            String contacto1 = txt_telefono.getText();
+            mp_cb_direccion.get(cb_tipo_direccion.getSelectedItem()).toString();
+            String tipo_contacto = mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()).toString();
+            String direccion1 = txt_direccion.getText();
+            String tipo_direccion = mp_cb_direccion.get(cb_tipo_direccion.getSelectedItem()).toString();
+            if(!cb_sexo.getSelectedItem().equals("Masculino")){
+                   sexo = "F";
+               }
+            if(!id.trim().equals("") && id.trim().equals("...")){
+                if(Lib.validaString(new String[]{nombre,apellido,cedula,contacto1,direccion1})){ 
+                    if(11 == cedula.length()){
+
+                        int filas = Lib.queryUpdate(new String[]{"nombre","apellido","cedula","sexo"}
+                                                   ,new String[]{nombre,apellido,cedula,sexo}
+                                                   ,v_tbl_name_cliente,"id_cliente = " + id);
+                        if(filas > 0){
+                            Lib.queryUpdate(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
+                                           ,new String[]{id,mp_cb_contacto.get(cb_tipo_contacto.getSelectedItem()).toString(),contacto1}
+                                           ,v_tbl_name_cliente_contacto,"");
+
+                            Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
+                                           ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion.getSelectedItem()).toString(),direcion1}
+                                           ,v_tbl_name_cliente_direccion); 
+
+                            if(chb_telefono_2.isSelected()){
+                                Lib.queryInsert(new String[]{"id_cliente","id_tipo_contacto","descripcion"}
+                                           ,new String[]{String.valueOf(getIndex_client()),mp_cb_contacto.get(cb_tipo_contacto_2.getSelectedItem()).toString(),txt_telefono_2.getText()}
+                                           ,v_tbl_name_cliente_contacto);
+                            }
+
+                            if(chb_direccion_2.isSelected()){
+                                Lib.queryInsert(new String[]{"id_cliente","id_tipo_direccion","descripcion"}
+                                           ,new String[]{String.valueOf(getIndex_client()),mp_cb_direccion.get(cb_tipo_direccion_2.getSelectedItem()).toString(),txt_direccion_2.getText()}
+                                           ,v_tbl_name_cliente_direccion);
+                            }
+                        }
+
+                    }
+                }
+            
+            }
+            /*try {
                 Connection conn = new conectar().conexion();
                 Statement st = conn.createStatement();
                 String id = lblID.getText();
@@ -997,6 +1023,7 @@ public class p_AgregarClientes extends javax.swing.JPanel {
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
+            */
         }
     }
 
@@ -1052,5 +1079,24 @@ public class p_AgregarClientes extends javax.swing.JPanel {
         cb_tipo_direccion = Lib.cbCargar(cb_tipo_direccion, mp_cb_direccion);
         cb_tipo_direccion_2 = Lib.cbCargar(cb_tipo_direccion_2, mp_cb_direccion);
         
+    }
+    
+    public JTable limpiarTabla(JTable tbl){
+    
+        if(tbl.getRowCount() > 0){
+            DefaultTableModel model = (DefaultTableModel)tbl.getModel();
+            
+            int fila = model.getRowCount();
+            
+            for(int i=0;i < fila;i++ ){
+                
+                model.removeRow(0);
+            }
+            
+            tbl.setModel(model);
+            
+        }
+        
+        return tbl;
     }
 }
