@@ -365,7 +365,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenu btnCliente;
     private javax.swing.JMenuItem btnClientes;
     private javax.swing.JMenu btnUsuarios;
-    private javax.swing.JDesktopPane jDesktopPane;
+    public static javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

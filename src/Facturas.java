@@ -1,6 +1,7 @@
 
 
 import Connection.conectar;
+
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,9 +10,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.swing.JRViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,7 +43,8 @@ public class Facturas extends javax.swing.JInternalFrame {
         comboColor();
         txtFecha.setText(fecha());
         nextID();
-        
+        this.updateUI();
+       
     }
 
      public void comboColor() {
@@ -172,7 +182,7 @@ public class Facturas extends javax.swing.JInternalFrame {
 
         String id = lblNoFactura.getText();
         System.out.print(id);
-        String cliente = txtCliente.getText();
+        String cliente = txtNombreCliente.getText();
         String marca = txtMarca.getText();
         String modelo = txtModelo.getText();
         String color = comboColor.getSelectedItem().toString();
@@ -212,7 +222,28 @@ public class Facturas extends javax.swing.JInternalFrame {
 
     }
 
+   public void imprimir() {
    
+       JDialog viewer = new JDialog(new JFrame(),"Factura",true);
+        conectar conect = new conectar();
+            Connection cn = conect.conexion();
+       try {
+           
+           JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Sammy\\Documents\\NetBeansProjects\\BigDealer\\src\\Reportes\\factura.jrxml");
+           JasperPrint jasperprint = JasperFillManager.fillReport(reporte, null,conect.conexion());
+           
+           
+           viewer.setSize(1000,700);
+           viewer.setLocationRelativeTo(null);
+           JRViewer jrv = new JRViewer(jasperprint);
+           viewer.getContentPane().add(jrv);
+           viewer.setVisible(true);
+           
+       }catch(JRException e ) {
+           
+           e.printStackTrace();
+       }
+   }
        
 
 public String convertirFecha(String fecha){        
@@ -237,7 +268,7 @@ public static String fecha () {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtCliente = new javax.swing.JTextField();
+        txtNombreCliente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -262,7 +293,7 @@ public static String fecha () {
             System.out.println(e.toString());
         }
         txtFecha = new javax.swing.JFormattedTextField(maskFecha);
-        jButton1 = new javax.swing.JButton();
+        btnBuscarCliente = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -304,10 +335,10 @@ public static String fecha () {
 
         jLabel10.setText("Fecha:");
 
-        jButton1.setText("Buscar cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarCliente.setText("Buscar cliente");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarClienteActionPerformed(evt);
             }
         });
 
@@ -338,9 +369,9 @@ public static String fecha () {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnBuscarCliente)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -370,11 +401,11 @@ public static String fecha () {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscarCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -462,6 +493,11 @@ public static String fecha () {
         btnEliminar.setText("Eliminar");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar ");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -472,6 +508,11 @@ public static String fecha () {
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Impresora-icon.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -598,18 +639,46 @@ public static String fecha () {
         cargar("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         
-        datosClientes dc = new datosClientes();
-        dc.setVisible(true);
+      datosClientes d = new datosClientes();
+      Dimension desktopSize = MantenimientoADMIN.jDesktopPane.getSize();
+        Dimension FrameSize = d.getSize();
+        d.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+      MantenimientoADMIN.jDesktopPane.add(d);
+      d.toFront();
+      d.show();
+      
+      
+        dispose();
+      
+        
+       
+        
+       /* datosClientes dc = new datosClientes();
+        dc.setVisible(true);*/
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+  int mensaje = JOptionPane.showConfirmDialog(this, "Salir?");
+
+        if(mensaje == JOptionPane.YES_NO_OPTION) {
+
+            dispose();
+        }        
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        imprimir();
+    }//GEN-LAST:event_btnImprimirActionPerformed
     
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnImprimir;
@@ -617,7 +686,6 @@ public static String fecha () {
     private javax.swing.JButton btnMotrarTodo;
     private javax.swing.JButton btnSalir;
     public javax.swing.JComboBox<String> comboColor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -639,11 +707,11 @@ public static String fecha () {
     private javax.swing.JTable tabla;
     public javax.swing.JFormattedTextField txtAno;
     public javax.swing.JFormattedTextField txtBuscar;
-    public static javax.swing.JTextField txtCliente;
     public javax.swing.JFormattedTextField txtFecha;
-    public javax.swing.JTextField txtMarca;
+    public static javax.swing.JTextField txtMarca;
     public javax.swing.JTextField txtMatricula;
     public javax.swing.JTextField txtModelo;
+    public static javax.swing.JTextField txtNombreCliente;
     public javax.swing.JFormattedTextField txtTotal;
     public javax.swing.JTextField txtVendedor;
     // End of variables declaration//GEN-END:variables

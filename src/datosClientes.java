@@ -1,5 +1,7 @@
 
 import Connection.conectar;
+import java.awt.Dimension;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,17 +19,16 @@ import javax.swing.text.MaskFormatter;
  *
  * @author Sammy
  */
-public class datosClientes extends javax.swing.JFrame {
+public class datosClientes extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form datosClientes
+     * Creates new form datos
      */
     public datosClientes() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
-    private void limpiar() {
+     private void limpiar() {
                     //Boton limpiar
                         lblID1.setText(null);
                         txtNombre1.setText(null);
@@ -118,12 +119,50 @@ public class datosClientes extends javax.swing.JFrame {
                       ex.printStackTrace();
                 }
             }
+    
+    public void aceptar () {
+    
+        
+            
+            Facturas f = new Facturas();
+            f.txtNombreCliente.setText(txtNombre1.getText()+" "+ txtApellido1.getText());
+            
+           JOptionPane.showMessageDialog(null,f.txtNombreCliente.getText().toString());
+           System.out.println();
+           f.updateUI();
+            dispose();       
+            
+          
+      MantenimientoADMIN.jDesktopPane.add(f);
+       Dimension desktopSize = MantenimientoADMIN.jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+     
+      f.toFront();
+      f.show();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        btnBuscar1 = new javax.swing.JButton();
+        btnMostrar1 = new javax.swing.JButton();
+        MaskFormatter maskCedula11  = null;
+
+        try{
+            maskCedula11 =  new MaskFormatter("###-#######-#");
+            maskCedula11.setPlaceholder(" ");
+
+        }catch(Exception e) {
+            System.out.println("Error en el campo Cedula");
+            System.out.println(e.toString());
+        }
+        txtBuscar1 = new javax.swing.JFormattedTextField(maskCedula11);
         jPanel6 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txtApellido1 = new javax.swing.JTextField();
@@ -153,24 +192,8 @@ public class datosClientes extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         lblID1 = new javax.swing.JLabel();
         txtNombre1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        btnBuscar1 = new javax.swing.JButton();
-        btnMostrar1 = new javax.swing.JButton();
-        MaskFormatter maskCedula11  = null;
 
-        try{
-            maskCedula11 =  new MaskFormatter("###-#######-#");
-            maskCedula11.setPlaceholder(" ");
-
-        }catch(Exception e) {
-            System.out.println("Error en el campo Cedula");
-            System.out.println(e.toString());
-        }
-        txtBuscar1 = new javax.swing.JFormattedTextField(maskCedula11);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jButton2.setText("Salir");
 
         jPanel5.setBackground(new java.awt.Color(255, 102, 51));
 
@@ -192,6 +215,53 @@ public class datosClientes extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
+        );
+
+        jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Cliente"));
+
+        btnBuscar1.setText("Buscar");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+
+        btnMostrar1.setText("Mostrar todo");
+        btnMostrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrar1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBuscar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMostrar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar1)
+                    .addComponent(btnMostrar1)
+                    .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
@@ -349,55 +419,6 @@ public class datosClientes extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jButton2.setText("Salir");
-
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Cliente"));
-
-        btnBuscar1.setText("Buscar");
-        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar1ActionPerformed(evt);
-            }
-        });
-
-        btnMostrar1.setText("Mostrar todo");
-        btnMostrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrar1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBuscar1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMostrar1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar1)
-                    .addComponent(btnMostrar1)
-                    .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -441,6 +462,20 @@ public class datosClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        aceptar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        buscarCliente();
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnMostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrar1ActionPerformed
+
+        limpiar();
+        nextID();
+    }//GEN-LAST:event_btnMostrar1ActionPerformed
+
     private void txtApellido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellido1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellido1ActionPerformed
@@ -465,59 +500,6 @@ public class datosClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombre1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            Facturas f = new Facturas();
-            f.txtCliente.setText(txtNombre1.getText()+" "+txtApellido1.getText());
-            System.out.println(txtNombre1.getText()  +" "+txtApellido1.getText());
-            
-            System.out.println(f.txtCliente.toString());
-            dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        buscarCliente();
-    }//GEN-LAST:event_btnBuscar1ActionPerformed
-
-    private void btnMostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrar1ActionPerformed
-
-        limpiar();
-        nextID();
-    }//GEN-LAST:event_btnMostrar1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(datosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(datosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(datosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(datosClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new datosClientes().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar1;
@@ -541,11 +523,11 @@ public class datosClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblID1;
-    static javax.swing.JTextField txtApellido1;
+    public static javax.swing.JTextField txtApellido1;
     private javax.swing.JFormattedTextField txtBuscar1;
     private javax.swing.JFormattedTextField txtCedula1;
     private javax.swing.JTextField txtDireccion1;
-    static javax.swing.JTextField txtNombre1;
+    public static javax.swing.JTextField txtNombre1;
     private javax.swing.JFormattedTextField txtTelefono1;
     // End of variables declaration//GEN-END:variables
 }
