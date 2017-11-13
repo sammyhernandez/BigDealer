@@ -102,10 +102,12 @@ public class Facturas extends javax.swing.JInternalFrame {
             
             if(valor.equals("")){
             
-                       sql = "SELECT * FROM factura";
+                       sql = "SELECT f.id_factura, f.clientes, f.marca, f.modelo, f.anio, f.color, f.oficial_ventas ,f.fecha,f.precioTotal, d.id_matricula\n" +
+                             " FROM factura f,  detalle_factura d \n" +
+                             " WHERE f.id_factura = d.id_factura";
             } else{
                     
-                       sql = "Select id_factura,cliente,marca,modelo,anio,color,matricula,vendedor,fecha,precioTotal"
+                       sql = "Select id_factura,cliente,marca,modelo,anio,color,detalle_factura.id_matricula,vendedor,fecha,precioTotal"
                            + " FROM factura"
                            + "WHERE cliente = '"+txtBuscar.getText()+"'";
             
@@ -121,13 +123,13 @@ public class Facturas extends javax.swing.JInternalFrame {
                 while(rs.next()) {
                     
                     registros[0] = rs.getString("id_factura"); 
-                    registros[1] = rs.getString("cliente");  
+                    registros[1] = rs.getString("clientes");  
                     registros[2] = rs.getString("marca");
                     registros[3] = rs.getString("modelo"); 
                     registros[4] = rs.getString("anio");
                     registros[5] = rs.getString("color");
-                    registros[6] = rs.getString("matricula");
-                    registros[7] = rs.getString("vendedor");
+                    registros[6] = rs.getString("id_matricula");
+                    registros[7] = rs.getString("oficial_ventas");
                     registros[8] = rs.getString("fecha");
                     registros[9] = rs.getString("precioTotal");
              
@@ -202,14 +204,15 @@ public class Facturas extends javax.swing.JInternalFrame {
                               Class.forName("com.mysql.jdbc.Driver").newInstance();
                               conn = DriverManager.getConnection(url, usuario, pass);
                               Statement st = conn.createStatement();
+                              Statement st2 = conn.createStatement();
 
                               int mostrar = JOptionPane.showConfirmDialog(null,"Desea Guardar esta Factura?");
 
 
                               if(mostrar == JOptionPane.YES_NO_OPTION) {
 
-                             st.executeUpdate("INSERT INTO factura (cliente, marca, modelo, anio, color, matricula, vendedor, fecha, precioTotal) VALUES('"+cliente+"','"+marca+"','"+modelo+"','"+anio+"','"+color+"','"+matricula+"','"+vendedor+"','"+fecha+"','"+precioTotal+"')");
-                             
+                             st.executeUpdate("INSERT INTO factura (clientes, marca, modelo, anio, color, oficial_ventas, fecha, precioTotal) VALUES('"+cliente+"','"+marca+"','"+modelo+"','"+anio+"','"+color+"','"+vendedor+"','"+fecha+"','"+precioTotal+"')");
+                             st2.executeUpdate("INSERT INTO detalle_factura (id_matricula, id_factura) VALUES('"+matricula+"','"+id+"')");
                               st.close();
                               JOptionPane.showMessageDialog(null, "Factura registrada con exito!");
 
@@ -295,11 +298,11 @@ public static String fecha () {
         txtFecha = new javax.swing.JFormattedTextField(maskFecha);
         btnBuscarCliente = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         lblNoFactura = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         txtBuscar = new javax.swing.JFormattedTextField();
@@ -343,6 +346,9 @@ public static String fecha () {
         });
 
         jButton2.setText("Buscar Vehiculo");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setText("Precio:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -390,9 +396,14 @@ public static String fecha () {
                             .addComponent(jLabel10)
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotal)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -421,7 +432,10 @@ public static String fecha () {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -465,9 +479,6 @@ public static String fecha () {
                     .addComponent(jLabel7))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel9.setText("Total:");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -587,17 +598,13 @@ public static String fecha () {
                         .addComponent(btnBuscar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(382, 382, 382)
-                                .addComponent(btnMotrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMotrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -621,11 +628,8 @@ public static String fecha () {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                        .addGap(26, 26, 26))
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
