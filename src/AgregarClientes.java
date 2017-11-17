@@ -100,10 +100,6 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
 
     public void buscarCliente() {
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
          
@@ -114,8 +110,8 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
                              "HAVING cliente.cedula = '"+txtBuscar.getText()+"'";
         
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         
@@ -199,10 +195,6 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
     
  public void AgregarCliente() {
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
 
         String id = lblID.getText();
         System.out.print(id);
@@ -220,8 +212,8 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
                
   // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
                         try{
-                              Class.forName("com.mysql.jdbc.Driver").newInstance();
-                              conn = DriverManager.getConnection(url, usuario, pass);
+                              conectar conect = new conectar();
+                              Connection conn = conect.conexion();
                               Statement st = conn.createStatement();
 
                               int mostrar = JOptionPane.showConfirmDialog(null,"Desea Guardar este Usuario?");
@@ -247,10 +239,6 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
  
  public void actualizarCliente(){
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
           
@@ -268,8 +256,8 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
                 + "    WHERE cliente.id_cliente = '"+id+"' and cliente_contacto.id_cliente = '"+id+"' and cliente_direccion.id_cliente = '"+id+"'";
         
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         
         int mensaje = JOptionPane.showConfirmDialog(this, "Desea Guardar los cambios Actualizados?");
@@ -288,10 +276,6 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
       
       public void eliminarUsuario(){
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
         String id = lblID.getText();
@@ -308,8 +292,8 @@ public class AgregarClientes extends javax.swing.JInternalFrame {
         String sql1 = "DELETE FROM cliente_contacto WHERE cliente_contacto.id_cliente = '"+id+"'";
         String sql2 = "DELETE FROM cliente_direccion WHERE cliente_direccion.id_cliente = '"+id+"'";
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         
          int mensaje = JOptionPane.showConfirmDialog(this, "Desea Eliminar este Usuario?");

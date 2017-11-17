@@ -49,11 +49,6 @@ public class Facturas extends javax.swing.JInternalFrame {
 
      public void comboColor() {
         
-      String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
-       
         
       try{  
          
@@ -63,8 +58,8 @@ public class Facturas extends javax.swing.JInternalFrame {
                                     + "     FROM color";
 
 
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    conn = DriverManager.getConnection(url, usuario, pass);
+                    conectar conect = new conectar();
+                    Connection conn = conect.conexion();
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
 
@@ -177,10 +172,7 @@ public class Facturas extends javax.swing.JInternalFrame {
    
    public void AgregarFactura() {
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
+       
 
         String id = lblNoFactura.getText();
         System.out.print(id);
@@ -201,8 +193,8 @@ public class Facturas extends javax.swing.JInternalFrame {
                
   // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
                         try{
-                              Class.forName("com.mysql.jdbc.Driver").newInstance();
-                              conn = DriverManager.getConnection(url, usuario, pass);
+                              conectar conect = new conectar();
+                              Connection conn = conect.conexion();
                               Statement st = conn.createStatement();
                               Statement st2 = conn.createStatement();
 
@@ -277,7 +269,7 @@ public static String fecha () {
         jLabel4 = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        comboColor = new javax.swing.JComboBox<String>();
+        comboColor = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtAno = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -328,7 +320,7 @@ public static String fecha () {
 
         jLabel5.setText("Color:");
 
-        comboColor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Color", "Rojo", "Amarillo", "Azul", "Blanco", "Negro" }));
+        comboColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Color", "Rojo", "Amarillo", "Azul", "Blanco", "Negro" }));
 
         jLabel6.setText("Año:");
 
@@ -430,12 +422,13 @@ public static String fecha () {
                                 .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -598,13 +591,12 @@ public static String fecha () {
                         .addComponent(btnBuscar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMotrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMotrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

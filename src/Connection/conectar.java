@@ -12,7 +12,7 @@ public class conectar {
        try{
        //cargar nuestro driver
            Class.forName("com.mysql.jdbc.Driver");
-           con=DriverManager.getConnection("jdbc:mysql://localhost/BigDealer","root","");
+           con=DriverManager.getConnection("jdbc:mysql://localhost/BigDealer","gerson","gerson123");
            //JOptionPane.showMessageDialog(null, "Conecxion Establecida.");
            System.out.println("Conecxion Establecida.");
            

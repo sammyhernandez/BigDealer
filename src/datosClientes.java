@@ -44,11 +44,6 @@ public class datosClientes extends javax.swing.JInternalFrame {
    
     public void buscarCliente() {
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
-        
       try{  
          
         
@@ -58,8 +53,8 @@ public class datosClientes extends javax.swing.JInternalFrame {
                              "HAVING cliente.cedula = '"+txtBuscar1.getText()+"'";
         
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         

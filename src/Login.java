@@ -10,6 +10,7 @@
  */
 
 import Clases.Usuario;
+import Connection.conectar;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,10 +37,7 @@ public class Login extends javax.swing.JFrame {
 public void entrar() {
     
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
+        
         //Atrapamos el contenido de las cajas de texto y las guardamos en dos variables String
         String Usuario = txtUsuario.getText();
         String password = new String( txtContraseña.getPassword());
@@ -48,8 +46,8 @@ public void entrar() {
             // Hacemos una consulta a la base de datos para obetner el usuario y la password
             String sql = ("SELECT * FROM usuario WHERE nombre = '"+Usuario+"'  && contrasenia = '"+password+"'");
             
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection(url, usuario, pass);
+            conectar conect = new conectar();
+            Connection conn = conect.conexion();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
           

@@ -33,11 +33,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
    
 
     public void comboMarca() {
-        
-      String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
+
    
         
       try{  
@@ -48,8 +44,8 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                                     + "     FROM list_marca";
 
 
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    conn = DriverManager.getConnection(url, usuario, pass);
+                    conectar conect = new conectar();
+                    Connection conn = conect.conexion();
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
 
@@ -80,11 +76,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     
     
      public void comboModelo() {
-        
-      String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
+
         comboModelo.removeAllItems();
         
 
@@ -102,8 +94,8 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
                     
                     
-                    Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    conn = DriverManager.getConnection(url, usuario, pass);
+                    conectar conect = new conectar();
+                    Connection conn = conect.conexion();
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
                    
@@ -147,6 +139,20 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         comboMarca = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         comboModelo = new javax.swing.JComboBox();
+        comboMarca1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        comboMarca2 = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        comboMarca3 = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        comboMarca4 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        comboMarca5 = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         jPanel4.setBackground(new java.awt.Color(255, 102, 51));
 
@@ -215,23 +221,126 @@ public class Vehiculos extends javax.swing.JInternalFrame {
             }
         });
 
+        comboMarca1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarca1ItemStateChanged(evt);
+            }
+        });
+        comboMarca1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarca1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Carroceria:");
+
+        comboMarca2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarca2ItemStateChanged(evt);
+            }
+        });
+        comboMarca2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarca2ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Trasmision:");
+
+        comboMarca3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarca3ItemStateChanged(evt);
+            }
+        });
+        comboMarca3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarca3ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Estado:");
+
+        comboMarca4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarca4ItemStateChanged(evt);
+            }
+        });
+        comboMarca4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarca4ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Combustible:");
+
+        comboMarca5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarca5ItemStateChanged(evt);
+            }
+        });
+        comboMarca5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMarca5ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Color:");
+
+        jLabel11.setText("Precio:");
+
+        jLabel12.setText("Year:");
+
         javax.swing.GroupLayout txtMarcaLayout = new javax.swing.GroupLayout(txtMarca);
         txtMarca.setLayout(txtMarcaLayout);
         txtMarcaLayout.setHorizontalGroup(
             txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txtMarcaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                        .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(txtMarcaLayout.createSequentialGroup()
+                                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                                        .addComponent(comboMarca1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboMarca2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                                        .addComponent(comboMarca4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboMarca5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboMarca3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(txtMarcaLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField1))))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         txtMarcaLayout.setVerticalGroup(
@@ -245,7 +354,27 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(comboModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(comboMarca1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(comboMarca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(comboMarca3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(comboMarca4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(comboMarca5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(txtMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,26 +382,19 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 187, Short.MAX_VALUE))
+                .addGap(0, 490, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMatriculaActionPerformed
 
     private void comboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcaActionPerformed
     
@@ -291,16 +413,74 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_comboMarcaItemStateChanged
 
+    private void comboMarca1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarca1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca1ItemStateChanged
+
+    private void comboMarca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarca1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca1ActionPerformed
+
+    private void comboMarca2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarca2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca2ItemStateChanged
+
+    private void comboMarca2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarca2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca2ActionPerformed
+
+    private void comboMarca3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarca3ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca3ItemStateChanged
+
+    private void comboMarca3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarca3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca3ActionPerformed
+
+    private void comboMarca4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarca4ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca4ItemStateChanged
+
+    private void comboMarca4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarca4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca4ActionPerformed
+
+    private void comboMarca5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarca5ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca5ItemStateChanged
+
+    private void comboMarca5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarca5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMarca5ActionPerformed
+
+    private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMatriculaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboMarca;
+    private javax.swing.JComboBox comboMarca1;
+    private javax.swing.JComboBox comboMarca2;
+    private javax.swing.JComboBox comboMarca3;
+    private javax.swing.JComboBox comboMarca4;
+    private javax.swing.JComboBox comboMarca5;
     private javax.swing.JComboBox comboModelo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JPanel txtMarca;
     private javax.swing.JTextField txtMatricula;

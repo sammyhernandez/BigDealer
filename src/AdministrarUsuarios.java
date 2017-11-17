@@ -134,10 +134,7 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
      
      public void AgregarUsuario() {
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
+        
 
         String nombre = txtNombre.getText();
         String cedula = txtCedula.getText();   
@@ -152,8 +149,8 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
                 if (contrasenia.equals(confirmarContrasenia)) {
   // hacemos una conexion a la base de datos y creamos un objeto de esa conexion para Insertar los datos en la base de datos.`  
                         try{
-                              Class.forName("com.mysql.jdbc.Driver").newInstance();
-                              conn = DriverManager.getConnection(url, usuario, pass);
+                              conectar conect = new conectar();
+                              Connection conn = conect.conexion();
                               Statement st = conn.createStatement();
 
                               int mostrar = JOptionPane.showConfirmDialog(null,"Desea Guardar este Usuario?");
@@ -183,10 +180,6 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
      
       public void actualizarUsuario(){
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
         String nombre = txtNombre.getText();
@@ -197,8 +190,8 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
         String sql = "UPDATE usuario SET nombre = '"+nombre+"',cedula = '"+cedula+"',contrasenia = '"+contrasenia+"',tipo_usuario = '"+tipoUsuario+"' WHERE cedula = '"+cedula+"'";
         
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         
         int mensaje = JOptionPane.showConfirmDialog(this, "Desea Guardar los cambios Actualizados?");
@@ -217,10 +210,6 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
       
       public void eliminarUsuario(){
     
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
         String nombre = txtNombre.getText();
@@ -230,9 +219,8 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
         
         String sql = "DELETE FROM usuario WHERE cedula = '"+cedula+"'";
         
-        
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         
          int mensaje = JOptionPane.showConfirmDialog(this, "Desea Eliminar este Usuario?");
@@ -267,11 +255,6 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
     }
        
     public void buscarUsuario() {
-    
-        String usuario = "root";
-        String pass = "";
-        String url = "jdbc:mysql://localhost/BigDealer";
-        Connection conn = null;
         
       try{  
         String nombre = txtNombre.getText();
@@ -282,8 +265,8 @@ public class AdministrarUsuarios extends javax.swing.JInternalFrame {
         String sql = "SELECT id_usuario,nombre,cedula,contrasenia,tipo_usuario FROM usuario WHERE cedula = '"+txtBuscar.getText()+"'";
         
         
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        conn = DriverManager.getConnection(url, usuario, pass);
+        conectar conect = new conectar();
+        Connection conn = conect.conexion();
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
         
