@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -116,7 +119,23 @@ public class Lib {
 
         return rs;
     }     
-    public static ResultSet queryArray(String select,String from,String where){
+    public static ResultSet queryArray(String select,String from,String orden){
+     ResultSet rs = null;
+        try {
+
+            conectar co = new conectar();
+            Connection conn = co.conexion();
+            Statement st = conn.createStatement();
+            rs = st.executeQuery("SELECT "+ select +" FROM "+ from + " ORDER BY "+orden);
+            //System.out.println("SELECT "+ select +" FROM "+ from);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }     
+    public static ResultSet queryArrayW(String select,String from,String where){
      ResultSet rs = null;
         try {
 
@@ -124,6 +143,24 @@ public class Lib {
             Connection conn = new conectar().conexion();
             Statement st = conn.createStatement();
             String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where;
+            rs = st.executeQuery(qry);
+            System.out.println(qry);
+            
+            
+        } catch (SQLException ex) {
+            System.err.println("Error: "+ex.getMessage());
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }  
+    public static ResultSet queryArray(String select,String from,String where,String orden){
+     ResultSet rs = null;
+        try {
+
+            
+            Connection conn = new conectar().conexion();
+            Statement st = conn.createStatement();
+            String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where+ " ORDER BY "+orden;
             rs = st.executeQuery(qry);
             System.out.println(qry);
             
@@ -215,9 +252,15 @@ public class Lib {
      }
     public static JComboBox cbCargar(JComboBox model,Map map){
         model.removeAll();
+        ArrayList al = new ArrayList(map.keySet());
+        Collections.sort(al);
+        for(Object o : al){
+            model.addItem(o);
+        }
+        /*
         map.keySet().forEach((value) -> {
             model.addItem(value);
-        });
+        });*/
        
         return model;
     }
@@ -238,9 +281,42 @@ public class Lib {
         }
         return map;
     }
-  
+    public static Map mapCargar(String tbl_name,String orden){
+        
+        Map<String,String> map = new HashMap<>();
+        try {
+
+            ResultSet rs = queryArray("*",tbl_name + " ORDER BY " + orden );
+
+            while(rs.next()){            
+                
+                map.put(rs.getString(2),rs.getString(1));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
+    }
+    public static Map mapCargar(String select,String tbl_name,String orden){
+        
+        Map<String,String> map = new HashMap<>();
+        try {
+
+            ResultSet rs = queryArray(select,tbl_name + " ORDER BY " + orden );
+
+            while(rs.next()){            
+                
+                map.put(rs.getString(2),rs.getString(1));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
+    }
     public static int queryUpdate(String[] col_name,String[] col_value,String tbl_name,String where){
-        int clave_generada = 0;
+        int filas = 0;
         try {
         
             Connection conn = new conectar().conexion();
@@ -259,19 +335,12 @@ public class Lib {
                psInsert.setString(j+1, col_value[j]); 
             }
 
-            int fila = psInsert.executeUpdate();
+            filas = psInsert.executeUpdate();
 
-            if (fila > 0){
-                ResultSet rs = psInsert.getGeneratedKeys();
-
-                if(rs.next()){
-
-                    clave_generada = rs.getInt(1);
-                }
-                rs.close();
-            }else{
+            if (filas == 0){
+                
                 System.err.println("ERROR: No se actualiaron ningun registro.");
-            }
+            }            
 
             psInsert.close();
             conn.close();
@@ -280,7 +349,52 @@ public class Lib {
             Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return clave_generada;
+        return filas;
     }
-    
+    public static int existeRegistro(String select,String from,String where){
+        ResultSet rs = null;
+        int exist = 0; //cero si no existe y uno si existe
+        try {
+
+            
+            Connection conn = new conectar().conexion();
+            Statement st = conn.createStatement();
+            String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where;
+            rs = st.executeQuery(qry);
+            if(rs.next()){
+                exist = 1;
+            }
+            //System.out.println(qry);
+            st.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException ex) {
+            System.err.println("Error: "+ex.getMessage());
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return exist;
+    }
+    public static int queryDelete(String from,String where,String value){
+        int ok = 0;
+        
+        try {
+            if(validaString(new String[] {from,where,value})){
+                conectar co = new conectar();
+                Connection conn = co.conexion();
+                Statement st = conn.createStatement();
+                
+                ok = st.executeUpdate("DELETE  FROM "+ from +" WHERE "+   where + " = '" +value+ " '" );
+                //System.out.println("SELECT "+ select +" FROM "+ from);
+                st.close();
+                conn.close();
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ok;
+        
+    }
 }

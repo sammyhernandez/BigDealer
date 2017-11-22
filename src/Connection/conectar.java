@@ -6,29 +6,31 @@ import javax.swing.JOptionPane;
 
 
 public class conectar {
-    Connection con=null;
+    public static Connection con = null;
+    private final String user = "bigdealer";
+    private final String pass = "bigdealer";
+    private final String host = "localhost";
+    private final String db_name = "BigDealer";
+    private final String url = "jdbc:mysql://"+host+"/"+db_name + "?useServerPrepStmts=true&useSSL=false";
     
+    /**
+    * Este metodo retorna una conexion de la base de datos de tipo connection.
+    * 
+    * 
+    * @return      La conexion de la base de datos de mysql
+    */
     public Connection conexion(){
        try{
        //cargar nuestro driver
            Class.forName("com.mysql.jdbc.Driver");
-           con=DriverManager.getConnection("jdbc:mysql://localhost/BigDealer","gerson","gerson123");
+           con = DriverManager.getConnection(url,user,pass);
            //JOptionPane.showMessageDialog(null, "Conecxion Establecida.");
-           System.out.println("Conecxion Establecida.");
+           //System.out.println("Conecxion Establecida.");
            
        }catch(ClassNotFoundException | SQLException e){
-        System.out.println("error conexion");
+        System.err.println("Se a producido un error con la connecion de la base de datos!!!!!\n"+e.getMessage());
         
        }
      return con;
     }
-    
-    public static void main(String[] args ) {
-                
-            conectar c = new conectar();
-            c.conexion();
-            
-            
-        }
 }
-
