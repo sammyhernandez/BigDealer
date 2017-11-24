@@ -1,4 +1,12 @@
 
+import vehiculo.AgregarColor;
+import vehiculo.AgregarTipoCombustible;
+import vehiculo.AgregarModelos;
+import vehiculo.Vehiculos;
+import vehiculo.AgregarTipoCarroceria;
+import vehiculo.AgregarMarca;
+import vehiculo.AgregarTipoTransmision;
+import vehiculo.DatoVehiculo;
 import Clases.Usuario;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -102,9 +110,14 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mi_almacen = new javax.swing.JMenuItem();
+        mi_modelos = new javax.swing.JMenuItem();
+        mi_marca = new javax.swing.JMenuItem();
+        mi_carroceria = new javax.swing.JMenuItem();
+        mi_transmision = new javax.swing.JMenuItem();
+        mi_combustible = new javax.swing.JMenuItem();
+        mi_color = new javax.swing.JMenuItem();
+        mi_dato_vehiculo = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -225,29 +238,69 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
 
         jMenu2.setText("Almacen");
 
-        jMenuItem2.setText("Almacen");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mi_almacen.setText("Almacen");
+        mi_almacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mi_almacenActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(mi_almacen);
 
-        jMenuItem3.setText("Agrear Modelos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mi_modelos.setText("Agregar Modelos");
+        mi_modelos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mi_modelosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(mi_modelos);
 
-        jMenuItem5.setText("Agregar Marca");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        mi_marca.setText("Agregar Marca");
+        mi_marca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                mi_marcaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(mi_marca);
+
+        mi_carroceria.setText("Agregar Tipo Carroceria");
+        mi_carroceria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_carroceriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_carroceria);
+
+        mi_transmision.setText("Agregar Tipo Transmision");
+        mi_transmision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_transmisionActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_transmision);
+
+        mi_combustible.setText("Agregar Tipo Combustible");
+        mi_combustible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_combustibleActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_combustible);
+
+        mi_color.setText("Agregar Color");
+        mi_color.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_colorActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_color);
+
+        mi_dato_vehiculo.setText("Agregar Data Vehiculo");
+        mi_dato_vehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_dato_vehiculoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_dato_vehiculo);
 
         jMenuBar1.add(jMenu2);
 
@@ -297,23 +350,23 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         p.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mi_almacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_almacenActionPerformed
          Vehiculos v = new Vehiculos();
         jDesktopPane.add(v);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = v.getSize();
         v.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         v.show();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mi_almacenActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void mi_modelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modelosActionPerformed
        AgregarModelos am = new AgregarModelos();
         jDesktopPane.add(am);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = am.getSize();
         am.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         am.show();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_mi_modelosActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         Facturas f = new Facturas();
@@ -324,14 +377,59 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
         f.show();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void mi_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_marcaActionPerformed
         AgregarMarca f = new AgregarMarca();
         jDesktopPane.add(f);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = f.getSize();
         f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         f.show();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_mi_marcaActionPerformed
+
+    private void mi_carroceriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_carroceriaActionPerformed
+        AgregarTipoCarroceria f = new AgregarTipoCarroceria();
+        jDesktopPane.add(f);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        f.show();
+    }//GEN-LAST:event_mi_carroceriaActionPerformed
+
+    private void mi_transmisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_transmisionActionPerformed
+        AgregarTipoTransmision f = new AgregarTipoTransmision();
+        jDesktopPane.add(f);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        f.show();
+    }//GEN-LAST:event_mi_transmisionActionPerformed
+
+    private void mi_combustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_combustibleActionPerformed
+        AgregarTipoCombustible f = new AgregarTipoCombustible();
+        jDesktopPane.add(f);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        f.show();
+    }//GEN-LAST:event_mi_combustibleActionPerformed
+
+    private void mi_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_colorActionPerformed
+        AgregarColor f = new AgregarColor();
+        jDesktopPane.add(f);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        f.show();
+    }//GEN-LAST:event_mi_colorActionPerformed
+
+    private void mi_dato_vehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_dato_vehiculoActionPerformed
+        DatoVehiculo f = new DatoVehiculo();
+        jDesktopPane.add(f);
+        Dimension desktopSize = jDesktopPane.getSize();
+        Dimension FrameSize = f.getSize();
+        f.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        f.show();
+    }//GEN-LAST:event_mi_dato_vehiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,13 +490,18 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenuItem mi_almacen;
+    private javax.swing.JMenuItem mi_carroceria;
+    private javax.swing.JMenuItem mi_color;
+    private javax.swing.JMenuItem mi_combustible;
+    private javax.swing.JMenuItem mi_dato_vehiculo;
+    private javax.swing.JMenuItem mi_marca;
+    private javax.swing.JMenuItem mi_modelos;
+    private javax.swing.JMenuItem mi_transmision;
     // End of variables declaration//GEN-END:variables
 }

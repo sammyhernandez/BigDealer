@@ -1,3 +1,5 @@
+package vehiculo;
+
 
 import Utiliti.Lib;
 import javax.swing.JOptionPane;
@@ -14,12 +16,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author gfernandez
  */
-public class AgregarMarca extends javax.swing.JInternalFrame {
+public class AgregarColor extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form AgregarMarca
+     * Creates new form AgregarColor
      */
-    public AgregarMarca() {
+    public AgregarColor() {
         initComponents();
         cargar("");
     }
@@ -37,10 +39,10 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_marca = new javax.swing.JTextField();
+        txt_color = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btn_mostrar_todo = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
+        btn_buscar = new javax.swing.JButton();
         txt_buscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btn_guardar = new javax.swing.JButton();
@@ -48,7 +50,7 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
         btn_eliminar = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_marca = new javax.swing.JTable();
+        tbl_color = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -57,21 +59,21 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
         lbl_id.setText("...");
         lbl_id.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setText("Marca:");
+        jLabel2.setText("Color:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(105, 105, 105)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_marca)
-                    .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_color, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -84,7 +86,7 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -97,10 +99,10 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
             }
         });
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btn_buscarActionPerformed(evt);
             }
         });
 
@@ -112,7 +114,7 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50)
                 .addComponent(btn_mostrar_todo)
                 .addGap(18, 18, 18)
-                .addComponent(btnBuscar)
+                .addComponent(btn_buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -123,7 +125,7 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_mostrar_todo)
-                    .addComponent(btnBuscar)
+                    .addComponent(btn_buscar)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -185,12 +187,12 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
-        tbl_marca.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_color.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Marca"
+                "ID", "Color"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -201,12 +203,12 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbl_marca.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbl_color.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_marcaMouseClicked(evt);
+                tbl_colorMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbl_marca);
+        jScrollPane1.setViewportView(tbl_color);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,42 +244,40 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        txt_marca.setText("");
+    private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
+        cargar("");
+    }//GEN-LAST:event_btn_mostrar_todoActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        txt_color.setText("");
         lbl_id.setText("...");
-        cargar(txt_marca.getText());
-    }//GEN-LAST:event_btnBuscarActionPerformed
+        cargar(txt_buscar.getText());
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        agregarMarca();
-
+        agregarTipo();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        actualizarMarca();
+        actualizarTipo();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        eliminarMarca();
-        
+        eliminarTipo();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
 
-    private void tbl_marcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_marcaMouseClicked
+    private void tbl_colorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_colorMouseClicked
         selecionarDato();
-    }//GEN-LAST:event_tbl_marcaMouseClicked
-
-    private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
-        cargar("");
-    }//GEN-LAST:event_btn_mostrar_todoActionPerformed
+    }//GEN-LAST:event_tbl_colorMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btn_actualizar;
+    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_mostrar_todo;
@@ -289,38 +289,39 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_id;
-    private javax.swing.JTable tbl_marca;
+    private javax.swing.JTable tbl_color;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_marca;
+    private javax.swing.JTextField txt_color;
     // End of variables declaration//GEN-END:variables
 
-    public void cargar(String valor){
-            String col_name = " id_veh_marca , descripcion";
-            String tbl_name = " veh_marca ";
 
-            //Lib.queryArray(col_name, tbl_name," cedula = '"+ valor + "'");
+     private void cargar(String valor){
+            String col_name = " id_veh_color , descripcion";
+            String tbl_name = " veh_color ";
+
+            
             if(valor.trim().equals("")){
 
-                tbl_marca = limpiarTabla(tbl_marca);
-                tbl_marca.setModel(Lib.tblCargar((DefaultTableModel)tbl_marca.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_marca")));
-                //System.out.println("valor = "+valor);
+                tbl_color = limpiarTabla(tbl_color);
+                tbl_color.setModel(Lib.tblCargar((DefaultTableModel)tbl_color.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_color")));
+              
             }else {
-                //System.out.println("hola: " +valor);
-                tbl_marca = limpiarTabla(tbl_marca);
-                tbl_marca.setModel(Lib.tblCargar((DefaultTableModel)tbl_marca.getModel(),Lib.queryArray(col_name, tbl_name," id_marca LIKE '%"+ valor + "%'")));
-                //tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),"SELECT  id_cliente , nombre , apellido , cedula , sexo  FROM  cliente  WHERE cedula = '"+ valor+ "'"));
+                
+                tbl_color = limpiarTabla(tbl_color);
+                tbl_color.setModel(Lib.tblCargar((DefaultTableModel)tbl_color.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_color ")));
+                
 
             }
     }
 
-    public void agregarMarca(){
+    private void agregarTipo(){
 
-        if(Lib.validaString(txt_marca.getText())){
-            int ok = Lib.existeRegistro("*","veh_marca","UPPER(descripcion) = UPPER('"+txt_marca.getText()+"')");
+        if(Lib.validaString(txt_color.getText())){
+            int ok = Lib.existeRegistro("*"," veh_color ","UPPER(descripcion) = UPPER('"+txt_color.getText()+"')");
             if( ok == 0){
-                int id_ins_marca = Lib.queryInsert(new String[]{"descripcion"}, new String[]{txt_marca.getText()},"veh_marca");
+                int id_ins_marca = Lib.queryInsert(new String[]{"descripcion"}, new String[]{txt_color.getText()}," veh_color ");
                 if (id_ins_marca == 0){
-                    JOptionPane.showMessageDialog(null,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                     System.err.println("No se insertaron registro");
 
                 }else{
@@ -328,12 +329,12 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
                     limpiar();
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"La marca ya se encuentra registrada","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                System.err.println("El Nombre de la marca existe");
+                JOptionPane.showMessageDialog(this,"El color se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                System.err.println("El color existe");
             }
         }else{
             
-           JOptionPane.showMessageDialog(null,"Escriba el nombre de la marca","Dato Invalido",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Escriba el nombre de el color","Dato Invalido",JOptionPane.ERROR_MESSAGE);
            System.err.println("Dato invalido");
             
         }
@@ -342,56 +343,56 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
 
     }
     
-    public void actualizarMarca(){
-        int ok = JOptionPane.showConfirmDialog(null, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(ok == JOptionPane.YES_OPTION){
-            if(Lib.validaString(txt_marca.getText()) && Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+    private void actualizarTipo(){
 
-                if(Lib.existeRegistro("1","veh_marca","UPPER(descripcion) = UPPER('"+txt_marca.getText()+"' ") == 0){
-                    int id_ins_marca = Lib.queryUpdate(new String[]{"descripcion"}, new String[]{txt_marca.getText()},"veh_marca","id_veh_marca = '"+lbl_id.getText()+" '");
+        if(Lib.validaString(txt_color.getText()) && Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+
+            if(Lib.existeRegistro("1"," veh_color ","UPPER(descripcion) = UPPER('"+txt_color.getText()+"') ") == 0){
+                int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(ok == JOptionPane.YES_OPTION){
+                    int id_ins_marca = Lib.queryUpdate(new String[]{"descripcion"}, new String[]{txt_color.getText()}," veh_color ","id_veh_color = '"+lbl_id.getText()+" '");
                     if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(null,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                         System.err.println("No se actualizo registro");
 
                     }else{
                         cargar("");
                         limpiar();
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null,"La marca ya se encuentra registrada","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                    System.err.println("El Nombre de la marca existe");
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"La marca ya se encuentra registrada","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                System.err.println("El Nombre de la marca existe");
+                JOptionPane.showMessageDialog(this,"El color se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                System.err.println("El color existe");
             }
-
+        }else{
+            JOptionPane.showMessageDialog(this,"Escriba el nombre de el nombre","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+            System.err.println("Dato invalido");
         }    
     }
     
-    public void eliminarMarca(){
-        int ok = JOptionPane.showConfirmDialog(null, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(ok == JOptionPane.YES_OPTION){
-            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
-
-                    int id_ins_marca = Lib.queryDelete("veh_marca","id_veh_marca",lbl_id.getText());
-                    if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(null,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
-                        System.err.println("No se elimino ningun registro");
-
-                    }else{
-                        cargar("");
-                        limpiar();
-                    }
-            }else{
-                JOptionPane.showMessageDialog(null,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
-                System.err.println("No se a selecionado ningun registro");
-            }        
-        }
+    private void eliminarTipo(){
         
+        if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+            int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(ok == JOptionPane.YES_OPTION){
+                int id_ins_marca = Lib.queryDelete(" veh_color ","id_veh_color",lbl_id.getText());
+                if (id_ins_marca == 0){
+                    JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
+                    System.err.println("No se elimino ningun registro");
+
+                }else{
+                    cargar("");
+                    limpiar();
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
+            System.err.println("No se a selecionado ningun registro");
+        }        
+
     }
     
-    public JTable limpiarTabla(JTable tbl){
+    private JTable limpiarTabla(JTable tbl){
 
             if(tbl.getRowCount() > 0){
                 DefaultTableModel model = (DefaultTableModel)tbl.getModel();
@@ -410,26 +411,27 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
             return tbl;
         }
     
-    public void limpiar(){
+    private void limpiar(){
         
         lbl_id.setText("...");
-        txt_marca.setText("");
+        txt_color.setText("");
         txt_buscar.setText("");
         
     }
 
-    public void selecionarDato(){
+    private void selecionarDato(){
          
-        int fila =  tbl_marca.getSelectedRow();
+        int fila =  tbl_color.getSelectedRow();
       
         if(fila ==-1) {
             JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
         } else{    
       
-       lbl_id.setText(tbl_marca.getValueAt(fila, 0).toString());
-       txt_marca.setText(tbl_marca.getValueAt(fila, 1).toString());
+       lbl_id.setText(tbl_color.getValueAt(fila, 0).toString());
+       txt_color.setText(tbl_color.getValueAt(fila, 1).toString());
        
       }
         
     }
+    
 }

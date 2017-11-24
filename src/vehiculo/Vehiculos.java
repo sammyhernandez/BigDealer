@@ -1,3 +1,5 @@
+package vehiculo;
+
 
 import Connection.conectar;
 import java.sql.Connection;

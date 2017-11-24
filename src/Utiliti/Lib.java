@@ -53,10 +53,11 @@ public class Lib {
             }
             */    
             while(rs.next()){
-                Object[] fila = new Object[cant_colum];
+                String[] fila = new String[cant_colum];
                 for(int i = 0;i < cant_colum; i++){
-                    fila[i] = rs.getObject(i+1);
+                    fila[i] = rs.getString(i+1);
                 }
+                
                 model.addRow(fila);
             }
             rs.close();
@@ -85,9 +86,9 @@ public class Lib {
                     }
                     */
                     while(rs.next()){
-                        Object[] fila = new Object[cant_colum];
+                        String[] fila = new String[cant_colum];
                         for(int i = 0;i < cant_colum; i++){
-                            fila[i] = rs.getObject(i+1);
+                            fila[i] = rs.getString(i+1);
                         }
                         model.addRow(fila);
                     }
@@ -144,7 +145,7 @@ public class Lib {
             Statement st = conn.createStatement();
             String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where;
             rs = st.executeQuery(qry);
-            System.out.println(qry);
+            //System.out.println(qry);
             
             
         } catch (SQLException ex) {
@@ -360,11 +361,12 @@ public class Lib {
             Connection conn = new conectar().conexion();
             Statement st = conn.createStatement();
             String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where;
+            //System.out.println(qry);
             rs = st.executeQuery(qry);
             if(rs.next()){
                 exist = 1;
             }
-            //System.out.println(qry);
+            
             st.close();
             rs.close();
             conn.close();

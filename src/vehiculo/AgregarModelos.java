@@ -1,3 +1,5 @@
+package vehiculo;
+
 
 import Connection.conectar;
 import Utiliti.Lib;
@@ -32,66 +34,6 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
         comboMarca();
     }
     
-
-
-        
-        
-        
-    public void buscarModelo() {
-
-    String usuario = "root";
-    String pass = "";
-    String url = "jdbc:mysql://localhost/BigDealer";
-    Connection conn = null;
-
-  try{  
-
-
-            String sql = "SELECT id_modelo,Descripcion,marcas "
-                       + "  FROM modelos"
-                       + " WHERE Descripcion LIKE '"+txt_buscar.getText()+"%' or Descripcion LIKE '"+txt_buscar.getText()+"%'";
-
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
-    conn = DriverManager.getConnection(url, usuario, pass);
-    Statement st = conn.createStatement();
-    ResultSet rs = st.executeQuery(sql);
-
-    if(rs.next()){
-
-    lbl_id.setText(rs.getString("id_modelo"));
-    txt_modelo.setText(rs.getString("Descripcion"));
-    cb_veh_marca.setSelectedItem(rs.getString("marcas"));
-
-
-
-    }else {
-
-        JOptionPane.showMessageDialog(this,"El Modelo no esta Registrado");
-    }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.toString());
-            e.printStackTrace();
-
-        }
-
-}   
-    public void seleccionarModelo() {
-    
-         
-        int fila =  tbl_modelo.getSelectedRow();
-      
-        if(fila ==-1) {
-            JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
-        } else{    
-      
-       lbl_id.setText(tbl_modelo.getValueAt(fila, 0).toString());
-       txt_modelo.setText(tbl_modelo.getValueAt(fila, 1).toString());
-       cb_veh_marca.setSelectedItem(tbl_modelo.getValueAt(fila, 2).toString());
-       
-      }
-       
-    }
-     
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -328,8 +270,10 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        buscarModelo();
-        cargar(txt_modelo.getText());
+        txt_modelo.setText("");
+        lbl_id.setText("...");
+        cb_veh_marca.setSelectedIndex(0);
+        cargar(txt_buscar.getText());
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void tbl_modeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_modeloMouseClicked
@@ -338,16 +282,12 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         actualizarModelo();
-        limpiar();
-        
-        cargar("");
+       
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         eliminarModelo();
-        limpiar();
         
-        cargar("");
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
@@ -360,8 +300,8 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
 
     private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
         
-        limpiar();
-        
+        cargar("");
+       
     }//GEN-LAST:event_btn_mostrar_todoActionPerformed
 
 
@@ -389,9 +329,9 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
     
     private void cargar(String valor) {
     
-            String col_name = " mo.id_veh_modelo , ma.descripcion , mo.descripcion";
-            String tbl_name = " veh_modelo mo LEFT JOIN veh_marca ma ON mo.id_veh_marca = ma.id_veh_marca";
-            String orden = " mo.id_veh_modelo";
+            String col_name = " mo.id_veh_modelo , ma.descripcion , mo.descripcion ";
+            String tbl_name = " veh_modelo mo LEFT JOIN veh_marca ma ON mo.id_veh_marca = ma.id_veh_marca ";
+            String orden = " mo.id_veh_modelo ";
             //Lib.queryArray(col_name, tbl_name," cedula = '"+ valor + "'");
             if(valor.trim().equals("")){
 
@@ -401,7 +341,7 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
             }else {
                 //System.out.println("hola: " +valor);
                 tbl_modelo = limpiarTabla(tbl_modelo);
-                tbl_modelo.setModel(Lib.tblCargar((DefaultTableModel)tbl_modelo.getModel(),Lib.queryArray(col_name, tbl_name," id_marca LIKE '%"+ valor + "%'")));
+                tbl_modelo.setModel(Lib.tblCargar((DefaultTableModel)tbl_modelo.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(mo.descripcion) LIKE UPPER('"+ valor + "%') ORDER BY "+orden)));
                 //tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),"SELECT  id_cliente , nombre , apellido , cedula , sexo  FROM  cliente  WHERE cedula = '"+ valor+ "'"));
 
             }
@@ -439,7 +379,7 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
             if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
                 int id_ins_marca = Lib.queryInsert(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo");
                 if (id_ins_marca == 0){
-                    JOptionPane.showMessageDialog(null,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                     System.err.println("No se insertaron registro");
 
                 }else{
@@ -447,63 +387,67 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
                     limpiar();
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
                 System.err.println("El Modelo ya existe");
             }
         }else{
             
-           JOptionPane.showMessageDialog(null,"Escriba el nombre del modelo","Dato Invalido",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(this,"Escriba el nombre del modelo","Dato Invalido",JOptionPane.ERROR_MESSAGE);
            System.err.println("Dato invalido");
             
         }
     }
-    public void actualizarModelo(){
+    private void actualizarModelo(){
         String mod_name = txt_modelo.getText();
         String id_marca = mp_cb_marca.get(cb_veh_marca.getSelectedItem()).toString();
-        int ok = JOptionPane.showConfirmDialog(null, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(ok == JOptionPane.YES_OPTION){
+
             if(Lib.validaString(mod_name) && Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
 
                 if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
-                    int id_ins_marca = Lib.queryUpdate(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo","id_veh_modelo = '"+lbl_id.getText()+" '");
-                    if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(null,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
-                        System.err.println("No se actualizo registro");
+                    
+                    int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(ok == JOptionPane.YES_OPTION){
+                        int id_ins_marca = Lib.queryUpdate(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo","id_veh_modelo = '"+lbl_id.getText()+" '");
+                        if (id_ins_marca == 0){
+                            JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                            System.err.println("No se actualizo registro");
 
-                    }else{
-                        cargar("");
-                        limpiar();
+                        }else{
+                            cargar("");
+                            limpiar();
+                        }
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
                     System.err.println("El Nombre del modelo existe");
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
                 System.err.println("Datos invalidos");
             }
 
-        }    
+            
     }
-    public void eliminarModelo(){
-        int ok = JOptionPane.showConfirmDialog(null, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(ok == JOptionPane.YES_OPTION){
-            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+    private void eliminarModelo(){
 
-                    int id_ins_marca = Lib.queryDelete("veh_marca","id_veh_marca",lbl_id.getText());
+            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+                int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(ok == JOptionPane.YES_OPTION){    
+                    int id_ins_marca = Lib.queryDelete("veh_modelo","id_veh_modelo",lbl_id.getText());
                     if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(null,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
                         System.err.println("No se elimino ningun registro");
 
                     }else{
                         cargar("");
                         limpiar();
                     }
+                }
             }else{
-                JOptionPane.showMessageDialog(null,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
                 System.err.println("No se a selecionado ningun registro");
             }        
-        }
+        
         
     }
     private void limpiar() {
@@ -514,5 +458,20 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
         txt_modelo.setText(null);
 
     }
+    private void seleccionarModelo() {
     
+         
+        int fila =  tbl_modelo.getSelectedRow();
+      
+        if(fila ==-1) {
+            JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
+        } else{    
+      
+       lbl_id.setText(tbl_modelo.getValueAt(fila, 0).toString());
+       txt_modelo.setText(tbl_modelo.getValueAt(fila, 2).toString());
+       cb_veh_marca.setSelectedItem(tbl_modelo.getValueAt(fila, 1).toString());
+       
+      }
+       
+    }
 }
