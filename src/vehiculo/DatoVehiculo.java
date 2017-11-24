@@ -469,14 +469,13 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        buscarCliente();
-        cargar(txtCedula.getText());
+ 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
         cargar("");
         limpiar();
-        nextID();
+        
     }//GEN-LAST:event_btn_mostrar_todoActionPerformed
 
     private void tbl_veh_datoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_veh_datoMouseClicked
@@ -488,13 +487,13 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_limpiarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        actualizarCliente();
+        
         cargar("");
         limpiar();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        eliminarUsuario();
+        
         limpiar();
         cargar("");
     }//GEN-LAST:event_btn_eliminarActionPerformed
@@ -509,7 +508,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        AgregarCliente();
+        
         cargar("");
         limpiar();
     }//GEN-LAST:event_btn_guardarActionPerformed
