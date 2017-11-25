@@ -58,7 +58,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cb_carroceria = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
-        txt_year = new javax.swing.JTextField();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_veh_dato = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -210,7 +210,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 25, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,8 +234,9 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_year, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cb_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,11 +274,12 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(cb_combustible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(txt_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13))
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -359,7 +361,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                 .addComponent(btn_actualizar)
                 .addGap(51, 51, 51)
                 .addComponent(btn_eliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -499,12 +501,11 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-        int mensaje = JOptionPane.showConfirmDialog(this, "Salir?");
+        //int mensaje = JOptionPane.showConfirmDialog(this, "Salir?");
 
-        if(mensaje == JOptionPane.YES_NO_OPTION) {
-
+        //if(mensaje == JOptionPane.YES_NO_OPTION) {
             dispose();
-        }
+        //}
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
@@ -599,11 +600,11 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JTable tbl_veh_dato;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_year;
     // End of variables declaration//GEN-END:variables
     private Map mp_cb_marca;
     private Map mp_cb_modelo;
@@ -640,9 +641,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         }
 
     }
-
-    
-    
+   
     
     private void limpiar(){
         
@@ -700,6 +699,88 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         cb_filtro = Lib.cbCargar(cb_filtro, mp_cb_filtro);
         
    
+    }
+    
+    private void agregarVehiculo(){
+        String mod_name = txt_modelo.getText();
+        String id_marca = mp_cb_marca.get(cb_veh_marca.getSelectedItem()).toString();
+        if(Lib.validaString(mod_name)){
+            
+            
+            
+            if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
+                int id_ins_marca = Lib.queryInsert(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo");
+                if (id_ins_marca == 0){
+                    JOptionPane.showMessageDialog(this,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                    System.err.println("No se insertaron registro");
+
+                }else{
+                    cargar("");
+                    limpiar();
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                System.err.println("El Modelo ya existe");
+            }
+        }else{
+            
+           JOptionPane.showMessageDialog(this,"Escriba el nombre del modelo","Dato Invalido",JOptionPane.ERROR_MESSAGE);
+           System.err.println("Dato invalido");
+            
+        }
+    }
+    private void actualizarModelo(){
+        String mod_name = txt_modelo.getText();
+        String id_marca = mp_cb_marca.get(cb_veh_marca.getSelectedItem()).toString();
+
+            if(Lib.validaString(mod_name) && Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+
+                if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
+                    
+                    int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(ok == JOptionPane.YES_OPTION){
+                        int id_ins_marca = Lib.queryUpdate(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo","id_veh_modelo = '"+lbl_id.getText()+" '");
+                        if (id_ins_marca == 0){
+                            JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                            System.err.println("No se actualizo registro");
+
+                        }else{
+                            cargar("");
+                            limpiar();
+                        }
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                    System.err.println("El Nombre del modelo existe");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                System.err.println("Datos invalidos");
+            }
+
+            
+    }
+    private void eliminarModelo(){
+
+            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+                int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(ok == JOptionPane.YES_OPTION){    
+                    int id_ins_marca = Lib.queryDelete("veh_modelo","id_veh_modelo",lbl_id.getText());
+                    if (id_ins_marca == 0){
+                        JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
+                        System.err.println("No se elimino ningun registro");
+
+                    }else{
+                        cargar("");
+                        limpiar();
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
+                System.err.println("No se a selecionado ningun registro");
+            }        
+        
+        
     }
     
 }
