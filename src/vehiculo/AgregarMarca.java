@@ -301,14 +301,14 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
             String tbl_name = " veh_marca ";
 
             //Lib.queryArray(col_name, tbl_name," cedula = '"+ valor + "'");
+            tbl_marca = Lib.limpiarTabla(tbl_marca);
             if(valor.trim().equals("")){
 
-                tbl_marca = limpiarTabla(tbl_marca);
+
                 tbl_marca.setModel(Lib.tblCargar((DefaultTableModel)tbl_marca.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_marca")));
                 //System.out.println("valor = "+valor);
             }else {
                 //System.out.println("hola: " +valor);
-                tbl_marca = limpiarTabla(tbl_marca);
                 tbl_marca.setModel(Lib.tblCargar((DefaultTableModel)tbl_marca.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_marca")));
                 //tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),"SELECT  id_cliente , nombre , apellido , cedula , sexo  FROM  cliente  WHERE cedula = '"+ valor+ "'"));
 
@@ -395,24 +395,6 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
 
     }
     
-    public JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
     
     public void limpiar(){
         

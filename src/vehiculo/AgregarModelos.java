@@ -333,37 +333,20 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
             String tbl_name = " veh_modelo mo LEFT JOIN veh_marca ma ON mo.id_veh_marca = ma.id_veh_marca ";
             String orden = " mo.id_veh_modelo ";
             //Lib.queryArray(col_name, tbl_name," cedula = '"+ valor + "'");
+            tbl_modelo = Lib.limpiarTabla(tbl_modelo);
             if(valor.trim().equals("")){
 
-                tbl_modelo = limpiarTabla(tbl_modelo);
+
                 tbl_modelo.setModel(Lib.tblCargar((DefaultTableModel)tbl_modelo.getModel(),Lib.queryArray(col_name, tbl_name,orden)));
                 //System.out.println("valor = "+valor);
             }else {
                 //System.out.println("hola: " +valor);
-                tbl_modelo = limpiarTabla(tbl_modelo);
                 tbl_modelo.setModel(Lib.tblCargar((DefaultTableModel)tbl_modelo.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(mo.descripcion) LIKE UPPER('"+ valor + "%') ORDER BY "+orden)));
                 //tbl_cliente.setModel(Lib.tblCargar((DefaultTableModel)tbl_cliente.getModel(),"SELECT  id_cliente , nombre , apellido , cedula , sexo  FROM  cliente  WHERE cedula = '"+ valor+ "'"));
 
             }
     }
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-    }
+ 
     private void comboMarca() {
     
         mp_cb_marca = Lib.mapCargar("veh_marca","descripcion");    

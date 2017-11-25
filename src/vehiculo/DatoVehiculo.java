@@ -514,12 +514,17 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void cb_marcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_marcaItemStateChanged
-        //comboModelo();
-
+        //if(cb_marca.get){
+            //con = con +1;
+            //System.out.println("EStado "+con);
+        //}
     }//GEN-LAST:event_cb_marcaItemStateChanged
 
     private void cb_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_marcaActionPerformed
-
+            
+        cb_modelo = Lib.cbCargar(cb_modelo, Lib.queryArray("descripcion"," veh_modelo "," id_veh_marca = "
+                    + mp_cb_marca.get(cb_marca.getSelectedItem()) ," descripcion "));
+        
     }//GEN-LAST:event_cb_marcaActionPerformed
 
     private void cb_modeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_modeloActionPerformed
@@ -607,8 +612,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     private Map mp_cb_transmision;
     private Map mp_cb_combustible;
     private Map mp_cb_filtro;
-    
-    
+    private Map mp_cb_marca_modelo;    
     
     private void cargar(String filtro){
         
@@ -624,7 +628,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                           " LEFT JOIN veh_combustible com ON com.id_veh_combustible = da.id_veh_combustible ";
         String orden =    " da.id_veh_dato ";
 
-        tbl_veh_dato = limpiarTabla(tbl_veh_dato);
+        tbl_veh_dato = Lib.limpiarTabla(tbl_veh_dato);
         if(filtro.trim().equals("")){
 
             tbl_veh_dato.setModel(Lib.tblCargar((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArray(col_name, tbl_name,orden)));
@@ -638,24 +642,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }
 
     
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
+    
     
     private void limpiar(){
         
@@ -687,7 +674,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         cb_marca = Lib.cbCargar(cb_marca, mp_cb_marca);
         //cargar modelo
         mp_cb_modelo = Lib.mapCargar(" id_veh_modelo,descripcion "," veh_modelo "," descripcion ");    
-        cb_modelo = Lib.cbCargar(cb_modelo, mp_cb_modelo);
+
         //cargar color
         mp_cb_color = Lib.mapCargar("veh_color","descripcion");    
         cb_color = Lib.cbCargar(cb_color, mp_cb_color);
@@ -711,6 +698,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         mp_cb_filtro.put("Combustible", "com.descripcion");
         mp_cb_filtro.put("Year", "da.veh_year");
         cb_filtro = Lib.cbCargar(cb_filtro, mp_cb_filtro);
+        
    
     }
     

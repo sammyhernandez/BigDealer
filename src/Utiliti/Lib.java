@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +36,24 @@ public class Lib {
      * @param qry
      * @return DefaultTableModel
      */
+    public static JTable limpiarTabla(JTable tbl){
+
+            if(tbl.getRowCount() > 0){
+                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
+
+                int fila = model.getRowCount();
+
+                for(int i=0;i < fila;i++ ){
+
+                    model.removeRow(0);
+                }
+
+                tbl.setModel(model);
+
+            }
+
+            return tbl;
+    }
     public static DefaultTableModel tblCargar(DefaultTableModel model,String qry){
          
          
@@ -163,7 +182,7 @@ public class Lib {
             Statement st = conn.createStatement();
             String qry = "SELECT "+ select +" FROM "+ from + " WHERE "+where+ " ORDER BY "+orden;
             rs = st.executeQuery(qry);
-            System.out.println(qry);
+            //System.out.println(qry);
             
             
         } catch (SQLException ex) {
@@ -252,7 +271,7 @@ public class Lib {
         return cedula;
      }
     public static JComboBox cbCargar(JComboBox model,Map map){
-        model.removeAll();
+        model.removeAllItems();
         ArrayList al = new ArrayList(map.keySet());
         Collections.sort(al);
         for(Object o : al){
@@ -265,6 +284,23 @@ public class Lib {
        
         return model;
     }
+    public static JComboBox cbCargar(JComboBox model,ResultSet rs){
+        try {
+            model.removeAllItems();
+            
+            while(rs.next()){
+                model.addItem(rs.getString(1));
+                
+            }
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return model;
+    }
+    
     public static Map mapCargar(String tbl_name){
         
         Map<String,String> map = new HashMap<>();

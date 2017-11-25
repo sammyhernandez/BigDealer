@@ -299,15 +299,13 @@ public class AgregarTipoCarroceria extends javax.swing.JInternalFrame {
             String col_name = " id_veh_tipo_carroceria , descripcion";
             String tbl_name = " veh_tipo_carroceria ";
 
-            
+            tbl_carroceria = Lib.limpiarTabla(tbl_carroceria);
             if(valor.trim().equals("")){
 
-                tbl_carroceria = limpiarTabla(tbl_carroceria);
                 tbl_carroceria.setModel(Lib.tblCargar((DefaultTableModel)tbl_carroceria.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_tipo_carroceria")));
               
             }else {
                 
-                tbl_carroceria = limpiarTabla(tbl_carroceria);
                 tbl_carroceria.setModel(Lib.tblCargar((DefaultTableModel)tbl_carroceria.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_tipo_carroceria ")));
                 
 
@@ -392,24 +390,6 @@ public class AgregarTipoCarroceria extends javax.swing.JInternalFrame {
 
     }
     
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
     
     private void limpiar(){
         

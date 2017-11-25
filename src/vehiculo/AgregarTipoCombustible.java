@@ -297,15 +297,14 @@ public class AgregarTipoCombustible extends javax.swing.JInternalFrame {
             String col_name = " id_veh_combustible , descripcion";
             String tbl_name = " veh_combustible ";
 
-            
+            tbl_combustibe = Lib.limpiarTabla(tbl_combustibe);
             if(valor.trim().equals("")){
 
-                tbl_combustibe = limpiarTabla(tbl_combustibe);
                 tbl_combustibe.setModel(Lib.tblCargar((DefaultTableModel)tbl_combustibe.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_combustible")));
               
             }else {
                 
-                tbl_combustibe = limpiarTabla(tbl_combustibe);
+                
                 tbl_combustibe.setModel(Lib.tblCargar((DefaultTableModel)tbl_combustibe.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_combustible ")));
                 
 
@@ -389,25 +388,6 @@ public class AgregarTipoCombustible extends javax.swing.JInternalFrame {
         }        
  
     }
-    
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
     
     private void limpiar(){
         

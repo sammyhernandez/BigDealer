@@ -299,15 +299,14 @@ public class AgregarTipoTransmision extends javax.swing.JInternalFrame {
             String col_name = " id_veh_transmision , descripcion";
             String tbl_name = " veh_transmision ";
 
-            
+            tbl_transmision = Lib.limpiarTabla(tbl_transmision);
             if(valor.trim().equals("")){
 
-                tbl_transmision = limpiarTabla(tbl_transmision);
                 tbl_transmision.setModel(Lib.tblCargar((DefaultTableModel)tbl_transmision.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_transmision")));
               
             }else {
                 
-                tbl_transmision = limpiarTabla(tbl_transmision);
+                
                 tbl_transmision.setModel(Lib.tblCargar((DefaultTableModel)tbl_transmision.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_transmision ")));
                 
 
@@ -391,25 +390,6 @@ public class AgregarTipoTransmision extends javax.swing.JInternalFrame {
         }        
 
     }
-    
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
     
     private void limpiar(){
         

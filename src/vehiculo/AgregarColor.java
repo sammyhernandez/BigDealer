@@ -299,15 +299,14 @@ public class AgregarColor extends javax.swing.JInternalFrame {
             String col_name = " id_veh_color , descripcion";
             String tbl_name = " veh_color ";
 
-            
+            tbl_color = Lib.limpiarTabla(tbl_color);
             if(valor.trim().equals("")){
 
-                tbl_color = limpiarTabla(tbl_color);
                 tbl_color.setModel(Lib.tblCargar((DefaultTableModel)tbl_color.getModel(),Lib.queryArray(col_name, tbl_name," id_veh_color")));
               
             }else {
                 
-                tbl_color = limpiarTabla(tbl_color);
+
                 tbl_color.setModel(Lib.tblCargar((DefaultTableModel)tbl_color.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER(descripcion) LIKE UPPER('"+ valor + "%') ORDER BY id_veh_color ")));
                 
 
@@ -392,24 +391,6 @@ public class AgregarColor extends javax.swing.JInternalFrame {
 
     }
     
-    private JTable limpiarTabla(JTable tbl){
-
-            if(tbl.getRowCount() > 0){
-                DefaultTableModel model = (DefaultTableModel)tbl.getModel();
-
-                int fila = model.getRowCount();
-
-                for(int i=0;i < fila;i++ ){
-
-                    model.removeRow(0);
-                }
-
-                tbl.setModel(model);
-
-            }
-
-            return tbl;
-        }
     
     private void limpiar(){
         
