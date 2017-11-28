@@ -90,8 +90,7 @@ public class Lib {
          return model;
      }    
     public static DefaultTableModel tblCargar(DefaultTableModel model,ResultSet rs){
-        
-        
+
         try {
             if(rs.next()){
                 try {
@@ -108,6 +107,46 @@ public class Lib {
                         String[] fila = new String[cant_colum];
                         for(int i = 0;i < cant_colum; i++){
                             fila[i] = rs.getString(i+1);
+                            System.out.println("dato rs: " + rs.getString(i+1));
+                            System.out.println("dato fi: " + fila[i]);
+                        }
+                        model.addRow(fila);
+                    }
+                    rs.close();
+                    
+                }catch(SQLException esql){
+                    System.err.print("Error SQL: "+esql.getMessage());
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.err.print("Error SQL: "+ex.getMessage());;
+        }
+        return model;
+     }    
+    public static DefaultTableModel tblCargarDatosVehiculos(DefaultTableModel model,ResultSet rs){
+
+        try {
+            if(rs.next()){
+                try {
+                    
+                    rs.beforeFirst();
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int cant_colum = rsmd.getColumnCount();
+                    /*
+                    for(int i = 1;i < cant_colum;i++){
+                    model.addColumn(rsmd.getColumnLabel(i));
+                    }
+                    */
+                    while(rs.next()){
+                        String[] fila = new String[cant_colum];
+                        for(int i = 0;i < cant_colum; i++){
+                            
+                            if(i == 7){
+                                fila[i] = rs.getString(i+1).substring(0, 4);
+                            }else{
+                                fila[i] = rs.getString(i+1);
+                            }
                         }
                         model.addRow(fila);
                     }
@@ -148,6 +187,7 @@ public class Lib {
             Statement st = conn.createStatement();
             rs = st.executeQuery("SELECT "+ select +" FROM "+ from + " ORDER BY "+orden);
             //System.out.println("SELECT "+ select +" FROM "+ from);
+
 
         } catch (SQLException ex) {
             Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
@@ -299,8 +339,7 @@ public class Lib {
         }
         
         return model;
-    }
-    
+    } 
     public static Map mapCargar(String tbl_name){
         
         Map<String,String> map = new HashMap<>();

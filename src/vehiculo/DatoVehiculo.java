@@ -58,7 +58,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cb_carroceria = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        sp_year = new com.toedter.calendar.JYearChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_veh_dato = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -238,7 +238,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                                 .addComponent(cb_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(sp_year, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,7 +281,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel10)
                         .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13))
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sp_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -433,13 +433,16 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(250, 250, 250)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,9 +454,9 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -473,7 +476,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
- 
+        cargar(txt_buscar.getText());
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
@@ -492,14 +495,12 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         
-        cargar("");
-        limpiar();
+        actualizarVehiculo();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         
-        limpiar();
-        cargar("");
+        eliminarVehiculo();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
@@ -512,8 +513,7 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         
-        cargar("");
-        limpiar();
+        agregarVehiculo();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void cb_marcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_marcaItemStateChanged
@@ -602,9 +602,9 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lbl_id;
+    private com.toedter.calendar.JYearChooser sp_year;
     private javax.swing.JTable tbl_veh_dato;
     private javax.swing.JTextField txt_buscar;
     // End of variables declaration//GEN-END:variables
@@ -634,11 +634,11 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
         tbl_veh_dato = Lib.limpiarTabla(tbl_veh_dato);
         if(filtro.trim().equals("")){
 
-            tbl_veh_dato.setModel(Lib.tblCargar((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArray(col_name, tbl_name,orden)));
+            tbl_veh_dato.setModel(Lib.tblCargarDatosVehiculos((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArray(col_name, tbl_name,orden)));
 
         }else {
             
-            tbl_veh_dato.setModel(Lib.tblCargar((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER("+ ") LIKE UPPER('"+ filtro + "%') ORDER BY "+orden)));
+            tbl_veh_dato.setModel(Lib.tblCargarDatosVehiculos((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER( "+mp_cb_filtro.get(cb_filtro.getSelectedItem())+ " ) LIKE UPPER('"+ filtro + "%') ORDER BY "+orden)));
 
         }
 
@@ -648,7 +648,12 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     private void limpiar(){
         
         lbl_id.setText("...");
-        //txt_carroceria.setText("");
+        cb_marca.setSelectedIndex(0);
+        cb_carroceria.setSelectedIndex(0);
+        cb_color.setSelectedIndex(0);
+        cb_combustible.setSelectedIndex(0);
+        cb_transmision.setSelectedIndex(0);
+        cb_filtro.setSelectedIndex(0);
         txt_buscar.setText("");
         
     }
@@ -661,8 +666,16 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
         } else{    
       
-       lbl_id.setText(tbl_veh_dato.getValueAt(fila, 0).toString());
-       //txt_carroceria.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
+            lbl_id.setText(tbl_veh_dato.getValueAt(fila, 0).toString());
+            cb_marca.setSelectedItem(tbl_veh_dato.getValueAt(fila, 1).toString());
+            cb_modelo.setSelectedItem(tbl_veh_dato.getValueAt(fila, 2).toString());
+            cb_color.setSelectedItem(tbl_veh_dato.getValueAt(fila, 3).toString());
+            cb_carroceria.setSelectedItem(tbl_veh_dato.getValueAt(fila, 4).toString());
+            cb_transmision.setSelectedItem(tbl_veh_dato.getValueAt(fila, 5).toString());
+            cb_combustible.setSelectedItem(tbl_veh_dato.getValueAt(fila, 6).toString());
+            sp_year.setValue(Integer.valueOf(tbl_veh_dato.getValueAt(fila, 7).toString()));
+            
+            //txt_carroceria.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
        
       }
         
@@ -704,14 +717,28 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
     }
     
     private void agregarVehiculo(){
-        String mod_name = txt_modelo.getText();
-        String id_marca = mp_cb_marca.get(cb_veh_marca.getSelectedItem()).toString();
-        if(Lib.validaString(mod_name)){
+        //String mod_name = txt_modelo.getText();
+        //String id_marca = mp_cb_marca.get(cb_marca.getSelectedItem()).toString();
+        if( cb_modelo.getSelectedIndex()!= -1 && 
+            cb_marca.getSelectedIndex()!= -1  &&
+            cb_carroceria.getSelectedIndex()!= -1 && 
+            cb_transmision.getSelectedIndex()!= -1 &&
+            cb_combustible.getSelectedIndex()!= -1  &&
+            cb_color.getSelectedIndex()!= -1){
             
-            
-            
-            if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
-                int id_ins_marca = Lib.queryInsert(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo");
+
+            String id_modelo = mp_cb_modelo.get(cb_modelo.getSelectedItem()).toString();
+            String id_carroceria = mp_cb_carroceria.get(cb_carroceria.getSelectedItem()).toString();
+            String id_transmision = mp_cb_transmision.get(cb_transmision.getSelectedItem()).toString();
+            String id_combustible = mp_cb_combustible.get(cb_combustible.getSelectedItem()).toString();
+            String id_color = mp_cb_color.get(cb_color.getSelectedItem()).toString();
+            int year = sp_year.getValue();
+
+            if(Lib.existeRegistro("*","veh_dato"," id_veh_modelo = "+ id_modelo +" AND id_veh_color = "+ id_color
+                                  +" AND id_veh_tipo_carroceria = "+ id_carroceria + " AND id_veh_transmision = "+ id_transmision
+                                  +" AND id_veh_combustible = "+ id_combustible + " AND veh_year = "+ year ) == 0){
+                int id_ins_marca = Lib.queryInsert(  new String[]{"id_veh_modelo" , "id_veh_color","id_veh_tipo_carroceria","id_veh_transmision","id_veh_combustible","veh_year"}
+                                                   , new String[]{id_modelo,id_color,id_carroceria,id_transmision,id_combustible,String.valueOf(year)},"veh_dato");
                 if (id_ins_marca == 0){
                     JOptionPane.showMessageDialog(this,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                     System.err.println("No se insertaron registro");
@@ -721,27 +748,35 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                     limpiar();
                 }
             }else{
-                JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                System.err.println("El Modelo ya existe");
+                JOptionPane.showMessageDialog(this,"El Vehiculo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                System.err.println("El vehiculo ya existe");
             }
         }else{
-            
-           JOptionPane.showMessageDialog(this,"Escriba el nombre del modelo","Dato Invalido",JOptionPane.ERROR_MESSAGE);
-           System.err.println("Dato invalido");
-            
+        
+            JOptionPane.showMessageDialog(this,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+            System.err.println("Datos invalidos");
         }
+        
     }
-    private void actualizarModelo(){
-        String mod_name = txt_modelo.getText();
-        String id_marca = mp_cb_marca.get(cb_veh_marca.getSelectedItem()).toString();
+    private void actualizarVehiculo(){
+       
+        
+            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
+                String id_modelo = mp_cb_modelo.get(cb_modelo.getSelectedItem()).toString();
+                String id_carroceria = mp_cb_carroceria.get(cb_carroceria.getSelectedItem()).toString();
+                String id_transmision = mp_cb_transmision.get(cb_transmision.getSelectedItem()).toString();
+                String id_combustible = mp_cb_combustible.get(cb_combustible.getSelectedItem()).toString();
+                String id_color = mp_cb_color.get(cb_color.getSelectedItem()).toString();
+                int year = sp_year.getValue();
 
-            if(Lib.validaString(mod_name) && Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
-
-                if(Lib.existeRegistro("*","veh_modelo"," id_veh_marca = "+id_marca + " AND UPPER(descripcion) = UPPER( '"+mod_name+"' )") == 0){
-                    
+                if(Lib.existeRegistro("*","veh_dato"," id_veh_modelo = "+ id_modelo +" AND id_veh_color = "+ id_color
+                                      +" AND id_veh_tipo_carroceria = "+ id_carroceria + " AND id_veh_transmision = "+ id_transmision
+                                      +" AND id_veh_combustible = "+ id_combustible + " AND veh_year = "+ year ) == 0){
                     int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(ok == JOptionPane.YES_OPTION){
-                        int id_ins_marca = Lib.queryUpdate(new String[]{"id_veh_marca" , "descripcion"}, new String[]{id_marca,mod_name},"veh_modelo","id_veh_modelo = '"+lbl_id.getText()+" '");
+                        int id_ins_marca = Lib.queryUpdate(   new String[]{"id_veh_modelo" , "id_veh_color","id_veh_tipo_carroceria","id_veh_transmision","id_veh_combustible","veh_year"}
+                                                            , new String[]{id_modelo,id_color,id_carroceria,id_transmision,id_combustible,String.valueOf(year)}
+                                                            ,"veh_dato","id_veh_dato = '"+lbl_id.getText()+" '");
                         if (id_ins_marca == 0){
                             JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                             System.err.println("No se actualizo registro");
@@ -752,8 +787,8 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
                         }
                     }
                 }else{
-                    JOptionPane.showMessageDialog(this,"El modelo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                    System.err.println("El Nombre del modelo existe");
+                    JOptionPane.showMessageDialog(this,"El vehiculo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
+                    System.err.println("El Nombre del vehiculo existe");
                 }
             }else{
                 JOptionPane.showMessageDialog(this,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
@@ -762,12 +797,12 @@ public class DatoVehiculo extends javax.swing.JInternalFrame {
 
             
     }
-    private void eliminarModelo(){
+    private void eliminarVehiculo(){
 
             if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
                 int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
                 if(ok == JOptionPane.YES_OPTION){    
-                    int id_ins_marca = Lib.queryDelete("veh_modelo","id_veh_modelo",lbl_id.getText());
+                    int id_ins_marca = Lib.queryDelete("veh_dato","id_veh_dato",lbl_id.getText());
                     if (id_ins_marca == 0){
                         JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
                         System.err.println("No se elimino ningun registro");
