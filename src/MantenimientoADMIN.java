@@ -351,7 +351,7 @@ public class MantenimientoADMIN extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void mi_almacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_almacenActionPerformed
-         Vehiculos v = new Vehiculos();
+        Vehiculos v = new Vehiculos();
         jDesktopPane.add(v);
         Dimension desktopSize = jDesktopPane.getSize();
         Dimension FrameSize = v.getSize();
