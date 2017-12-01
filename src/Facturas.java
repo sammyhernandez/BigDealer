@@ -224,7 +224,7 @@ public class Facturas extends javax.swing.JInternalFrame {
             Connection cn = conect.conexion();
        try {
            
-           JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\Sammy\\Documents\\NetBeansProjects\\BigDealer\\src\\Reportes\\factura.jrxml");
+           JasperReport reporte = JasperCompileManager.compileReport("C:\\Users\\user\\Documents\\NetBeansProjects\\BigDealer\\src\\Reportes\\factura.jrxml");
            JasperPrint jasperprint = JasperFillManager.fillReport(reporte, null,conect.conexion());
            
            

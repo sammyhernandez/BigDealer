@@ -107,8 +107,8 @@ public class Lib {
                         String[] fila = new String[cant_colum];
                         for(int i = 0;i < cant_colum; i++){
                             fila[i] = rs.getString(i+1);
-                            System.out.println("dato rs: " + rs.getString(i+1));
-                            System.out.println("dato fi: " + fila[i]);
+                            //System.out.println("dato rs: " + rs.getString(i+1));
+                            //System.out.println("dato fi: " + fila[i]);
                         }
                         model.addRow(fila);
                     }

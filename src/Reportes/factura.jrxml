@@ -53,7 +53,7 @@
 				<frame>
 					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="1c39d7a0-3888-4857-9d5a-3988cffeaa6e"/>
 					<textField isStretchWithOverflow="true">
-						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="120" height="24" forecolor="#FFFFFF" uuid="78a34a8c-12c4-470f-a507-c635aea32f26"/>
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" uuid="78a34a8c-12c4-470f-a507-c635aea32f26"/>
 						<textElement>
 							<font isBold="false"/>
 						</textElement>
