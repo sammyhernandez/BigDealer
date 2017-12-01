@@ -38,6 +38,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         initComponents();
         //comboMarca();
         //comboModelo();
+        comboBoxCargar();
         
     }
     
@@ -150,20 +151,20 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        cb_marca = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
-        cb_modelo = new javax.swing.JComboBox();
-        cb_transmision = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        cb_color = new javax.swing.JComboBox();
-        cb_combustible = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        cb_carroceria = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
-        sp_year = new com.toedter.calendar.JYearChooser();
         jLabel4 = new javax.swing.JLabel();
+        lbl_marca = new javax.swing.JLabel();
+        lbl_modelo = new javax.swing.JLabel();
+        lbl_combustible = new javax.swing.JLabel();
+        lbl_transmision = new javax.swing.JLabel();
+        lbl_year = new javax.swing.JLabel();
+        lbl_color = new javax.swing.JLabel();
+        lbl_carroceria = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btn_limpiar = new javax.swing.JButton();
         btn_actualizar = new javax.swing.JButton();
@@ -184,7 +185,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -258,134 +258,93 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Marca:");
 
-        cb_marca.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_marcaItemStateChanged(evt);
-            }
-        });
-        cb_marca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_marcaActionPerformed(evt);
-            }
-        });
-
         jLabel15.setText("Modelo:");
-
-        cb_modelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_modeloActionPerformed(evt);
-            }
-        });
-
-        cb_transmision.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_transmisionItemStateChanged(evt);
-            }
-        });
-        cb_transmision.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_transmisionActionPerformed(evt);
-            }
-        });
 
         jLabel16.setText("Transmision:");
 
         jLabel17.setText("Color:");
 
-        cb_color.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_colorItemStateChanged(evt);
-            }
-        });
-        cb_color.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_colorActionPerformed(evt);
-            }
-        });
-
-        cb_combustible.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_combustibleItemStateChanged(evt);
-            }
-        });
-        cb_combustible.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_combustibleActionPerformed(evt);
-            }
-        });
-
         jLabel18.setText("Combustible:");
 
         jLabel19.setText("Carroceria:");
 
-        cb_carroceria.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_carroceriaItemStateChanged(evt);
-            }
-        });
-        cb_carroceria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_carroceriaActionPerformed(evt);
-            }
-        });
-
         jLabel20.setText("Year:");
+
+        lbl_marca.setText("...");
+        lbl_marca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_modelo.setText("...");
+        lbl_modelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_combustible.setText("...");
+        lbl_combustible.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_transmision.setText("...");
+        lbl_transmision.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_year.setText("...");
+        lbl_year.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_color.setText("...");
+        lbl_color.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lbl_carroceria.setText("...");
+        lbl_carroceria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17)
-                                .addGap(18, 18, 18)
-                                .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel19))
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cb_carroceria, 0, 158, Short.MAX_VALUE)
-                                    .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel20))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(cb_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(sp_year, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(20, 20, 20)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cb_modelo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cb_combustible, 0, 158, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(164, 164, 164)))
-                .addGap(205, 205, 205))
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_color, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(116, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 2, Short.MAX_VALUE)
+                                .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_carroceria, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbl_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_transmision, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(24, 24, 24)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_combustible, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel20))
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_year, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(431, 431, 431))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(369, 369, 369))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,25 +354,24 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(cb_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(cb_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(cb_carroceria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(cb_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
-                    .addComponent(cb_combustible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_combustible, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_transmision, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_carroceria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17)
-                        .addComponent(cb_color, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel20))
-                    .addComponent(sp_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel20)
+                    .addComponent(lbl_year, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_color, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addComponent(jLabel4))
         );
 
@@ -474,7 +432,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 .addComponent(btn_eliminar)
                 .addGap(54, 54, 54)
                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -589,8 +547,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Kilometraje:");
 
-        jCheckBox1.setText("Disponible");
-
         jLabel5.setText("Precio Compra:");
 
         jLabel6.setText("Porciento Venta:");
@@ -604,15 +560,21 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -620,13 +582,9 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jComboBox1, 0, 165, Short.MAX_VALUE))))
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -638,7 +596,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 288, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -661,7 +619,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
                     .addComponent(jLabel8)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -745,7 +702,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jPanel1);
@@ -756,12 +713,12 @@ public class Vehiculos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 942, Short.MAX_VALUE)
         );
 
         pack();
@@ -780,56 +737,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_buscarActionPerformed
-
-    private void cb_marcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_marcaItemStateChanged
-        //if(cb_marca.get){
-            //con = con +1;
-            //System.out.println("EStado "+con);
-            //}
-    }//GEN-LAST:event_cb_marcaItemStateChanged
-
-    private void cb_marcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_marcaActionPerformed
-
-        cb_modelo = Lib.cbCargar(cb_modelo, Lib.queryArray("descripcion"," veh_modelo "," id_veh_marca = "
-            + mp_cb_marca.get(cb_marca.getSelectedItem()) ," descripcion "));
-
-    }//GEN-LAST:event_cb_marcaActionPerformed
-
-    private void cb_modeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_modeloActionPerformed
-        //comboModelo();
-    }//GEN-LAST:event_cb_modeloActionPerformed
-
-    private void cb_transmisionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_transmisionItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_transmisionItemStateChanged
-
-    private void cb_transmisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_transmisionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_transmisionActionPerformed
-
-    private void cb_colorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_colorItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_colorItemStateChanged
-
-    private void cb_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_colorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_colorActionPerformed
-
-    private void cb_combustibleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_combustibleItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_combustibleItemStateChanged
-
-    private void cb_combustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_combustibleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_combustibleActionPerformed
-
-    private void cb_carroceriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_carroceriaItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_carroceriaItemStateChanged
-
-    private void cb_carroceriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_carroceriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_carroceriaActionPerformed
 
     private void tbl_veh_datoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_veh_datoMouseClicked
         selecionarDato();
@@ -879,14 +786,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_mostrar_todo;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JComboBox cb_carroceria;
-    private javax.swing.JComboBox cb_color;
-    private javax.swing.JComboBox cb_combustible;
     private javax.swing.JComboBox<String> cb_filtro;
-    private javax.swing.JComboBox cb_marca;
-    private javax.swing.JComboBox cb_modelo;
-    private javax.swing.JComboBox cb_transmision;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -924,8 +824,14 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblFecha1;
+    private javax.swing.JLabel lbl_carroceria;
+    private javax.swing.JLabel lbl_color;
+    private javax.swing.JLabel lbl_combustible;
     private javax.swing.JLabel lbl_id;
-    private com.toedter.calendar.JYearChooser sp_year;
+    private javax.swing.JLabel lbl_marca;
+    private javax.swing.JLabel lbl_modelo;
+    private javax.swing.JLabel lbl_transmision;
+    private javax.swing.JLabel lbl_year;
     private javax.swing.JTable tbl_veh_dato;
     private javax.swing.JTable tbl_veh_dato1;
     private javax.swing.JTextField txt_buscar;
@@ -965,7 +871,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         }
 
     }
-   
     private void tbl_prueba(MouseEvent evt){
         JOptionPane.showConfirmDialog(this, "hola");
     }
@@ -981,7 +886,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         txt_buscar.setText("");
         
     }
-
     private void selecionarDato(){
          
         int fila =  tbl_veh_dato.getSelectedRow();
@@ -991,41 +895,40 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         } else{    
       
             lbl_id.setText(tbl_veh_dato.getValueAt(fila, 0).toString());
-            cb_marca.setSelectedItem(tbl_veh_dato.getValueAt(fila, 1).toString());
-            cb_modelo.setSelectedItem(tbl_veh_dato.getValueAt(fila, 2).toString());
-            cb_color.setSelectedItem(tbl_veh_dato.getValueAt(fila, 3).toString());
-            cb_carroceria.setSelectedItem(tbl_veh_dato.getValueAt(fila, 4).toString());
-            cb_transmision.setSelectedItem(tbl_veh_dato.getValueAt(fila, 5).toString());
-            cb_combustible.setSelectedItem(tbl_veh_dato.getValueAt(fila, 6).toString());
-            sp_year.setValue(Integer.valueOf(tbl_veh_dato.getValueAt(fila, 7).toString()));
+            lbl_marca.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
+            lbl_modelo.setText(tbl_veh_dato.getValueAt(fila, 2).toString());
+            lbl_color.setText(tbl_veh_dato.getValueAt(fila, 3).toString());
+            lbl_carroceria.setText(tbl_veh_dato.getValueAt(fila, 4).toString());
+            lbl_transmision.setText(tbl_veh_dato.getValueAt(fila, 5).toString());
+            lbl_combustible.setText(tbl_veh_dato.getValueAt(fila, 6).toString());
+            lbl_year.setText(tbl_veh_dato.getValueAt(fila, 7).toString());
             
             //txt_carroceria.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
        
       }
         
     }
-    
     private void comboBoxCargar() {
         
-        //cargar marca
-        mp_cb_marca = Lib.mapCargar("veh_marca","descripcion");    
-        cb_marca = Lib.cbCargar(cb_marca, mp_cb_marca);
-        //cargar modelo
-        mp_cb_modelo = Lib.mapCargar(" id_veh_modelo,descripcion "," veh_modelo "," descripcion ");    
-
-        //cargar color
-        mp_cb_color = Lib.mapCargar("veh_color","descripcion");    
-        cb_color = Lib.cbCargar(cb_color, mp_cb_color);
-        //cargar carroceria
-        mp_cb_carroceria = Lib.mapCargar("veh_tipo_carroceria","descripcion");    
-        cb_carroceria = Lib.cbCargar(cb_carroceria, mp_cb_carroceria);
-        //cargar transmision
-        mp_cb_transmision = Lib.mapCargar("veh_transmision","descripcion");    
-        cb_transmision = Lib.cbCargar(cb_transmision, mp_cb_transmision);
-        //cargar combustible
-        mp_cb_combustible = Lib.mapCargar("veh_combustible","descripcion");    
-        cb_combustible = Lib.cbCargar(cb_combustible, mp_cb_combustible);
-        //cargar filtro
+//        //cargar marca
+//        mp_cb_marca = Lib.mapCargar("veh_marca","descripcion");    
+//        cb_marca = Lib.cbCargar(cb_marca, mp_cb_marca);
+//        //cargar modelo
+//        mp_cb_modelo = Lib.mapCargar(" id_veh_modelo,descripcion "," veh_modelo "," descripcion ");    
+//
+//        //cargar color
+//        mp_cb_color = Lib.mapCargar("veh_color","descripcion");    
+//        cb_color = Lib.cbCargar(cb_color, mp_cb_color);
+//        //cargar carroceria
+//        mp_cb_carroceria = Lib.mapCargar("veh_tipo_carroceria","descripcion");    
+//        cb_carroceria = Lib.cbCargar(cb_carroceria, mp_cb_carroceria);
+//        //cargar transmision
+//        mp_cb_transmision = Lib.mapCargar("veh_transmision","descripcion");    
+//        cb_transmision = Lib.cbCargar(cb_transmision, mp_cb_transmision);
+//        //cargar combustible
+//        mp_cb_combustible = Lib.mapCargar("veh_combustible","descripcion");    
+//        cb_combustible = Lib.cbCargar(cb_combustible, mp_cb_combustible);
+//        //cargar filtro
         mp_cb_filtro = new HashMap<>();   
         mp_cb_filtro.put("ID", "da.id_veh_dato");
         mp_cb_filtro.put("Marca", "ma.descripcion");
@@ -1039,7 +942,6 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         
    
     }
-    
     private void agregarVehiculo(){
         //String mod_name = txt_modelo.getText();
         //String id_marca = mp_cb_marca.get(cb_marca.getSelectedItem()).toString();
