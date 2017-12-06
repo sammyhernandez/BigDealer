@@ -164,6 +164,44 @@ public class Lib {
         }
         return model;
      }    
+    public static DefaultTableModel tblCargarAlmacenVehiculos(DefaultTableModel model,ResultSet rs){
+
+        try {
+            if(rs.next()){
+                try {
+                    
+                    rs.beforeFirst();
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int cant_colum = rsmd.getColumnCount();
+                    /*
+                    for(int i = 1;i < cant_colum;i++){
+                    model.addColumn(rsmd.getColumnLabel(i));
+                    }
+                    */
+                    while(rs.next()){
+                        String[] fila = new String[cant_colum];
+                        for(int i = 0;i < cant_colum; i++){
+                            
+                            if(i == 4){
+                                fila[i] = rs.getString(i+1).substring(0, 4);
+                            }else{
+                                fila[i] = rs.getString(i+1);
+                            }
+                        }
+                        model.addRow(fila);
+                    }
+                    rs.close();
+                    
+                }catch(SQLException esql){
+                    System.err.print("Error SQL: "+esql.getMessage());
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.err.print("Error SQL: "+ex.getMessage());;
+        }
+        return model;
+     }    
     public static ResultSet queryArray(String select,String from){
      ResultSet rs = null;
         try {
@@ -297,15 +335,17 @@ public class Lib {
     public static boolean validaString(String[] str_valid){
 
         for (String str_valid1 : str_valid) {
-            if (str_valid1.trim().isEmpty()) {
+            if (str_valid1.trim().isEmpty() || str_valid1.equals("...")) {
                 return false;
             }
         }
         return true;
     }
     public static boolean validaString(String str_valid){
-
-           return !str_valid.trim().isEmpty();
+        if(str_valid.trim().isEmpty() || str_valid.equals("...")){
+            return false;
+        }
+        return true;
     }
     public static String strCedula(String cedula){
 

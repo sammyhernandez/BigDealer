@@ -1,26 +1,14 @@
 package vehiculo;
 
 
-import Connection.conectar;
 import Utiliti.Lib;
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Utiliti.Valida;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -44,103 +32,9 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         //comboModelo();
         comboBoxCargar();
         cargar("");
-        
+
     }
-    
-   
 
-    public void comboMarca() {
-
-   
-        
-      try{  
-         
-          
-        
-                            String sql = "Select * "
-                                    + "     FROM list_marca";
-
-
-                    conectar conect = new conectar();
-                    Connection conn = conect.conexion();
-                    Statement st = conn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
-
-                
-
-                    while(rs.next()){
-                        
-                        int id = rs.getInt("id_marca");
-                        
-
-                   comboMarca.addItem(rs.getString("marcas"));
-                   
-                   
-
-                    System.out.println(rs.getInt("id_marca"));
-
-
-                    }   
-                
-        }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e.toString());
-                e.printStackTrace();
-
-            }
-      
-    }   
-    
-    
-    
-     public void comboModelo() {
-
-        comboModelo.removeAllItems();
-        
-
-      try{  
-          
-         
-         
-
-                    String sql = "SELECT list_marca.id_marca, modelos.Descripcion, modelos.id_marca \n" +
-                                 "  FROM list_marca, modelos\n" +
-                                 " WHERE list_marca.id_marca = modelos.id_marca";
-
-                    String sql2 = "Select * "
-                                + "FROM list_marca";            
-
-                    
-                    
-                    conectar conect = new conectar();
-                    Connection conn = conect.conexion();
-                    Statement st = conn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
-                   
-                     
-
-                  
-                
-
-                    while(rs.next()){
-
-                       
-                   comboModelo.addItem(rs.getString("Descripcion"));
-                   
-                   
-                   
-                        //System.out.print(rs.getString("Descripcion"));
-
-
-                    }   
-                
-                      
-        }catch(Exception e){
-                JOptionPane.showMessageDialog(null, e.toString());
-                e.printStackTrace();
-
-            }
-      
-    }   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -552,6 +446,26 @@ public class Vehiculos extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Precio Venta:");
 
+        txt_precio_compra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_precio_compraKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precio_compraKeyTyped(evt);
+            }
+        });
+
+        txt_porciento_venta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_porciento_ventaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_porciento_ventaKeyTyped(evt);
+            }
+        });
+
+        txt_precio_venta.setEditable(false);
+
         jLabel8.setText("Proveedor:");
 
         jLabel9.setText("%");
@@ -780,6 +694,40 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         selecionarVehiculo();
     }//GEN-LAST:event_tbl_veh_almacenMouseClicked
 
+    private void txt_porciento_ventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_porciento_ventaKeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key)) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+
+        }
+    }//GEN-LAST:event_txt_porciento_ventaKeyTyped
+
+    private void txt_precio_compraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precio_compraKeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key)) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+
+        }
+    }//GEN-LAST:event_txt_precio_compraKeyTyped
+
+    private void txt_precio_compraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precio_compraKeyReleased
+        if(!txt_porciento_venta.getText().isEmpty() && !txt_porciento_venta.getText().isEmpty()){
+                Double precio = Double.valueOf(txt_precio_compra.getText())+((Double.valueOf(txt_precio_compra.getText())*Double.valueOf(txt_porciento_venta.getText())) / 100);
+                txt_precio_venta.setText(precio.toString());
+        }else{
+            txt_precio_venta.setText("");
+        }
+    }//GEN-LAST:event_txt_precio_compraKeyReleased
+
+    private void txt_porciento_ventaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_porciento_ventaKeyReleased
+        if(!txt_porciento_venta.getText().isEmpty() && !txt_porciento_venta.getText().isEmpty()){
+                Double precio = Double.valueOf(txt_precio_compra.getText())+((Double.valueOf(txt_precio_compra.getText())*Double.valueOf(txt_porciento_venta.getText())) / 100);
+                txt_precio_venta.setText(precio.toString());
+        }else{
+            txt_precio_venta.setText("");
+        }
+    }//GEN-LAST:event_txt_porciento_ventaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
@@ -840,20 +788,15 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_precio_compra;
     private javax.swing.JTextField txt_precio_venta;
     // End of variables declaration//GEN-END:variables
-    private Map mp_cb_marca;
-    private Map mp_cb_modelo;
-    private Map mp_cb_color;
-    private Map mp_cb_carroceria;
-    private Map mp_cb_transmision;
-    private Map mp_cb_combustible;
+
     private Map mp_cb_filtro;
     private Map mp_cb_estado;
-    private Map mp_cb_marca_modelo;    
     private Map mp_cb_proveedor;
     private List  lista_id_veh_agregados = new ArrayList();
-    
+    private String id_almacen = "";
+
     private void cargar(String filtro){
-        
+
         String col_name = " da.id_veh_dato as ID ,ma.descripcion as Marca,mo.descripcion as Modelo, " +
                           " co.descripcion as Color,ca.descripcion as Carroceria, " +
                           " tr.descripcion as Transmision,com.descripcion as Combustible,da.veh_year as 'Year'";
@@ -872,17 +815,14 @@ public class Vehiculos extends javax.swing.JInternalFrame {
             tbl_veh_dato.setModel(Lib.tblCargarDatosVehiculos((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArray(col_name, tbl_name,orden)));
 
         }else {
-            
+
             tbl_veh_dato.setModel(Lib.tblCargarDatosVehiculos((DefaultTableModel)tbl_veh_dato.getModel(),Lib.queryArrayW(col_name, tbl_name," UPPER( "+mp_cb_filtro.get(cb_filtro.getSelectedItem())+ " ) LIKE UPPER('"+ filtro + "%') ORDER BY "+orden)));
 
         }
 
     }
-    private void tbl_prueba(MouseEvent evt){
-        JOptionPane.showConfirmDialog(this, "hola");
-    }
     private void limpiar(){
-        
+
         lbl_id.setText("...");
         lbl_carroceria.setText("...");
         lbl_color.setText("...");
@@ -898,16 +838,17 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         txt_porciento_venta.setText("");
         txt_precio_compra.setText("");
         txt_precio_venta.setText("");
-        
+        id_almacen ="";
+
     }
     private void selecionarDato(){
-         
+
         int fila =  tbl_veh_dato.getSelectedRow();
-      
+
         if(fila ==-1) {
             JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
-        } else{    
-      
+        } else{
+
             lbl_id.setText(tbl_veh_dato.getValueAt(fila, 0).toString());
             lbl_marca.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
             lbl_modelo.setText(tbl_veh_dato.getValueAt(fila, 2).toString());
@@ -916,35 +857,35 @@ public class Vehiculos extends javax.swing.JInternalFrame {
             lbl_transmision.setText(tbl_veh_dato.getValueAt(fila, 5).toString());
             lbl_combustible.setText(tbl_veh_dato.getValueAt(fila, 6).toString());
             lbl_year.setText(tbl_veh_dato.getValueAt(fila, 7).toString());
-            
+
             //txt_carroceria.setText(tbl_veh_dato.getValueAt(fila, 1).toString());
-       
+
       }
-        
+
     }
     private void comboBoxCargar() {
-        
+
 //        //cargar marca
-//        mp_cb_marca = Lib.mapCargar("veh_marca","descripcion");    
+//        mp_cb_marca = Lib.mapCargar("veh_marca","descripcion");
 //        cb_marca = Lib.cbCargar(cb_marca, mp_cb_marca);
 //        //cargar modelo
-//        mp_cb_modelo = Lib.mapCargar(" id_veh_modelo,descripcion "," veh_modelo "," descripcion ");    
+//        mp_cb_modelo = Lib.mapCargar(" id_veh_modelo,descripcion "," veh_modelo "," descripcion ");
 //
 //        //cargar color
-//        mp_cb_color = Lib.mapCargar("veh_color","descripcion");    
+//        mp_cb_color = Lib.mapCargar("veh_color","descripcion");
 //        cb_color = Lib.cbCargar(cb_color, mp_cb_color);
 //        //cargar carroceria
-//        mp_cb_carroceria = Lib.mapCargar("veh_tipo_carroceria","descripcion");    
+//        mp_cb_carroceria = Lib.mapCargar("veh_tipo_carroceria","descripcion");
 //        cb_carroceria = Lib.cbCargar(cb_carroceria, mp_cb_carroceria);
 //        //cargar transmision
-//        mp_cb_transmision = Lib.mapCargar("veh_transmision","descripcion");    
+//        mp_cb_transmision = Lib.mapCargar("veh_transmision","descripcion");
 //        cb_transmision = Lib.cbCargar(cb_transmision, mp_cb_transmision);
 //        //cargar combustible
-//        mp_cb_combustible = Lib.mapCargar("veh_combustible","descripcion");    
+//        mp_cb_combustible = Lib.mapCargar("veh_combustible","descripcion");
 //        cb_combustible = Lib.cbCargar(cb_combustible, mp_cb_combustible);
 //        //cargar filtro
-        
-        mp_cb_filtro = new HashMap<>();   
+
+        mp_cb_filtro = new HashMap<>();
         mp_cb_filtro.put("ID", "da.id_veh_dato");
         mp_cb_filtro.put("Marca", "ma.descripcion");
         mp_cb_filtro.put("Modelo", "mo.descripcion");
@@ -954,21 +895,21 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         mp_cb_filtro.put("Combustible", "com.descripcion");
         mp_cb_filtro.put("Year", "da.veh_year");
         cb_filtro = Lib.cbCargar(cb_filtro, mp_cb_filtro);
-        
+
         //cargar estado
-        mp_cb_estado = Lib.mapCargar("veh_estado","descripcion");    
+        mp_cb_estado = Lib.mapCargar("veh_estado","descripcion");
         cb_estado = Lib.cbCargar(cb_estado, mp_cb_estado);
-        mp_cb_proveedor = Lib.mapCargar(" id_proveedor , nombre "," proveedor "," id_proveedor ");    
+        mp_cb_proveedor = Lib.mapCargar(" id_proveedor , nombre "," proveedor "," id_proveedor ");
         cb_proveedor = Lib.cbCargar(cb_proveedor, mp_cb_proveedor);
-        
-   
+
+
     }
     private void agregarVehiculo(){
         //String mod_name = txt_modelo.getText();
         //String id_marca = mp_cb_marca.get(cb_marca.getSelectedItem()).toString();
         if( Lib.validaString(lbl_id.getText())){
             if( Lib.validaString(new String[] {txt_chasis.getText(),txt_kilometraje.getText(),txt_porciento_venta.getText(),txt_precio_compra.getText()})){
-                
+
                 if(Lib.existeRegistro("*", " veh_dato ", " id_veh_dato =  "+lbl_id.getText()) == 1){
 
                     String id_dato = lbl_id.getText();
@@ -983,7 +924,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     if(Lib.existeRegistro("*"," veh_almacen "," UPPER(veh_chasis) = UPPER( '"+matricula+"' ) ") == 0){
                         int id_ins_vehiculo = Lib.queryInsert(  new String[]{"id_veh_dato" , "id_veh_estado","veh_chasis","veh_kilometraje","veh_disponible","id_proveedor"}
                                                            , new String[]{id_dato,id_estado,matricula,kilometraje,"1",id_proveedor},"veh_almacen");
-                       
+
                         if (id_ins_vehiculo == 0){
                             JOptionPane.showMessageDialog(this,"No se Inserto ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
                             System.err.println("No se insertaron registro");
@@ -1000,7 +941,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                                 cargarVehiculo();
                                 limpiar();
                             }
-                            
+
                         }
                     }else{
                         JOptionPane.showMessageDialog(this,"El Vehiculo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
@@ -1021,65 +962,97 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         }
     private void actualizarVehiculo(){
 
-        if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..." && tbl_veh_almacen.getSelectedRow() != -1){
-          
-            if( Lib.validaString(new String[] {txt_chasis.getText(),txt_kilometraje.getText(),txt_porciento_venta.getText(),txt_precio_compra.getText()})){
-                String id_almacen = tbl_veh_almacen.getValueAt(tbl_veh_almacen.getSelectedRow(), 0).toString();
-                
-                    
-                    if(Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('"+txt_chasis.getText()+"') AND id_veh_almacen = '"+id_almacen+ "' ") == 1
-                       || Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('"+txt_chasis.getText()+"')") == 0){
+        if (Lib.validaString(lbl_id.getText()) && !lbl_id.getText().equals("...") && Lib.validaString(id_almacen)) {
 
-                        int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+id_almacen,"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-                        if(ok == JOptionPane.YES_OPTION){
-                            int id_ins_almacen = Lib.queryUpdate(   new String[]{"id_veh_modelo" , "id_veh_color","id_veh_tipo_carroceria","id_veh_transmision","id_veh_combustible","veh_year"}
-                                                                , new String[]{id_modelo,id_color,id_carroceria,id_transmision,id_combustible,String.valueOf(year)}
-                                                                ,"veh_dato","id_veh_dato = '"+lbl_id.getText()+" '");
-                            if (id_ins_marca == 0){
-                                JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
-                                System.err.println("No se actualizo registro");
+            if (Lib.validaString(new String[]{txt_chasis.getText(), txt_kilometraje.getText(), txt_porciento_venta.getText(), txt_precio_compra.getText()})) {
+                //id_almacen = tbl_veh_almacen.getValueAt(tbl_veh_almacen.getSelectedRow(), 0).toString();
 
-                            }else{
-                                cargar("");
+                if (Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('" + txt_chasis.getText() + "') AND id_veh_almacen = '" + id_almacen + "' ") == 1
+                        || Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('" + txt_chasis.getText() + "')") == 0) {
+
+                    int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: " + id_almacen, "Actualizar registro", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (ok == JOptionPane.YES_OPTION) {
+                        String id_dato = lbl_id.getText();
+                        String matricula = txt_chasis.getText();
+                        String kilometraje = txt_kilometraje.getText();
+                        String precio_compra = txt_precio_compra.getText();
+                        String porciento_venta = txt_porciento_venta.getText();
+                        String id_estado = mp_cb_estado.get(cb_estado.getSelectedItem()).toString();
+                        String id_proveedor = mp_cb_proveedor.get(cb_proveedor.getSelectedItem()).toString();
+
+                        int id_ins_almacen = Lib.queryUpdate(new String[]{"id_veh_dato", "id_veh_estado", "veh_chasis", "veh_kilometraje", "veh_disponible", "id_proveedor"},
+                                 new String[]{id_dato, id_estado, matricula, kilometraje, "1", id_proveedor}, "veh_almacen",
+                                 "id_veh_almacen = '" + id_almacen + "'");
+                        if (id_ins_almacen != 0) {
+                            int id_ins_veh_precio = Lib.queryUpdate(new String[]{"id_veh_almacen", "veh_precio_compra", "veh_porciento_ganar"},
+                                     new String[]{id_almacen, precio_compra, porciento_venta}, "veh_precio",
+                                     "id_veh_almacen = '" + id_almacen + "'");
+                            if (id_ins_veh_precio != 0) {
+
+                                cargarVehiculo();
                                 limpiar();
+
+                            } else {
+                                JOptionPane.showMessageDialog(this, "No se Inserto el precio", "Error no se guardaron datos", JOptionPane.ERROR_MESSAGE);
+                                System.err.println("No se insertaron registro");
                             }
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(this, "No se actualizo ningun registro", "Error no se guardaron datos", JOptionPane.ERROR_MESSAGE);
+                            System.err.println("No se actualizo registro");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El vehiculo ya se encuentra registrado", "Dato duplicado", JOptionPane.ERROR_MESSAGE);
+                    System.err.println("El Nombre del vehiculo existe");
                 }
-            }else{
-                JOptionPane.showMessageDialog(this,"El vehiculo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-                System.err.println("El Nombre del vehiculo existe");
+            } else {
+                JOptionPane.showMessageDialog(this, "Los datos suministrado no son valido o no a selecionado ningun valor", "Dato duplicado", JOptionPane.ERROR_MESSAGE);
+                System.err.println("Datos invalidos");
             }
         }else{
-            JOptionPane.showMessageDialog(this,"Los datos suministrado no son valido o no a selecionado ningun valor","Dato duplicado",JOptionPane.ERROR_MESSAGE);
-            System.err.println("Datos invalidos");
+            JOptionPane.showMessageDialog(this,"No a selecionado ningun registro","Dato invalido",JOptionPane.ERROR_MESSAGE);
+            System.err.println("No a selecionado ningun registro");
         }
-            
+
     }
+
     private void eliminarVehiculo(){
 
-            if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
-                int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+lbl_id.getText(),"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-                if(ok == JOptionPane.YES_OPTION){    
-                    int id_ins_marca = Lib.queryDelete("veh_dato","id_veh_dato",lbl_id.getText());
-                    if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
-                        System.err.println("No se elimino ningun registro");
+            if(Lib.validaString(lbl_id.getText()) && !lbl_id.getText().equals("...") &&  Lib.validaString(id_almacen)){
+                //id_almacen = tbl_veh_almacen.getValueAt(tbl_veh_almacen.getSelectedRow(), 0).toString();
+                int ok = JOptionPane.showConfirmDialog(this, "Se eliminara el registro con el id: "+id_almacen,"Eliminar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(ok == JOptionPane.YES_OPTION){
+                    int id_del_veh_precio = Lib.queryDelete("veh_precio","id_veh_almacen",id_almacen);
+                    if (id_del_veh_precio != 0){
+
+                        int id_del_veh_almacen = Lib.queryDelete("veh_almacen","id_veh_almacen",id_almacen);
+                        if(id_del_veh_almacen != 0){
+
+                            cargarVehiculo();
+                            limpiar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(this,"No se elimino ningun registro del vehiculo","Error",JOptionPane.ERROR_MESSAGE);
+                            System.err.println("No se elimino ningun registro");
+                        }
 
                     }else{
-                        cargar("");
-                        limpiar();
+                        JOptionPane.showMessageDialog(this,"No se elimino ningun registro","Error",JOptionPane.ERROR_MESSAGE);
+                        System.err.println("No se elimino ningun registro");
                     }
                 }
             }else{
                 JOptionPane.showMessageDialog(this,"Selecione un registro  a borrar","Error",JOptionPane.ERROR_MESSAGE);
                 System.err.println("No se a selecionado ningun registro");
-            }        
-        
-        
+            }
+
+
     }
     private void cargarVehiculo(){
-        
         if(!lista_id_veh_agregados.isEmpty()){
-            
+
             String col_name = " val.id_veh_almacen AS 'ID',val.veh_chasis AS 'Chasis',vma.descripcion AS 'Marca',"
                             + " vmo.descripcion AS 'Modelo',vco.descripcion AS 'Color',"
                             + " vpr.veh_precio_compra AS 'Precio Compra',vpr.veh_porciento_ganar AS 'Porciento Venta',"
@@ -1100,47 +1073,46 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                     id = obj.toString();
                     tbl_veh_almacen.setModel(Lib.tblCargarDatosVehiculos((DefaultTableModel)tbl_veh_almacen.getModel(),
                                                                       Lib.queryArrayW(col_name, tbl_name," val.id_veh_almacen = '" + id +"' ORDER BY "+orden)));
-                }                                                        
+                }
 
             }
         }
     }
     private void selecionarVehiculo(){
-        
+
         int fila = tbl_veh_almacen.getSelectedRow();
         List<String> lst;
         if(fila == -1){
             JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
         }else {
-            
-            String id_almacen = tbl_veh_almacen.getValueAt(fila, 0).toString();
-            
-            String select =   " va.veh_chasis as chasis,va.veh_kilometraje as kilometraje, " 
-                            + " ves.descripcion as estado,vp.veh_precio_compra as 'precio compra'," 
-                            + " vp.veh_porciento_ganar as porciento,pr.nombre as 'proveedor'," 
-                            + " va.id_veh_dato as id_dato ,ma.descripcion as Marca,mo.descripcion as Modelo," 
-                            + " co.descripcion as Color,ca.descripcion as Carroceria," 
+
+            id_almacen = tbl_veh_almacen.getValueAt(fila, 0).toString();
+            System.out.println("id_almacen = "+id_almacen);
+            String select =   " va.veh_chasis as chasis,va.veh_kilometraje as kilometraje, "
+                            + " ves.descripcion as estado,vp.veh_precio_compra as 'precio compra',"
+                            + " vp.veh_porciento_ganar as porciento,pr.nombre as 'proveedor',"
+                            + " va.id_veh_dato as id_dato ,ma.descripcion as Marca,mo.descripcion as Modelo,"
+                            + " co.descripcion as Color,ca.descripcion as Carroceria,"
                             + " tr.descripcion as Transmision,com.descripcion as Combustible,veh_year as 'year' ";
-                 
-            String from =     " veh_almacen va " 
-                            + " LEFT JOIN veh_precio vp ON va.id_veh_almacen = vp.id_veh_almacen " 
-                            + " LEFT JOIN veh_dato da   ON va.id_veh_dato = da.id_veh_dato " 
-                            + " LEFT JOIN veh_modelo mo ON da.id_veh_modelo = mo.id_veh_modelo " 
-                            + " LEFT JOIN veh_marca ma  ON mo.id_veh_marca = ma.id_veh_marca " 
-                            + " LEFT JOIN veh_color co  ON co.id_veh_color = da.id_veh_color " 
-                            + " LEFT JOIN veh_tipo_carroceria ca ON ca.id_veh_tipo_carroceria = da.id_veh_tipo_carroceria " 
-                            + " LEFT JOIN veh_transmision tr ON tr.id_veh_transmision = da.id_veh_transmision " 
+
+            String from =     " veh_almacen va "
+                            + " LEFT JOIN veh_precio vp ON va.id_veh_almacen = vp.id_veh_almacen "
+                            + " LEFT JOIN veh_dato da   ON va.id_veh_dato = da.id_veh_dato "
+                            + " LEFT JOIN veh_modelo mo ON da.id_veh_modelo = mo.id_veh_modelo "
+                            + " LEFT JOIN veh_marca ma  ON mo.id_veh_marca = ma.id_veh_marca "
+                            + " LEFT JOIN veh_color co  ON co.id_veh_color = da.id_veh_color "
+                            + " LEFT JOIN veh_tipo_carroceria ca ON ca.id_veh_tipo_carroceria = da.id_veh_tipo_carroceria "
+                            + " LEFT JOIN veh_transmision tr ON tr.id_veh_transmision = da.id_veh_transmision "
                             + " LEFT JOIN veh_combustible com ON com.id_veh_combustible = da.id_veh_combustible "
-                            + " LEFT JOIN veh_estado ves      ON ves.id_veh_estado = va.id_veh_estado " 
+                            + " LEFT JOIN veh_estado ves      ON ves.id_veh_estado = va.id_veh_estado "
                             + " LEFT JOIN proveedor pr		  ON pr.id_proveedor = va.id_proveedor ";
-          
+
             String where = " va.id_veh_almacen =  '"+id_almacen+ "'";
-            
-            
+
+
             lst = Lib.listSingleFila(select,from,where);
             if(!lst.isEmpty()){
-                limpiar();
-                
+
                 txt_chasis.setText(lst.get(0));
                 txt_kilometraje.setText(lst.get(1));
                 cb_estado.setSelectedItem(lst.get(2));
@@ -1155,10 +1127,10 @@ public class Vehiculos extends javax.swing.JInternalFrame {
                 lbl_transmision.setText(lst.get(11));
                 lbl_combustible.setText(lst.get(12));
                 lbl_year.setText(lst.get(13).substring(0, 4));
-                
-                
+
+
             }
         }
-        
+
     }
 }
