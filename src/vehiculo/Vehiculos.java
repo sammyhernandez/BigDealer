@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -776,7 +777,7 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_chasisActionPerformed
 
     private void tbl_veh_almacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_veh_almacenMouseClicked
-        // TODO add your handling code here:
+        selecionarVehiculo();
     }//GEN-LAST:event_tbl_veh_almacenMouseClicked
 
 
@@ -1020,31 +1021,28 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         }
     private void actualizarVehiculo(){
 
+        if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..." && tbl_veh_almacen.getSelectedRow() != -1){
+          
+            if( Lib.validaString(new String[] {txt_chasis.getText(),txt_kilometraje.getText(),txt_porciento_venta.getText(),txt_precio_compra.getText()})){
+                String id_almacen = tbl_veh_almacen.getValueAt(tbl_veh_almacen.getSelectedRow(), 0).toString();
+                
+                    
+                    if(Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('"+txt_chasis.getText()+"') AND id_veh_almacen = '"+id_almacen+ "' ") == 1
+                       || Lib.existeRegistro("*", " veh_almacen ", " UPPER(veh_chasis) = UPPER('"+txt_chasis.getText()+"')") == 0){
 
-        if(Lib.validaString(lbl_id.getText()) && lbl_id.getText() != "..."){
-            String id_modelo = mp_cb_modelo.get(cb_modelo.getSelectedItem()).toString();
-            String id_carroceria = mp_cb_carroceria.get(cb_carroceria.getSelectedItem()).toString();
-            String id_transmision = mp_cb_transmision.get(cb_transmision.getSelectedItem()).toString();
-            String id_combustible = mp_cb_combustible.get(cb_combustible.getSelectedItem()).toString();
-            String id_color = mp_cb_color.get(cb_color.getSelectedItem()).toString();
-            int year = sp_year.getValue();
+                        int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+id_almacen,"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+                        if(ok == JOptionPane.YES_OPTION){
+                            int id_ins_almacen = Lib.queryUpdate(   new String[]{"id_veh_modelo" , "id_veh_color","id_veh_tipo_carroceria","id_veh_transmision","id_veh_combustible","veh_year"}
+                                                                , new String[]{id_modelo,id_color,id_carroceria,id_transmision,id_combustible,String.valueOf(year)}
+                                                                ,"veh_dato","id_veh_dato = '"+lbl_id.getText()+" '");
+                            if (id_ins_marca == 0){
+                                JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
+                                System.err.println("No se actualizo registro");
 
-            if(Lib.existeRegistro("*","veh_dato"," id_veh_modelo = "+ id_modelo +" AND id_veh_color = "+ id_color
-                                  +" AND id_veh_tipo_carroceria = "+ id_carroceria + " AND id_veh_transmision = "+ id_transmision
-                                  +" AND id_veh_combustible = "+ id_combustible + " AND veh_year = "+ year ) == 0){
-                int ok = JOptionPane.showConfirmDialog(this, "Se actualizara el registro con el id: "+lbl_id.getText(),"Actualizar registro",JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
-                if(ok == JOptionPane.YES_OPTION){
-                    int id_ins_marca = Lib.queryUpdate(   new String[]{"id_veh_modelo" , "id_veh_color","id_veh_tipo_carroceria","id_veh_transmision","id_veh_combustible","veh_year"}
-                                                        , new String[]{id_modelo,id_color,id_carroceria,id_transmision,id_combustible,String.valueOf(year)}
-                                                        ,"veh_dato","id_veh_dato = '"+lbl_id.getText()+" '");
-                    if (id_ins_marca == 0){
-                        JOptionPane.showMessageDialog(this,"No se actualizo ningun registro","Error no se guardaron datos",JOptionPane.ERROR_MESSAGE);
-                        System.err.println("No se actualizo registro");
-
-                    }else{
-                        cargar("");
-                        limpiar();
-                    }
+                            }else{
+                                cargar("");
+                                limpiar();
+                            }
                 }
             }else{
                 JOptionPane.showMessageDialog(this,"El vehiculo ya se encuentra registrado","Dato duplicado",JOptionPane.ERROR_MESSAGE);
@@ -1110,11 +1108,56 @@ public class Vehiculos extends javax.swing.JInternalFrame {
     private void selecionarVehiculo(){
         
         int fila = tbl_veh_almacen.getSelectedRow();
-        
+        List<String> lst;
         if(fila == -1){
             JOptionPane.showMessageDialog(this,"Debes Seleccionar una Registro.");
         }else {
-            txt_chasis.setText(tbl_veh_almacen.getValueAt(fila, 0));
+            
+            String id_almacen = tbl_veh_almacen.getValueAt(fila, 0).toString();
+            
+            String select =   " va.veh_chasis as chasis,va.veh_kilometraje as kilometraje, " 
+                            + " ves.descripcion as estado,vp.veh_precio_compra as 'precio compra'," 
+                            + " vp.veh_porciento_ganar as porciento,pr.nombre as 'proveedor'," 
+                            + " va.id_veh_dato as id_dato ,ma.descripcion as Marca,mo.descripcion as Modelo," 
+                            + " co.descripcion as Color,ca.descripcion as Carroceria," 
+                            + " tr.descripcion as Transmision,com.descripcion as Combustible,veh_year as 'year' ";
+                 
+            String from =     " veh_almacen va " 
+                            + " LEFT JOIN veh_precio vp ON va.id_veh_almacen = vp.id_veh_almacen " 
+                            + " LEFT JOIN veh_dato da   ON va.id_veh_dato = da.id_veh_dato " 
+                            + " LEFT JOIN veh_modelo mo ON da.id_veh_modelo = mo.id_veh_modelo " 
+                            + " LEFT JOIN veh_marca ma  ON mo.id_veh_marca = ma.id_veh_marca " 
+                            + " LEFT JOIN veh_color co  ON co.id_veh_color = da.id_veh_color " 
+                            + " LEFT JOIN veh_tipo_carroceria ca ON ca.id_veh_tipo_carroceria = da.id_veh_tipo_carroceria " 
+                            + " LEFT JOIN veh_transmision tr ON tr.id_veh_transmision = da.id_veh_transmision " 
+                            + " LEFT JOIN veh_combustible com ON com.id_veh_combustible = da.id_veh_combustible "
+                            + " LEFT JOIN veh_estado ves      ON ves.id_veh_estado = va.id_veh_estado " 
+                            + " LEFT JOIN proveedor pr		  ON pr.id_proveedor = va.id_proveedor ";
+          
+            String where = " va.id_veh_almacen =  '"+id_almacen+ "'";
+            
+            
+            lst = Lib.listSingleFila(select,from,where);
+            if(!lst.isEmpty()){
+                limpiar();
+                
+                txt_chasis.setText(lst.get(0));
+                txt_kilometraje.setText(lst.get(1));
+                cb_estado.setSelectedItem(lst.get(2));
+                txt_precio_compra.setText(lst.get(3));
+                txt_porciento_venta.setText(lst.get(4));
+                cb_proveedor.setSelectedItem(lst.get(5));
+                lbl_id.setText(lst.get(6));
+                lbl_marca.setText(lst.get(7));
+                lbl_modelo.setText(lst.get(8));
+                lbl_color.setText(lst.get(9));
+                lbl_carroceria.setText(lst.get(10));
+                lbl_transmision.setText(lst.get(11));
+                lbl_combustible.setText(lst.get(12));
+                lbl_year.setText(lst.get(13).substring(0, 4));
+                
+                
+            }
         }
         
     }

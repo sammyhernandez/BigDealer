@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -390,6 +392,26 @@ public class Lib {
             Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
         }
         return map;
+    }
+    public static List listSingleFila(String select,String tbl_name,String where){
+        
+        List<String> lst = new LinkedList<>();
+        try {
+
+            ResultSet rs = queryArrayW(select,tbl_name,where);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            int cant_colum = rsmd.getColumnCount();            
+            while(rs.next()){            
+                for(int i=0;i < cant_colum;i++ ){
+                    lst.add(rs.getString(i+1));
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Lib.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lst;
     }
     public static int queryUpdate(String[] col_name,String[] col_value,String tbl_name,String where){
         int filas = 0;
