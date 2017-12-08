@@ -2,6 +2,7 @@ package vehiculo;
 
 
 import Utiliti.Lib;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -103,6 +104,12 @@ public class AgregarTipoCarroceria extends javax.swing.JInternalFrame {
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
+            }
+        });
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyPressed(evt);
             }
         });
 
@@ -274,6 +281,13 @@ public class AgregarTipoCarroceria extends javax.swing.JInternalFrame {
     private void tbl_carroceriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_carroceriaMouseClicked
         selecionarDato();
     }//GEN-LAST:event_tbl_carroceriaMouseClicked
+
+    private void txt_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyPressed
+        int key = (char)evt.getKeyCode();
+        if(KeyEvent.VK_ENTER == key){
+            cargar(txt_buscar.getText());
+        }        
+    }//GEN-LAST:event_txt_buscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,7 +6,6 @@
 package Utiliti;
 
 import Connection.conectar;
-import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,6 +32,7 @@ public class Lib {
     
     /**
      *
+     * @param tbl
      * @param model
      * @param qry
      * @return DefaultTableModel

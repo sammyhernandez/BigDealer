@@ -3,6 +3,7 @@ package vehiculo;
 
 import Connection.conectar;
 import Utiliti.Lib;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -127,6 +128,12 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
+            }
+        });
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyPressed(evt);
             }
         });
 
@@ -303,6 +310,13 @@ public class AgregarModelos extends javax.swing.JInternalFrame {
         cargar("");
        
     }//GEN-LAST:event_btn_mostrar_todoActionPerformed
+
+    private void txt_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyPressed
+        int key = (char)evt.getKeyCode();
+        if(KeyEvent.VK_ENTER == key){
+            cargar(txt_buscar.getText());
+        }
+    }//GEN-LAST:event_txt_buscarKeyPressed
 
 
     private Map mp_cb_marca;

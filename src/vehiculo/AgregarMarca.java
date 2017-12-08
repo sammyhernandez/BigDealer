@@ -2,6 +2,7 @@ package vehiculo;
 
 
 import Utiliti.Lib;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -103,6 +104,17 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+        btnBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnBuscarKeyPressed(evt);
+            }
+        });
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyPressed(evt);
             }
         });
 
@@ -275,6 +287,17 @@ public class AgregarMarca extends javax.swing.JInternalFrame {
     private void btn_mostrar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_todoActionPerformed
         cargar("");
     }//GEN-LAST:event_btn_mostrar_todoActionPerformed
+
+    private void btnBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyPressed
+        
+    }//GEN-LAST:event_btnBuscarKeyPressed
+
+    private void txt_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyPressed
+        int key = (char)evt.getKeyCode();
+        if(KeyEvent.VK_ENTER == key){
+            cargar(txt_buscar.getText());
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_buscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

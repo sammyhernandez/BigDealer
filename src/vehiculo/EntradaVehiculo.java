@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Sammy
  */
-public class Vehiculos extends javax.swing.JInternalFrame {
+public class EntradaVehiculo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Vehiculos
      */
-    public Vehiculos() {
+    public EntradaVehiculo() {
         initComponents();
         //comboMarca();
         //comboModelo();
@@ -120,6 +120,11 @@ public class Vehiculos extends javax.swing.JInternalFrame {
         txt_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_buscarActionPerformed(evt);
+            }
+        });
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyPressed(evt);
             }
         });
 
@@ -727,6 +732,13 @@ public class Vehiculos extends javax.swing.JInternalFrame {
             txt_precio_venta.setText("");
         }
     }//GEN-LAST:event_txt_porciento_ventaKeyReleased
+
+    private void txt_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyPressed
+        int key = (char)evt.getKeyCode();
+        if(KeyEvent.VK_ENTER == key){
+            cargar(txt_buscar.getText());
+        }                // TODO add your handling code here:
+    }//GEN-LAST:event_txt_buscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
