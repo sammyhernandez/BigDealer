@@ -1,15 +1,17 @@
 
 import Clases.Usuario;
 import Connection.conectar;
+import Utiliti.Valida;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -49,17 +51,22 @@ public class Login extends javax.swing.JFrame {
 
             try {
                 // Hacemos una consulta a la base de datos para obetner el usuario y la password
-                String sql = ("SELECT * FROM usuario WHERE cedula = '?'  AND contrasenia = MD5('?')");
+                String sql = "SELECT * FROM usuario WHERE cedula = ?  AND contrasenia = MD5(?)";
 
-                PreparedStatement prepare_st = conn.prepareStatement(sql);
+                PreparedStatement prepare_st;
+                prepare_st = conn.prepareStatement(sql);
                 prepare_st.setString(1, Usuario);
                 prepare_st.setString(2, password);
-                ResultSet rs = prepare_st.executeQuery(sql);
+                
+                //prepare_st.executeQuery();
+                ResultSet rs = prepare_st.executeQuery();
 
                 //Creamos una condicion si los campos estan vacios devuelve un alert diciendo Usuario Incorrecto / Invalido
                 // Usamos un if para ir recorriendo los campos de la tabla
                 if (rs.next()) {
                     if (rs.getString("cedula").equals(Usuario)) {
+                        String user = rs.getString("cedula");
+                        
                         
                         if (!checkCambio.isSelected()) {
                             //Aqui ya sabes que el usuario existe
@@ -84,34 +91,27 @@ public class Login extends javax.swing.JFrame {
 
                             }
                         }else{
-                            lbl_usuario.setText(sql);
+                            limpiar();
+                            lbl_usuario.setText(user);
                             paneles(p_cambio_pass, p_iniciar_session);
-                            
-                        }
-                        if ((!cap1.equals("Administrador") && !cap1.equals("Usuario"))) {
-
-                            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
-
-                        }
+                                                      
+                        }   
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
+                        JOptionPane.showMessageDialog(this, "El usuario no existe","Dato incorrecto",JOptionPane.INFORMATION_MESSAGE);
                     }
 
-                    
-
                 }else{
-                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
+                    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecto","Dato incorrecto",JOptionPane.INFORMATION_MESSAGE);
                 }
                     
             } catch (Exception e) {
 
                 JOptionPane.showMessageDialog(this, "Error de Conecxion con el servidor \nPor favor contactar con el encargado de mantenimiento");
-
-                e.printStackTrace();
+                System.err.println("ERROR:"+e.getMessage());
             }
         } else {
-
+            JOptionPane.showMessageDialog(this, "Los datos suministrado no son validos!!","Dato invalido",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -178,7 +178,6 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
         p_iniciar_session = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txt_user = new javax.swing.JTextField();
@@ -197,8 +196,7 @@ public class Login extends javax.swing.JFrame {
         btn_cambio_enter = new javax.swing.JButton();
         btn_cancelar = new javax.swing.JButton();
         txt_cambio_pass = new javax.swing.JPasswordField();
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoLogin.jpg"))); // NOI18N
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -211,9 +209,21 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 102, 51));
         jLabel1.setText("Usuario:");
 
+        txt_user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_userKeyTyped(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 102, 51));
         jLabel2.setText("Contraseña: ");
+
+        txt_master_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_master_passwordKeyTyped(evt);
+            }
+        });
 
         checkCambio.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         checkCambio.setForeground(new java.awt.Color(255, 255, 255));
@@ -243,7 +253,6 @@ public class Login extends javax.swing.JFrame {
         btn_master_enter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_master_enter.setForeground(new java.awt.Color(255, 102, 51));
         btn_master_enter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acep_norm.png"))); // NOI18N
-        btn_master_enter.setBorder(null);
         btn_master_enter.setBorderPainted(false);
         btn_master_enter.setContentAreaFilled(false);
         btn_master_enter.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acep_press.png"))); // NOI18N
@@ -315,6 +324,12 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 102, 51));
         jLabel6.setText("Repita Contraseña: ");
 
+        txt_cambio_pass_2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cambio_pass_2KeyTyped(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 102, 51));
         jLabel7.setText("Usuario:");
@@ -323,7 +338,6 @@ public class Login extends javax.swing.JFrame {
         btn_cambio_enter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_cambio_enter.setForeground(new java.awt.Color(255, 102, 51));
         btn_cambio_enter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acep_norm.png"))); // NOI18N
-        btn_cambio_enter.setBorder(null);
         btn_cambio_enter.setBorderPainted(false);
         btn_cambio_enter.setContentAreaFilled(false);
         btn_cambio_enter.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/acep_press.png"))); // NOI18N
@@ -349,6 +363,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txt_cambio_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cambio_passKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout p_cambio_passLayout = new javax.swing.GroupLayout(p_cambio_pass);
         p_cambio_pass.setLayout(p_cambio_passLayout);
         p_cambio_passLayout.setHorizontalGroup(
@@ -359,20 +379,22 @@ public class Login extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(p_cambio_passLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_cambio_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(p_cambio_passLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel6)
-                .addGap(4, 4, 4)
-                .addComponent(txt_cambio_pass_2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(p_cambio_passLayout.createSequentialGroup()
                 .addGap(198, 198, 198)
                 .addComponent(btn_cambio_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(p_cambio_passLayout.createSequentialGroup()
+                .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_cambio_passLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel5))
+                    .addGroup(p_cambio_passLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txt_cambio_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(txt_cambio_pass_2)))
         );
         p_cambio_passLayout.setVerticalGroup(
             p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,17 +407,17 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txt_cambio_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_cambio_passLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel6))
+                .addGap(20, 20, 20)
+                .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
                     .addComponent(txt_cambio_pass_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(32, 32, 32)
                 .addGroup(p_cambio_passLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cambio_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoLogin.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -412,6 +434,11 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(p_cambio_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(p_iniciar_session, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(78, 78, 78))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,33 +450,67 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(p_cambio_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_cambio_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambio_enterActionPerformed
-        //entrar();
-        paneles(p_iniciar_session, p_cambio_pass);
+        cambioPass();
     }//GEN-LAST:event_btn_cambio_enterActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        System.exit(0);
+        limpiar();
+        paneles(p_iniciar_session, p_cambio_pass);
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void checkCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCambioActionPerformed
-        cambiarContraseña();
+        //cambiarContraseña();
 
 
     }//GEN-LAST:event_checkCambioActionPerformed
 
     private void btn_master_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_master_enterActionPerformed
-        paneles(p_cambio_pass, p_iniciar_session);
+       entrar();
     }//GEN-LAST:event_btn_master_enterActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+       System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txt_userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userKeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key) || txt_user.getText().length() > 11) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+
+        }
+    }//GEN-LAST:event_txt_userKeyTyped
+
+    private void txt_master_passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_master_passwordKeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key) && !Valida.validaStr(key) || new String(txt_master_password.getPassword()).length() > 50) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }
+    }//GEN-LAST:event_txt_master_passwordKeyTyped
+
+    private void txt_cambio_passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cambio_passKeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key) && !Valida.validaStr(key) || new String(txt_cambio_pass.getPassword()).length() > 50) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cambio_passKeyTyped
+
+    private void txt_cambio_pass_2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cambio_pass_2KeyTyped
+        int key = (char)evt.getKeyChar();
+        if (!Valida.validaNum(key) && !Valida.validaStr(key) || new String(txt_cambio_pass_2.getPassword()).length() > 50) {
+            evt.setKeyChar((char) KeyEvent.VK_CLEAR);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cambio_pass_2KeyTyped
 
     /**
      * @param args the command line arguments
@@ -518,7 +579,15 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_master_password;
     public static javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
-
+    
+    private void limpiar(){
+        txt_user.setText("");
+        txt_cambio_pass.setText("");
+        txt_cambio_pass_2.setText("");
+        txt_master_password.setText("");
+        lbl_usuario.setText("");
+    }
+    
     private void paneles(javax.swing.JPanel habilitar, javax.swing.JPanel deshabilitar) {
 //    p_iniciar_session.setVisible(false);
 //    p_cambio_pass.setVisible(true);
@@ -530,5 +599,44 @@ public class Login extends javax.swing.JFrame {
         habilitar.setVisible(true);
 
     }
-
+    
+    private void cambioPass(){
+        String pass1 = new String(txt_cambio_pass.getPassword());
+        String pass2 = new String(txt_cambio_pass_2.getPassword());
+        if(!pass1.trim().equals("") && !pass1.trim().isEmpty() &&
+           !pass2.trim().equals("") && !pass2.trim().isEmpty() ){
+            
+            if(pass1.compareTo(pass2) == 0){
+                
+                try {
+                    String user = lbl_usuario.getText();
+                    
+                    Connection conn = new conectar().conexion();
+                    String sql = "UPDATE usuario SET contrasenia = MD5(?) WHERE cedula = ?";
+                    
+                    PreparedStatement prepare_st = conn.prepareStatement(sql);
+                    prepare_st.setString(1, pass1);
+                    prepare_st.setString(2, user);
+                    int filas = prepare_st.executeUpdate();
+                    if(filas > 0 ){
+                        limpiar();
+                        checkCambio.setSelected(false);
+                        paneles(p_iniciar_session, p_cambio_pass);
+                    }else{
+                       JOptionPane.showMessageDialog(this, "No se pudo cambiar la contraseña","Error al cambiar",JOptionPane.ERROR_MESSAGE);                        ;
+                       
+                    }    
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Error de Conecxion con el servidor \nPor favor contactar con el encargado de mantenimiento");
+                    System.err.println("ERROR:"+ex.getMessage());
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Las contraseña no coinciden","Error al cambiar la contraseña",JOptionPane.ERROR_MESSAGE); 
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Los Datos suministrados no son invalidos","Datos invalidos",JOptionPane.INFORMATION_MESSAGE); 
+        }
+    }
+    
 }
